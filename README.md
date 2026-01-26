@@ -1,20 +1,37 @@
-# {{PROJECT_NAME}}
+# dashboard
 
-Created from template: **Dashboard**
+A HoneyGUI project created with HoneyGUI Visual Designer.
 
-Data visualization with progress bars and status cards.
+## Project Information
 
-## Project Info
-- APP ID: {{APP_ID}}
-- Resolution: 800X480
-- Target Engine: HoneyGUI
-- Min SDK: API 2: HoneyGUI V1.1.0
-- Pixel Mode: ARGB8888
+- **APP ID**: com.example.dashboard
+- **Resolution**: 800X480
+- **Format**: Standard HML Format (v1.0)
+- **Created**: 2026-01-15T08:03:41.978Z
+
+## Project Structure
+
+- **ui/**: HML UI definition files
+- **src/**: C++ source code files
+- **assets/**: Project assets (images, fonts, etc.)
 
 ## Getting Started
 
-1. Open the HML file in `ui/main/{{PROJECT_NAME}}Main.hml`
-2. Design your UI in the visual designer
-3. Generate code and compile
+Open this project in HoneyGUI Visual Designer to start editing your UI.
 
-Created: {{CREATED_TIME}}
+## HML File Format
+
+This project uses the standard HML format:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hml>
+    <meta>
+        <project ... />
+        <author ... />
+    </meta>
+    <view>
+        <!-- UI components -->
+    </view>
+</hml>
+```

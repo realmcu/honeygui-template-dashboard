@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.associations": {
+      "*.hml": "xml"
+    },
+    "commentTranslate.hover.enabled": true
+  },
+  "extensions": {
+    "recommendations": [
+      "realmcu.honeygui-visual-designer"
+    ]
+  }
+}

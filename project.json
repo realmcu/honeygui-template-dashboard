@@ -1,13 +1,13 @@
 {
-  "name": "DashboardTemplate",
-  "appId": "com.honeygui.dashboard",
+  "name": "dashboard",
+  "appId": "com.example.dashboard",
   "version": "1.0.0",
   "resolution": "800X480",
-  "cornerRadius": 0,
+  "cornerRadius": 20,
   "targetEngine": "honeygui",
   "minSdk": "API 2: HoneyGUI V1.1.0",
   "pixelMode": "ARGB8888",
-  "mainHmlFile": "ui/DashboardMain.hml",
-  "template": "dashboard",
-  "created": "2025-12-11"
+  "mainHmlFile": "ui/dashboardMain.hml",
+  "romfsBaseAddr": "0x704D1000",
+  "created": "2026-01-15T08:03:41.978Z"
 }
