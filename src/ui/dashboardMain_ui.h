@@ -1,6 +1,6 @@
 /**
  * dashboardMain UI定义（自动生成，请勿手动修改）
- * 生成时间: 2026-01-26T01:46:36.920Z
+ * 生成时间: 2026-01-27T03:23:28.233Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
@@ -21,6 +21,7 @@ extern gui_obj_t *shadow;
 extern gui_obj_t *win_map;
 extern gui_obj_t *map;
 extern gui_obj_t *map_fade;
+extern gui_obj_t *root_menu;
 extern gui_obj_t *win_dashboard;
 extern gui_obj_t *win_dail;
 extern gui_obj_t *win_left_line;
@@ -29,12 +30,14 @@ extern gui_obj_t *win_right_line;
 extern gui_obj_t *line_right;
 extern gui_obj_t *win_speed;
 extern gui_obj_t *dail_speed;
+extern gui_obj_t *speed_arc;
 extern gui_obj_t *dail_pointer_s;
-extern gui_obj_t *leftbottom_gloom;
-extern gui_obj_t *win_speed_copy_1768892165366_0;
+extern gui_obj_t *win_power;
 extern gui_obj_t *dail_power;
+extern gui_obj_t *power_arc;
 extern gui_obj_t *dail_pointer_p;
 extern gui_obj_t *rightbottom_gloom;
+extern gui_obj_t *leftbottom_gloom;
 extern gui_obj_t *win_common;
 extern gui_obj_t *turn_r_icon;
 extern gui_obj_t *turn_l_icon;
