@@ -1,6 +1,6 @@
 /**
  * dashboardMain UI实现（自动生成，请勿手动修改）
- * 生成时间: 2026-01-27T03:23:28.234Z
+ * 生成时间: 2026-01-27T11:11:51.467Z
  */
 #include "dashboardMain_ui.h"
 #include "../callbacks/dashboardMain_callbacks.h"

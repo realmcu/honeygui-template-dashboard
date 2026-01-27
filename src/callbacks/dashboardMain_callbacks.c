@@ -194,45 +194,39 @@ void win_map_timer_0_cb(void *obj)
  * 定时动画 1
  * 组件: map
  * 模式: 预设动作（多段动画）
- * 段数: 2
+ * 段数: 1
  */
 void map_timer_0_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 14;
+    const uint16_t total_cnt_max = 13;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 1;
-    const uint16_t seg1_start = 1;
-    const uint16_t seg1_end = 14;
+    const uint16_t seg0_end = 13;
     
     cnt++;
     
-    // 段 1: 等待 1000ms
+    // 段 1: 13000ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
-        // 无动作，仅等待
-    }
-    // 段 2: 13000ms, 1 个动作
-    else if (cnt > seg1_start && cnt <= seg1_end) {
-        uint16_t seg_cnt = cnt - seg1_start;
-        const uint16_t seg_cnt_max = seg1_end - seg1_start;
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
             // 图片序列动画: 13 张图片
             const void *img_data_array[13] = {
-                "/resource/map/map_0.bin",
-                "/resource/map/map_1.bin",
+                "/resource/map/map_00.bin",
+                "/resource/map/map_01.bin",
+                "/resource/map/map_02.bin",
+                "/resource/map/map_03.bin",
+                "/resource/map/map_04.bin",
+                "/resource/map/map_05.bin",
+                "/resource/map/map_06.bin",
+                "/resource/map/map_07.bin",
+                "/resource/map/map_08.bin",
+                "/resource/map/map_09.bin",
                 "/resource/map/map_10.bin",
                 "/resource/map/map_11.bin",
-                "/resource/map/map_12.bin",
-                "/resource/map/map_2.bin",
-                "/resource/map/map_3.bin",
-                "/resource/map/map_4.bin",
-                "/resource/map/map_5.bin",
-                "/resource/map/map_6.bin",
-                "/resource/map/map_7.bin",
-                "/resource/map/map_8.bin",
-                "/resource/map/map_9.bin"
+                "/resource/map/map_12.bin"
             };
             uint16_t index = (13 - 1) * seg_cnt / seg_cnt_max;
             gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
