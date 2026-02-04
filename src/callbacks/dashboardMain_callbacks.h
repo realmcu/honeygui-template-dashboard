@@ -6,6 +6,10 @@
 
 // 事件回调函数声明
 void off_icon_switch_view_cb(void *obj, gui_event_t event, void *param);
+void root_menu_msg_down_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void root_menu_msg_left_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void root_menu_msg_right_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void root_menu_msg_up_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void start_engine_animation_set_0_cb(void *obj, gui_event_t event, void *param);
 void start_engine_animation_set_1_cb(void *obj, gui_event_t event, void *param);
 

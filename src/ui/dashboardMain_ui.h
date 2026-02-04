@@ -1,6 +1,6 @@
 /**
  * dashboardMain UI定义（自动生成，请勿手动修改）
- * 生成时间: 2026-02-04T08:32:03.826Z
+ * 生成时间: 2026-02-04T10:10:35.970Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H

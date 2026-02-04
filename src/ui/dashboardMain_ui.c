@@ -1,6 +1,6 @@
 /**
  * dashboardMain UI实现（自动生成，请勿手动修改）
- * 生成时间: 2026-02-04T08:32:03.826Z
+ * 生成时间: 2026-02-04T10:10:35.970Z
  */
 #include "dashboardMain_ui.h"
 #include "../callbacks/dashboardMain_callbacks.h"
@@ -111,7 +111,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     win_map = (gui_obj_t *)gui_win_create((gui_obj_t *)view, "win_map", 141, 198, 517, 282);
     gui_obj_show(win_map, false);
     // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)win_map, 5000, false, win_map_timer_0_cb);
+    gui_obj_create_timer((gui_obj_t *)win_map, 6000, false, win_map_timer_0_cb);
     gui_obj_start_timer((gui_obj_t *)win_map);
 
 
@@ -120,7 +120,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_img_set_mode((gui_img_t *)map, IMG_BYPASS_MODE);
     gui_obj_show(map, true);
     // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)map, 5000, true, map_timer_1_cb);
+    gui_obj_create_timer((gui_obj_t *)map, 6000, true, map_timer_1_cb);
     gui_obj_start_timer((gui_obj_t *)map);
 
     // 创建 map_fade (hg_image)
@@ -129,9 +129,13 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_obj_show(map_fade, true);
 
     // 创建 root_menu (hg_image)
-    root_menu = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "root_menu", "/resource/menu/menu_001.bin", 225, 293, 350, 190);
+    root_menu = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "root_menu", "/resource/menu/menu_001.bin", 225, 480, 350, 190);
     gui_img_set_mode((gui_img_t *)root_menu, IMG_SRC_OVER_MODE);
-    gui_obj_show(root_menu, false);
+    gui_obj_show(root_menu, true);
+    gui_msg_subscribe(root_menu, "up", root_menu_msg_up_cb);
+    gui_msg_subscribe(root_menu, "down", root_menu_msg_down_cb);
+    gui_msg_subscribe(root_menu, "right", root_menu_msg_right_cb);
+    gui_msg_subscribe(root_menu, "left", root_menu_msg_left_cb);
 
     // 创建 win_dashboard (hg_window)
     win_dashboard = (gui_obj_t *)gui_win_create((gui_obj_t *)view, "win_dashboard", 0, 0, 800, 480);

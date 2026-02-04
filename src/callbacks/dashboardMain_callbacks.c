@@ -174,7 +174,7 @@ void win_map_timer_0_cb(void *obj)
     
     cnt++;
     
-    // 段 1: 5000ms, 1 个动作
+    // 段 1: 6000ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
             // 设置可见性: 显示
             gui_obj_show(target, true);
@@ -255,7 +255,7 @@ void map_timer_1_cb(void *obj)
     
     cnt++;
     
-    // 段 1: 5000ms, 1 个动作
+    // 段 1: 6000ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
             // 切换定时动画: map array
             gui_obj_create_timer(target, 1000, true, map_timer_0_cb);
@@ -373,31 +373,23 @@ void root_menu_timer_0_cb(void *obj)
  * move up
  * 组件: root_menu
  * 模式: 预设动作（多段动画）
- * 段数: 2
+ * 段数: 1
  */
 void root_menu_timer_1_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 31;
+    const uint16_t total_cnt_max = 30;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 1;
-    const uint16_t seg1_start = 1;
-    const uint16_t seg1_end = 31;
+    const uint16_t seg0_end = 30;
     
     cnt++;
     
-    // 段 1: 10ms, 1 个动作
+    // 段 1: 300ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
-            // 设置可见性: 显示
-            gui_obj_show(target, true);
-            
-    }
-    // 段 2: 300ms, 1 个动作
-    else if (cnt > seg1_start && cnt <= seg1_end) {
-        uint16_t seg_cnt = cnt - seg1_start;
-        const uint16_t seg_cnt_max = seg1_end - seg1_start;
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
             // 调整位置: (225, 480) -> (225, 293)
             const int16_t x_origin = 225;
@@ -421,29 +413,32 @@ void root_menu_timer_1_cb(void *obj)
  * move down
  * 组件: root_menu
  * 模式: 预设动作（多段动画）
- * 段数: 2
+ * 段数: 1
  */
 void root_menu_timer_2_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 31;
+    const uint16_t total_cnt_max = 30;
     
     const uint16_t seg0_start = 0;
     const uint16_t seg0_end = 30;
-    const uint16_t seg1_start = 30;
-    const uint16_t seg1_end = 31;
     
     cnt++;
     
-    // 段 1: 等待 300ms
+    // 段 1: 300ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
-        // 无动作，仅等待
-    }
-    // 段 2: 10ms, 1 个动作
-    else if (cnt > seg1_start && cnt <= seg1_end) {
-            // 设置可见性: 隐藏
-            gui_obj_show(target, false);
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 调整位置: (0, 293) -> (0, 480)
+            const int16_t x_origin = 0;
+            const int16_t y_origin = 293;
+            const int16_t x_target = 0;
+            const int16_t y_target = 480;
+            int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
+            int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
+            gui_obj_move(target, x_cur, y_cur);
             
     }
     
@@ -630,7 +625,7 @@ void root_menu_timer_6_cb(void *obj)
     
     cnt++;
     
-    // 段 1: 300ms, 1 个动作
+    // 段 1: 299ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
         uint16_t seg_cnt = cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
@@ -676,20 +671,20 @@ void root_menu_timer_7_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 15;
+    const uint16_t total_cnt_max = 14;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 15;
+    const uint16_t seg0_end = 14;
     
     cnt++;
     
-    // 段 1: 300ms, 1 个动作
+    // 段 1: 280ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
         uint16_t seg_cnt = cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
-            // 图片序列动画: 15 张图片
-            const void *img_data_array[15] = {
+            // 图片序列动画: 14 张图片
+            const void *img_data_array[14] = {
                 "/resource/menu/menu_060.bin",
                 "/resource/menu/menu_059.bin",
                 "/resource/menu/menu_058.bin",
@@ -703,10 +698,9 @@ void root_menu_timer_7_cb(void *obj)
                 "/resource/menu/menu_050.bin",
                 "/resource/menu/menu_049.bin",
                 "/resource/menu/menu_048.bin",
-                "/resource/menu/menu_047.bin",
-                "/resource/menu/menu_046.bin"
+                "/resource/menu/menu_047.bin"
             };
-            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
             gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
             gui_img_refresh_size((gui_img_t *)target);
             
@@ -729,20 +723,20 @@ void root_menu_timer_8_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 15;
+    const uint16_t total_cnt_max = 14;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 15;
+    const uint16_t seg0_end = 14;
     
     cnt++;
     
-    // 段 1: 300ms, 1 个动作
+    // 段 1: 280ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
         uint16_t seg_cnt = cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
-            // 图片序列动画: 15 张图片
-            const void *img_data_array[15] = {
+            // 图片序列动画: 14 张图片
+            const void *img_data_array[14] = {
                 "/resource/menu/menu_045.bin",
                 "/resource/menu/menu_044.bin",
                 "/resource/menu/menu_043.bin",
@@ -756,10 +750,9 @@ void root_menu_timer_8_cb(void *obj)
                 "/resource/menu/menu_035.bin",
                 "/resource/menu/menu_034.bin",
                 "/resource/menu/menu_033.bin",
-                "/resource/menu/menu_032.bin",
-                "/resource/menu/menu_031.bin"
+                "/resource/menu/menu_032.bin"
             };
-            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
             gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
             gui_img_refresh_size((gui_img_t *)target);
             
@@ -782,20 +775,20 @@ void root_menu_timer_9_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 15;
+    const uint16_t total_cnt_max = 14;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 15;
+    const uint16_t seg0_end = 14;
     
     cnt++;
     
-    // 段 1: 300ms, 1 个动作
+    // 段 1: 280ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
         uint16_t seg_cnt = cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
-            // 图片序列动画: 15 张图片
-            const void *img_data_array[15] = {
+            // 图片序列动画: 14 张图片
+            const void *img_data_array[14] = {
                 "/resource/menu/menu_030.bin",
                 "/resource/menu/menu_029.bin",
                 "/resource/menu/menu_028.bin",
@@ -809,10 +802,9 @@ void root_menu_timer_9_cb(void *obj)
                 "/resource/menu/menu_020.bin",
                 "/resource/menu/menu_019.bin",
                 "/resource/menu/menu_018.bin",
-                "/resource/menu/menu_017.bin",
-                "/resource/menu/menu_016.bin"
+                "/resource/menu/menu_017.bin"
             };
-            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
             gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
             gui_img_refresh_size((gui_img_t *)target);
             
@@ -835,20 +827,20 @@ void root_menu_timer_10_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 15;
+    const uint16_t total_cnt_max = 14;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 15;
+    const uint16_t seg0_end = 14;
     
     cnt++;
     
-    // 段 1: 300ms, 1 个动作
+    // 段 1: 280ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
         uint16_t seg_cnt = cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
-            // 图片序列动画: 15 张图片
-            const void *img_data_array[15] = {
+            // 图片序列动画: 14 张图片
+            const void *img_data_array[14] = {
                 "/resource/menu/menu_015.bin",
                 "/resource/menu/menu_014.bin",
                 "/resource/menu/menu_013.bin",
@@ -862,10 +854,9 @@ void root_menu_timer_10_cb(void *obj)
                 "/resource/menu/menu_005.bin",
                 "/resource/menu/menu_004.bin",
                 "/resource/menu/menu_003.bin",
-                "/resource/menu/menu_002.bin",
-                "/resource/menu/menu_001.bin"
+                "/resource/menu/menu_002.bin"
             };
-            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
             gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
             gui_img_refresh_size((gui_img_t *)target);
             
@@ -2343,6 +2334,7 @@ void root_menu_msg_down_cb(gui_obj_t *obj, const char *topic, void *data, uint16
     GUI_UNUSED(topic);
     GUI_UNUSED(data);
     GUI_UNUSED(len);
+    gui_log("!!!\n");
     if (menu_disp)
     {
         gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_2_cb);
@@ -2365,13 +2357,13 @@ void root_menu_msg_left_cb(gui_obj_t *obj, const char *topic, void *data, uint16
         case 0:
             cb = root_menu_timer_7_cb;
             break;
-        case 1:
+        case 3:
             cb = root_menu_timer_8_cb;
             break;
         case 2:
             cb = root_menu_timer_9_cb;
             break;
-        case 3:
+        case 1:
             cb = root_menu_timer_10_cb;
             break;
         default:
