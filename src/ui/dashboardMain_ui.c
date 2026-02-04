@@ -1,13 +1,13 @@
 /**
  * dashboardMain UI实现（自动生成，请勿手动修改）
- * 生成时间: 2026-01-30T09:54:05.118Z
+ * 生成时间: 2026-02-04T08:32:03.826Z
  */
 #include "dashboardMain_ui.h"
 #include "../callbacks/dashboardMain_callbacks.h"
 #include <stddef.h>
 
 // 组件句柄定义
-gui_obj_t *bg_gloom = NULL;
+gui_obj_t *gloom = NULL;
 gui_obj_t *start_engine = NULL;
 gui_obj_t *shadow = NULL;
 gui_obj_t *win_map = NULL;
@@ -15,10 +15,10 @@ gui_obj_t *map = NULL;
 gui_obj_t *map_fade = NULL;
 gui_obj_t *root_menu = NULL;
 gui_obj_t *win_dashboard = NULL;
+gui_obj_t *win_dail = NULL;
 gui_obj_t *win_line = NULL;
 gui_obj_t *line_left = NULL;
 gui_obj_t *line_right = NULL;
-gui_obj_t *win_dail = NULL;
 gui_obj_t *win_speed = NULL;
 gui_obj_t *dail_speed = NULL;
 gui_obj_t *speed_arc = NULL;
@@ -73,10 +73,10 @@ static void dashboardMainView_switch_in(gui_view_t *view)
     GUI_UNUSED(view);
 
 
-    // 创建 bg_gloom (hg_image)
-    bg_gloom = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "bg_gloom", "/resource/StartEngineGloom.bin", 80, 58, 640, 364);
-    gui_img_set_opacity((gui_img_t *)bg_gloom, 1);
-    gui_obj_show(bg_gloom, true);
+    // 创建 gloom (hg_image)
+    gloom = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "gloom", "/resource/StartEngineGloom.bin", 80, 58, 640, 364);
+    gui_img_set_opacity((gui_img_t *)gloom, 0);
+    gui_obj_show(gloom, true);
 
     // 创建 start_engine (hg_image)
     start_engine = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "start_engine", "/resource/StartEngine.bin", 305, 145, 190, 190);
@@ -111,7 +111,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     win_map = (gui_obj_t *)gui_win_create((gui_obj_t *)view, "win_map", 141, 198, 517, 282);
     gui_obj_show(win_map, false);
     // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)win_map, 5000, true, win_map_timer_0_cb);
+    gui_obj_create_timer((gui_obj_t *)win_map, 5000, false, win_map_timer_0_cb);
     gui_obj_start_timer((gui_obj_t *)win_map);
 
 
@@ -122,7 +122,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     // 绑定定时器: entrance
     gui_obj_create_timer((gui_obj_t *)map, 5000, true, map_timer_1_cb);
     gui_obj_start_timer((gui_obj_t *)map);
-    gui_obj_add_event_cb(map, (gui_event_cb_t)map_animation_set_0_cb, GUI_EVENT_TOUCH_CLICKED, NULL);
 
     // 创建 map_fade (hg_image)
     map_fade = (gui_obj_t *)gui_img_create_from_fs(win_map, "map_fade", "/resource/MapFading.bin", 0, 0, 518, 282);
@@ -130,17 +129,25 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_obj_show(map_fade, true);
 
     // 创建 root_menu (hg_image)
-    root_menu = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "root_menu", "/resource/menu/menu_001.bin", 225, 480, 350, 190);
+    root_menu = (gui_obj_t *)gui_img_create_from_fs((gui_obj_t *)view, "root_menu", "/resource/menu/menu_001.bin", 225, 293, 350, 190);
     gui_img_set_mode((gui_img_t *)root_menu, IMG_SRC_OVER_MODE);
-    gui_obj_show(root_menu, true);
+    gui_obj_show(root_menu, false);
 
     // 创建 win_dashboard (hg_window)
     win_dashboard = (gui_obj_t *)gui_win_create((gui_obj_t *)view, "win_dashboard", 0, 0, 800, 480);
     gui_obj_show(win_dashboard, true);
 
 
+    // 创建 win_dail (hg_window)
+    win_dail = (gui_obj_t *)gui_win_create(win_dashboard, "win_dail", 0, 0, 800, 480);
+    gui_obj_show(win_dail, true);
+    // 绑定定时器: entrance
+    gui_obj_create_timer((gui_obj_t *)win_dail, 7, true, win_dail_timer_0_cb);
+    gui_obj_start_timer((gui_obj_t *)win_dail);
+
+
     // 创建 win_line (hg_window)
-    win_line = (gui_obj_t *)gui_win_create(win_dashboard, "win_line", 330, 53, 138, 100);
+    win_line = (gui_obj_t *)gui_win_create(win_dail, "win_line", 331, 53, 138, 100);
     gui_obj_show(win_line, true);
     // 绑定定时器: entrance
     gui_obj_create_timer((gui_obj_t *)win_line, 30, true, win_line_timer_0_cb);
@@ -162,13 +169,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     // 绑定定时器: entrance
     gui_obj_create_timer((gui_obj_t *)line_right, 30, true, line_right_timer_0_cb);
     gui_obj_start_timer((gui_obj_t *)line_right);
-
-    // 创建 win_dail (hg_window)
-    win_dail = (gui_obj_t *)gui_win_create(win_dashboard, "win_dail", 0, 0, 800, 480);
-    gui_obj_show(win_dail, true);
-    // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)win_dail, 8, true, win_dail_timer_0_cb);
-
 
     // 创建 win_speed (hg_window)
     win_speed = (gui_obj_t *)gui_win_create(win_dail, "win_speed", 38, 64, 295, 294);
@@ -271,7 +271,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // 创建 bt_icon (hg_image)
     bt_icon = (gui_obj_t *)gui_img_create_from_fs(win_common, "bt_icon", "/resource/bt.bin", 294, 52, 14, 20);
-    gui_img_set_focus((gui_img_t *)bt_icon, 7.0f, 10.0f);
     gui_obj_show(bt_icon, true);
 
     // 创建 wifi_icon (hg_image)
@@ -293,8 +292,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_text_mode_set((gui_text_t *)text_time, CENTER);
     gui_text_extra_letter_spacing_set((gui_text_t *)text_time, 0);
     gui_text_extra_line_spacing_set((gui_text_t *)text_time, 0);
-    // 绑定定时器: 定时动画 1
-    gui_obj_create_timer((gui_obj_t *)text_time, 10000, true, text_time_timer_0_cb);
+    // 绑定定时器: time update
+    gui_obj_create_timer((gui_obj_t *)text_time, 1000, true, text_time_timer_0_cb);
 
     // 创建 led_0 (hg_image)
     led_0 = (gui_obj_t *)gui_img_create_from_fs(win_common, "led_0", "/resource/LED0_off.bin", 85, 360, 27, 27);
@@ -342,7 +341,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     win_speed_text = (gui_obj_t *)gui_win_create(win_common, "win_speed_text", 38, 64, 294, 294);
     gui_obj_show(win_speed_text, true);
     // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)win_speed_text, 5, true, win_speed_text_timer_0_cb);
+    gui_obj_create_timer((gui_obj_t *)win_speed_text, 10, true, win_speed_text_timer_0_cb);
     gui_obj_start_timer((gui_obj_t *)win_speed_text);
 
 
@@ -381,7 +380,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     win_power_text = (gui_obj_t *)gui_win_create(win_common, "win_power_text", 470, 64, 294, 294);
     gui_obj_show(win_power_text, true);
     // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)win_power_text, 5, true, win_power_text_timer_0_cb);
+    gui_obj_create_timer((gui_obj_t *)win_power_text, 10, true, win_power_text_timer_0_cb);
     gui_obj_start_timer((gui_obj_t *)win_power_text);
 
 
@@ -393,7 +392,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_text_extra_letter_spacing_set((gui_text_t *)text_power, 0);
     gui_text_extra_line_spacing_set((gui_text_t *)text_power, 0);
     // 绑定定时器: entrance
-    gui_obj_create_timer((gui_obj_t *)text_power, 30, true, text_power_timer_1_cb);
+    gui_obj_create_timer((gui_obj_t *)text_power, 28, true, text_power_timer_1_cb);
     gui_obj_start_timer((gui_obj_t *)text_power);
 
     // 创建 text_power_unit (hg_label)

@@ -1,6 +1,6 @@
 /**
  * dashboardMain UI定义（自动生成，请勿手动修改）
- * 生成时间: 2026-01-30T09:54:05.117Z
+ * 生成时间: 2026-02-04T08:32:03.826Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
@@ -17,7 +17,7 @@
 #include "gui_text.h"
 
 // 组件句柄声明
-extern gui_obj_t *bg_gloom;
+extern gui_obj_t *gloom;
 extern gui_obj_t *start_engine;
 extern gui_obj_t *shadow;
 extern gui_obj_t *win_map;
@@ -25,10 +25,10 @@ extern gui_obj_t *map;
 extern gui_obj_t *map_fade;
 extern gui_obj_t *root_menu;
 extern gui_obj_t *win_dashboard;
+extern gui_obj_t *win_dail;
 extern gui_obj_t *win_line;
 extern gui_obj_t *line_left;
 extern gui_obj_t *line_right;
-extern gui_obj_t *win_dail;
 extern gui_obj_t *win_speed;
 extern gui_obj_t *dail_speed;
 extern gui_obj_t *speed_arc;

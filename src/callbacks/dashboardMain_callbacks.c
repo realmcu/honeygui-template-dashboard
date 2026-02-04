@@ -28,30 +28,21 @@ void start_engine_animation_set_1_cb(void *obj, gui_event_t event, void *param)
     GUI_UNUSED(obj);
     GUI_UNUSED(event);
     GUI_UNUSED(param);
-    gui_obj_create_timer(GUI_BASE(bg_gloom), 20, true, bg_gloom_timer_0_cb);
-    gui_obj_start_timer(GUI_BASE(bg_gloom));
     gui_obj_create_timer(GUI_BASE(shadow), 20, true, shadow_timer_1_cb);
     gui_obj_start_timer(GUI_BASE(shadow));
-}
-
-void map_animation_set_0_cb(void *obj, gui_event_t event, void *param)
-{
-    GUI_UNUSED(obj);
-    GUI_UNUSED(event);
-    GUI_UNUSED(param);
-    gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_2_cb);
-    gui_obj_start_timer(GUI_BASE(root_menu));
+    gui_obj_create_timer(GUI_BASE(gloom), 20, true, gloom_timer_0_cb);
+    gui_obj_start_timer(GUI_BASE(gloom));
 }
 
 // 预设定时器回调函数
 
 /**
  * exit
- * 组件: bg_gloom
+ * 组件: gloom
  * 模式: 预设动作（多段动画）
  * 段数: 3
  */
-void bg_gloom_timer_0_cb(void *obj)
+void gloom_timer_0_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
@@ -198,7 +189,7 @@ void win_map_timer_0_cb(void *obj)
 
 
 /**
- * map_update
+ * map array
  * 组件: map
  * 模式: 预设动作（多段动画）
  * 段数: 1
@@ -266,7 +257,7 @@ void map_timer_1_cb(void *obj)
     
     // 段 1: 5000ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
-            // 切换定时动画: map_update
+            // 切换定时动画: map array
             gui_obj_create_timer(target, 1000, true, map_timer_0_cb);
             gui_obj_start_timer(target);
             cnt = 0; // 重置计数器
@@ -379,32 +370,43 @@ void root_menu_timer_0_cb(void *obj)
 
 
 /**
- * entrance
+ * move up
  * 组件: root_menu
  * 模式: 预设动作（多段动画）
- * 段数: 1
+ * 段数: 2
  */
 void root_menu_timer_1_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
     static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 1;
+    const uint16_t total_cnt_max = 31;
     
     const uint16_t seg0_start = 0;
     const uint16_t seg0_end = 1;
+    const uint16_t seg1_start = 1;
+    const uint16_t seg1_end = 31;
     
     cnt++;
     
-    // 段 1: 5000ms, 2 个动作
+    // 段 1: 10ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
             // 设置可见性: 显示
             gui_obj_show(target, true);
             
-            // 切换定时动画: menu array
-            gui_obj_create_timer(target, 20, true, root_menu_timer_0_cb);
-            gui_obj_start_timer(target);
-            cnt = 0; // 重置计数器
-            return; // 切换定时动画后立即返回
+    }
+    // 段 2: 300ms, 1 个动作
+    else if (cnt > seg1_start && cnt <= seg1_end) {
+        uint16_t seg_cnt = cnt - seg1_start;
+        const uint16_t seg_cnt_max = seg1_end - seg1_start;
+        
+            // 调整位置: (225, 480) -> (225, 293)
+            const int16_t x_origin = 225;
+            const int16_t y_origin = 480;
+            const int16_t x_target = 225;
+            const int16_t y_target = 293;
+            int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
+            int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
+            gui_obj_move(target, x_cur, y_cur);
             
     }
     
@@ -416,7 +418,7 @@ void root_menu_timer_1_cb(void *obj)
 
 
 /**
- * move up
+ * move down
  * 组件: root_menu
  * 模式: 预设动作（多段动画）
  * 段数: 2
@@ -434,28 +436,475 @@ void root_menu_timer_2_cb(void *obj)
     
     cnt++;
     
+    // 段 1: 等待 300ms
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        // 无动作，仅等待
+    }
+    // 段 2: 10ms, 1 个动作
+    else if (cnt > seg1_start && cnt <= seg1_end) {
+            // 设置可见性: 隐藏
+            gui_obj_show(target, false);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 1 to 2
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_3_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
     // 段 1: 300ms, 1 个动作
     if (cnt > seg0_start && cnt <= seg0_end) {
         uint16_t seg_cnt = cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
         
-            // 调整位置: (225, 480) -> (225, 293)
-            const int16_t x_origin = 225;
-            const int16_t y_origin = 480;
-            const int16_t x_target = 225;
-            const int16_t y_target = 293;
-            int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
-            int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
-            gui_obj_move(target, x_cur, y_cur);
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_001.bin",
+                "/resource/menu/menu_002.bin",
+                "/resource/menu/menu_003.bin",
+                "/resource/menu/menu_004.bin",
+                "/resource/menu/menu_005.bin",
+                "/resource/menu/menu_006.bin",
+                "/resource/menu/menu_007.bin",
+                "/resource/menu/menu_008.bin",
+                "/resource/menu/menu_009.bin",
+                "/resource/menu/menu_010.bin",
+                "/resource/menu/menu_011.bin",
+                "/resource/menu/menu_012.bin",
+                "/resource/menu/menu_013.bin",
+                "/resource/menu/menu_014.bin",
+                "/resource/menu/menu_015.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
-    // 段 2: 10ms, 1 个动作
-    else if (cnt > seg1_start && cnt <= seg1_end) {
-            // 切换定时动画: menu array
-            gui_obj_create_timer(target, 20, true, root_menu_timer_0_cb);
-            gui_obj_start_timer(target);
-            cnt = 0; // 重置计数器
-            return; // 切换定时动画后立即返回
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 2 to 3
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_4_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_016.bin",
+                "/resource/menu/menu_017.bin",
+                "/resource/menu/menu_018.bin",
+                "/resource/menu/menu_019.bin",
+                "/resource/menu/menu_020.bin",
+                "/resource/menu/menu_021.bin",
+                "/resource/menu/menu_022.bin",
+                "/resource/menu/menu_023.bin",
+                "/resource/menu/menu_024.bin",
+                "/resource/menu/menu_025.bin",
+                "/resource/menu/menu_026.bin",
+                "/resource/menu/menu_027.bin",
+                "/resource/menu/menu_028.bin",
+                "/resource/menu/menu_029.bin",
+                "/resource/menu/menu_030.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 3 to 4
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_5_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_031.bin",
+                "/resource/menu/menu_032.bin",
+                "/resource/menu/menu_033.bin",
+                "/resource/menu/menu_034.bin",
+                "/resource/menu/menu_035.bin",
+                "/resource/menu/menu_036.bin",
+                "/resource/menu/menu_037.bin",
+                "/resource/menu/menu_038.bin",
+                "/resource/menu/menu_039.bin",
+                "/resource/menu/menu_040.bin",
+                "/resource/menu/menu_041.bin",
+                "/resource/menu/menu_042.bin",
+                "/resource/menu/menu_043.bin",
+                "/resource/menu/menu_044.bin",
+                "/resource/menu/menu_045.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 4 to 1
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_6_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_046.bin",
+                "/resource/menu/menu_047.bin",
+                "/resource/menu/menu_048.bin",
+                "/resource/menu/menu_049.bin",
+                "/resource/menu/menu_050.bin",
+                "/resource/menu/menu_051.bin",
+                "/resource/menu/menu_052.bin",
+                "/resource/menu/menu_053.bin",
+                "/resource/menu/menu_054.bin",
+                "/resource/menu/menu_055.bin",
+                "/resource/menu/menu_056.bin",
+                "/resource/menu/menu_057.bin",
+                "/resource/menu/menu_058.bin",
+                "/resource/menu/menu_059.bin",
+                "/resource/menu/menu_060.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 1 to 4
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_7_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_060.bin",
+                "/resource/menu/menu_059.bin",
+                "/resource/menu/menu_058.bin",
+                "/resource/menu/menu_057.bin",
+                "/resource/menu/menu_056.bin",
+                "/resource/menu/menu_055.bin",
+                "/resource/menu/menu_054.bin",
+                "/resource/menu/menu_053.bin",
+                "/resource/menu/menu_052.bin",
+                "/resource/menu/menu_051.bin",
+                "/resource/menu/menu_050.bin",
+                "/resource/menu/menu_049.bin",
+                "/resource/menu/menu_048.bin",
+                "/resource/menu/menu_047.bin",
+                "/resource/menu/menu_046.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 4 to 3
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_8_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_045.bin",
+                "/resource/menu/menu_044.bin",
+                "/resource/menu/menu_043.bin",
+                "/resource/menu/menu_042.bin",
+                "/resource/menu/menu_041.bin",
+                "/resource/menu/menu_040.bin",
+                "/resource/menu/menu_039.bin",
+                "/resource/menu/menu_038.bin",
+                "/resource/menu/menu_037.bin",
+                "/resource/menu/menu_036.bin",
+                "/resource/menu/menu_035.bin",
+                "/resource/menu/menu_034.bin",
+                "/resource/menu/menu_033.bin",
+                "/resource/menu/menu_032.bin",
+                "/resource/menu/menu_031.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 3 to 2
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_9_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_030.bin",
+                "/resource/menu/menu_029.bin",
+                "/resource/menu/menu_028.bin",
+                "/resource/menu/menu_027.bin",
+                "/resource/menu/menu_026.bin",
+                "/resource/menu/menu_025.bin",
+                "/resource/menu/menu_024.bin",
+                "/resource/menu/menu_023.bin",
+                "/resource/menu/menu_022.bin",
+                "/resource/menu/menu_021.bin",
+                "/resource/menu/menu_020.bin",
+                "/resource/menu/menu_019.bin",
+                "/resource/menu/menu_018.bin",
+                "/resource/menu/menu_017.bin",
+                "/resource/menu/menu_016.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * 2 to 1
+ * 组件: root_menu
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void root_menu_timer_10_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 15;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 15;
+    
+    cnt++;
+    
+    // 段 1: 300ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 图片序列动画: 15 张图片
+            const void *img_data_array[15] = {
+                "/resource/menu/menu_015.bin",
+                "/resource/menu/menu_014.bin",
+                "/resource/menu/menu_013.bin",
+                "/resource/menu/menu_012.bin",
+                "/resource/menu/menu_011.bin",
+                "/resource/menu/menu_010.bin",
+                "/resource/menu/menu_009.bin",
+                "/resource/menu/menu_008.bin",
+                "/resource/menu/menu_007.bin",
+                "/resource/menu/menu_006.bin",
+                "/resource/menu/menu_005.bin",
+                "/resource/menu/menu_004.bin",
+                "/resource/menu/menu_003.bin",
+                "/resource/menu/menu_002.bin",
+                "/resource/menu/menu_001.bin"
+            };
+            uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
+            gui_img_set_image_data((gui_img_t *)target, img_data_array[index]);
+            gui_img_refresh_size((gui_img_t *)target);
+            
+    }
+    
+    if (cnt >= total_cnt_max) {
+        gui_obj_stop_timer(target);
+        cnt = 0; // 重置计数器
+    }
+}
+
+
+/**
+ * entrance
+ * 组件: win_dail
+ * 模式: 预设动作（多段动画）
+ * 段数: 1
+ */
+void win_dail_timer_0_cb(void *obj)
+{
+    gui_obj_t *target = (gui_obj_t *)obj;
+    static uint16_t cnt = 0;
+    const uint16_t total_cnt_max = 143;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 143;
+    
+    cnt++;
+    
+    // 段 1: 1000ms, 1 个动作
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        uint16_t seg_cnt = cnt - seg0_start;
+        const uint16_t seg_cnt_max = seg0_end - seg0_start;
+        
+            // 调整透明度: 1 -> 255
+            const uint8_t opacity_origin = 1;
+            const uint8_t opacity_target = 255;
+            int16_t opacity_cur = opacity_origin + (opacity_target - opacity_origin) * seg_cnt / seg_cnt_max;
+            target->opacity_value = opacity_cur;
             
     }
     
@@ -604,43 +1053,6 @@ void line_right_timer_0_cb(void *obj)
             int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
             int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
             gui_obj_move(target, x_cur, y_cur);
-            
-    }
-    
-    if (cnt >= total_cnt_max) {
-        gui_obj_stop_timer(target);
-        cnt = 0; // 重置计数器
-    }
-}
-
-
-/**
- * entrance
- * 组件: win_dail
- * 模式: 预设动作（多段动画）
- * 段数: 1
- */
-void win_dail_timer_0_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    static uint16_t cnt = 0;
-    const uint16_t total_cnt_max = 125;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 125;
-    
-    cnt++;
-    
-    // 段 1: 1000ms, 1 个动作
-    if (cnt > seg0_start && cnt <= seg0_end) {
-        uint16_t seg_cnt = cnt - seg0_start;
-        const uint16_t seg_cnt_max = seg0_end - seg0_start;
-        
-            // 调整透明度: 1 -> 255
-            const uint8_t opacity_origin = 1;
-            const uint8_t opacity_target = 255;
-            int16_t opacity_cur = opacity_origin + (opacity_target - opacity_origin) * seg_cnt / seg_cnt_max;
-            target->opacity_value = opacity_cur;
             
     }
     
@@ -1879,7 +2291,7 @@ void zoom_animation(gui_obj_t *obj, float scale)
 void win_speed_text_timer_0_cb(void *obj)
 {
     static uint16_t cnt = 0;
-    uint16_t cnt_max = 30;
+    uint16_t cnt_max = 50;
     cnt++;
     float scale = (float)cnt / cnt_max;
     zoom_animation(obj, scale);
@@ -1893,7 +2305,7 @@ void win_speed_text_timer_0_cb(void *obj)
 void win_power_text_timer_0_cb(void *obj)
 {
     static uint16_t cnt = 0;
-    uint16_t cnt_max = 30;
+    uint16_t cnt_max = 50;
     cnt++;
     float scale = (float)cnt / cnt_max;
     zoom_animation(obj, scale);
@@ -1901,6 +2313,107 @@ void win_power_text_timer_0_cb(void *obj)
     {
         cnt = 0;
         gui_obj_stop_timer(obj);
+    }
+}
+
+static bool menu_disp = false;
+static uint8_t menu_func_index = 0;
+
+void root_menu_msg_up_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    if (!menu_disp)
+    {
+        gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_1_cb);
+        gui_obj_start_timer(GUI_BASE(root_menu));
+        menu_disp = true;
+    }
+    else
+    {
+        //todo
+    }
+}
+
+void root_menu_msg_down_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    if (menu_disp)
+    {
+        gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_2_cb);
+        gui_obj_start_timer(GUI_BASE(root_menu));
+        menu_disp = false;
+    }
+}
+
+void root_menu_msg_left_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    if (menu_disp)
+    {
+        void *cb = NULL;
+        switch (menu_func_index)
+        {
+        case 0:
+            cb = root_menu_timer_7_cb;
+            break;
+        case 1:
+            cb = root_menu_timer_8_cb;
+            break;
+        case 2:
+            cb = root_menu_timer_9_cb;
+            break;
+        case 3:
+            cb = root_menu_timer_10_cb;
+            break;
+        default:
+            break;
+        }
+        menu_func_index--;
+        menu_func_index %= 4;
+        gui_obj_create_timer(GUI_BASE(root_menu), 10, true, cb);
+        gui_obj_start_timer(GUI_BASE(root_menu));
+    }
+}
+
+void root_menu_msg_right_cb(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    if (menu_disp)
+    {
+        void *cb = NULL;
+        switch (menu_func_index)
+        {
+        case 0:
+            cb = root_menu_timer_3_cb;
+            break;
+        case 1:
+            cb = root_menu_timer_4_cb;
+            break;
+        case 2:
+            cb = root_menu_timer_5_cb;
+            break;
+        case 3:
+            cb = root_menu_timer_6_cb;
+            break;
+        default:
+            break;
+        }
+        menu_func_index++;
+        menu_func_index %= 4;
+        gui_obj_create_timer(GUI_BASE(root_menu), 10, true, cb);
+        gui_obj_start_timer(GUI_BASE(root_menu));
     }
 }
 
