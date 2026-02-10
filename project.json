@@ -1,4 +1,6 @@
 {
+  "$schema": "HoneyGUI",
+  "type": "Designer",
   "name": "dashboard",
   "appId": "com.example.dashboard",
   "version": "1.0.0",
