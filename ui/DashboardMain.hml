@@ -6,6 +6,11 @@
     </meta>
     <view>
         <hg_view id="dashboardMainView" x="406" y="46" width="800" height="480" backgroundColor="#000000" entry="true" animateStep="500" residentMemory="false" zIndex="0">
+            <events>
+                <event type="onKeyShortPress" keyName="Home">
+                    <action type="switchView" target="dashboardMainView" switchOutStyle="SWITCH_OUT_TO_LEFT_USE_TRANSLATION" switchInStyle="SWITCH_IN_FROM_RIGHT_USE_TRANSLATION" />
+                </event>
+            </events>
             <hg_image id="gloom" x="80" y="58" width="640" height="364" transform="{&quot;opacity&quot;:0}" src="assets/resource/StartEngineGloom.png" timers="[{&quot;id&quot;:&quot;timer_0&quot;,&quot;name&quot;:&quot;exit&quot;,&quot;enabled&quot;:false,&quot;interval&quot;:20,&quot;reload&quot;:true,&quot;mode&quot;:&quot;preset&quot;,&quot;callback&quot;:&quot;gloom_timer_0_cb&quot;,&quot;duration&quot;:1000,&quot;stopOnComplete&quot;:true,&quot;delayStart&quot;:0,&quot;actions&quot;:[],&quot;segments&quot;:[{&quot;duration&quot;:600,&quot;actions&quot;:[{&quot;type&quot;:&quot;opacity&quot;,&quot;from&quot;:1,&quot;to&quot;:255}]},{&quot;duration&quot;:100,&quot;actions&quot;:[]},{&quot;duration&quot;:20,&quot;actions&quot;:[{&quot;type&quot;:&quot;switchView&quot;,&quot;from&quot;:255,&quot;to&quot;:128,&quot;target&quot;:&quot;dashboard_view&quot;,&quot;switchOutStyle&quot;:&quot;SWITCH_OUT_NONE_ANIMATION&quot;,&quot;switchInStyle&quot;:&quot;SWITCH_IN_NONE_ANIMATION&quot;}]}],&quot;enableLog&quot;:false}]" zIndex="0" />
             <hg_image id="start_engine" x="305" y="145" width="190" height="190" src="assets/resource/StartEngine.png" zIndex="1">
                 <events>
