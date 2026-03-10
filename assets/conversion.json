@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "defaultSettings": {
+    "format": "adaptive16",
+    "compression": "adaptive",
+    "dither": false,
+    "videoFormat": "MJPEG",
+    "videoQuality": 5
+  },
+  "items": {
+    "resource/bt.png": {
+      "compression": "none",
+      "format": "A8"
+    },
+    "resource/LeftWingV2.png": {
+      "compression": "none",
+      "format": "A8"
+    },
+    "resource/LeftBottomGloomV1.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/RightBottomGloomV1.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/RightLineV1.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/LeftLineV1.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/wifi.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/func/arrow_down.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/func/arrow_up.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/func/interval_line.png": {
+      "format": "A8",
+      "compression": "none"
+    },
+    "resource/func/tab_highlight.png": {
+      "format": "A8",
+      "compression": "none"
+    }
+  }
+}
