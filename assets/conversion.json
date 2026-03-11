@@ -9,156 +9,159 @@
   },
   "items": {
     "resource/bt.png": {
-      "compression": "none",
+      "compression": "rle",
       "format": "A8"
     },
     "resource/LeftWingV2.png": {
-      "compression": "none",
+      "compression": "rle",
       "format": "A8"
     },
     "resource/LeftBottomGloomV1.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/RightBottomGloomV1.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/RightLineV1.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LeftLineV1.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/wifi.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/func/arrow_down.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/func/arrow_up.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/func/interval_line.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/func/tab_highlight.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/arrow_direct.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Arrow_left.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Arrow_right.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/dail_pointer.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/dividing_line.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED0_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED0_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED1_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED1_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED2_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED2_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED3_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED3_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED4_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED4_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED5_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/LED5_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/OffIcon_press.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/OffIcon_release.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Start_Engine_Press.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Start_Engine_Release.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/SwitchIcon_press.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/SwitchIcon_release.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Turnleft_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Turnleft_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Turnright_off.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
     },
     "resource/Turnright_on.png": {
       "format": "A8",
-      "compression": "none"
+      "compression": "rle"
+    },
+    "resource": {
+      "compression": "rle"
     }
   }
 }
