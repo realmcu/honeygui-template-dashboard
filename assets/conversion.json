@@ -162,6 +162,26 @@
     },
     "resource": {
       "compression": "rle"
+    },
+    "resource/StartEngineGloom.png": {
+      "format": "A8",
+      "dither": false,
+      "compression": "rle"
+    },
+    "resource/map": {
+      "compression": "rle"
+    },
+    "resource/func": {
+      "compression": "rle"
+    },
+    "resource/menu": {
+      "compression": "rle"
+    },
+    "resource/power_arc": {
+      "compression": "rle"
+    },
+    "resource/speed_arc": {
+      "compression": "rle"
     }
   }
 }
