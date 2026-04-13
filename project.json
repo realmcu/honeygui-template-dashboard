@@ -9,7 +9,7 @@
   "targetEngine": "honeygui",
   "minSdk": "API 2: HoneyGUI V1.1.0",
   "pixelMode": "ARGB8888",
-  "mainHmlFile": "ui/dashboardMain.hml",
+  "mainHmlFile": "ui/DashboardMain.hml",
   "romfsBaseAddr": "0x704D1000",
   "created": "2026-01-15T08:03:41.978Z",
   "alwaysConvert": {
