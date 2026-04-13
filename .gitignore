@@ -2,4 +2,4 @@
 build/
 
 # Codegen output (regenerated every build)
-src/ui/
+src/

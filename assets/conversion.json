@@ -183,5 +183,18 @@
     "resource/speed_arc": {
       "compression": "rle"
     }
+  },
+  "alwaysConvert": {
+    "images": [
+      "resource/*.png",
+      "resource/map/*.png",
+      "resource/menu/*.png",
+      "resource/power_arc/*.png",
+      "resource/speed_arc/*.png",
+      "resource/func/*.png"
+    ],
+    "videos": [],
+    "models": [],
+    "fonts": []
   }
 }
