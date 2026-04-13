@@ -1,3 +1,5 @@
 # Build files
 build/
-src/
+
+# Codegen output (regenerated every build)
+src/ui/
