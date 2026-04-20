@@ -83,21 +83,21 @@ void root_menu_key_cb(void *obj, gui_event_t *e)
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
     // Check key name
-    if (strcmp(e->indev_name, "Menu") == 0)
+    if (strcmp(e->indev_name, "Home") == 0)
     {
-        root_menu_msg_show_cb(obj, e);
+        root_menu_msg_enter_cb(obj, e);
     }
     else if (strcmp(e->indev_name, "Back") == 0)
     {
         root_menu_msg_hide_cb(obj, e);
     }
-    else if (strcmp(e->indev_name, "Home") == 0)
+    else if (strcmp(e->indev_name, "Menu") == 0)
     {
-        root_menu_msg_enter_cb(obj, e);
+        root_menu_msg_show_cb(obj, e);
     }
     else if (strcmp(e->indev_name, "Power") == 0)
     {
-        gui_view_switch_direct(gui_view_get_current(), "dashboardMainView", SWITCH_OUT_NONE_ANIMATION, SWITCH_IN_NONE_ANIMATION);
+        gui_view_switch_direct(gui_view_get_current(), "dashboardMainView", SWITCH_OUT_ANIMATION_FADE, SWITCH_IN_ANIMATION_FADE);
     }
 }
 
@@ -601,14 +601,14 @@ void root_menu_timer_0_cb(void *obj)
 void root_menu_timer_1_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 30;
+    const uint16_t total_cnt_max = 15;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 30;
+    const uint16_t seg0_end = 15;
     
     root_menu_timer_cnt++;
     
-    // Segment 1: 300ms, 1 action(s)
+    // Segment 1: 150ms, 1 action(s)
     if (root_menu_timer_cnt > seg0_start && root_menu_timer_cnt <= seg0_end) {
         uint16_t seg_cnt = root_menu_timer_cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
@@ -640,14 +640,14 @@ void root_menu_timer_1_cb(void *obj)
 void root_menu_timer_2_cb(void *obj)
 {
     gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 30;
+    const uint16_t total_cnt_max = 15;
     
     const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 30;
+    const uint16_t seg0_end = 15;
     
     root_menu_timer_cnt++;
     
-    // Segment 1: 300ms, 1 action(s)
+    // Segment 1: 150ms, 1 action(s)
     if (root_menu_timer_cnt > seg0_start && root_menu_timer_cnt <= seg0_end) {
         uint16_t seg_cnt = root_menu_timer_cnt - seg0_start;
         const uint16_t seg_cnt_max = seg0_end - seg0_start;
@@ -2092,31 +2092,6 @@ void turn_r_icon_timer_0_cb(void *obj)
 
 
 /**
- * time update
- * Component: text_time
- */
-void text_time_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define text_time_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void text_time_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (text_time_timer_0_cb_impl) {
-        text_time_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define text_time_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
  * entrance
  * Component: led_0
  * Mode: Preset actions (multi-segment animation)
@@ -2417,31 +2392,6 @@ void led_5_timer_0_cb(void *obj)
 
 
 /**
- * entrance
- * Component: win_speed_text
- */
-void win_speed_text_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define win_speed_text_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void win_speed_text_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (win_speed_text_timer_0_cb_impl) {
-        win_speed_text_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define win_speed_text_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
  * pos func
  * Component: win_speed_text
  * Mode: Preset actions (multi-segment animation)
@@ -2520,81 +2470,6 @@ void win_speed_text_timer_2_cb(void *obj)
 
 
 /**
- * t_speed_update
- * Component: text_speed
- */
-void text_speed_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define text_speed_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void text_speed_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (text_speed_timer_0_cb_impl) {
-        text_speed_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define text_speed_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
- * entrance
- * Component: text_speed
- */
-void text_speed_timer_1_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define text_speed_timer_1_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void text_speed_timer_1_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (text_speed_timer_1_cb_impl) {
-        text_speed_timer_1_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define text_speed_timer_1_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
- * entrance
- * Component: win_power_text
- */
-void win_power_text_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define win_power_text_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void win_power_text_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (win_power_text_timer_0_cb_impl) {
-        win_power_text_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define win_power_text_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
  * func pos
  * Component: win_power_text
  * Mode: Preset actions (multi-segment animation)
@@ -2671,56 +2546,6 @@ void win_power_text_timer_2_cb(void *obj)
     }
 }
 
-
-/**
- * t_power_update
- * Component: text_power
- */
-void text_power_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define text_power_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void text_power_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (text_power_timer_0_cb_impl) {
-        text_power_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define text_power_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
- * entrance
- * Component: text_power
- */
-void text_power_timer_1_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define text_power_timer_1_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void text_power_timer_1_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (text_power_timer_1_cb_impl) {
-        text_power_timer_1_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define text_power_timer_1_cb_impl() in custom_functions protected area
-    }
-}
 
 /**
  * show win_func
@@ -2846,81 +2671,6 @@ void win_app_list_timer_1_cb(void *obj)
 
 
 /**
- * show app note 1
- * Component: app_list
- */
-void app_list_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define app_list_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void app_list_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (app_list_timer_0_cb_impl) {
-        app_list_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define app_list_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
- * show app note 2
- * Component: app_list
- */
-void app_list_timer_1_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define app_list_timer_1_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void app_list_timer_1_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (app_list_timer_1_cb_impl) {
-        app_list_timer_1_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define app_list_timer_1_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
- * pos update
- * Component: tab_hightlight
- */
-void tab_hightlight_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define tab_hightlight_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void tab_hightlight_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (tab_hightlight_timer_0_cb_impl) {
-        tab_hightlight_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define tab_hightlight_timer_0_cb_impl() in custom_functions protected area
-    }
-}
-
-/**
  * show
  * Component: win_app_weather
  * Mode: Preset actions (multi-segment animation)
@@ -2982,31 +2732,6 @@ void win_app_weather_timer_1_cb(void *obj)
     }
 }
 
-
-/**
- * adjust weather note
- * Component: list_weather
- */
-void list_weather_timer_0_cb(void *obj)
-{
-    GUI_UNUSED(obj);
-    // Call the implementation function in protected area (if exists)
-    // Define list_weather_timer_0_cb_impl() in custom_functions protected area for custom logic
-#ifdef __cplusplus
-    extern "C" {
-#endif
-    extern void list_weather_timer_0_cb_impl(void) __attribute__((weak));
-#ifdef __cplusplus
-    }
-#endif
-    
-    if (list_weather_timer_0_cb_impl) {
-        list_weather_timer_0_cb_impl();
-    } else {
-        // TODO: Implement timer callback logic
-        // Or define list_weather_timer_0_cb_impl() in custom_functions protected area
-    }
-}
 
 /**
  * show
@@ -3073,4 +2798,214 @@ void win_app_developing_timer_1_cb(void *obj)
 
 /* @protected start custom_functions */
 // Custom functions
+char speed_str[4] = {0};
+uint8_t speed_val = 0;
+void text_speed_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    speed_val += 10;
+    speed_val %= 160;
+    sprintf(speed_str, "%d", speed_val);
+    gui_text_content_set(obj, speed_str, strlen(speed_str));
+}
+
+void text_speed_timer_1_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    static uint16_t cnt = 0;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 97;
+    const uint16_t seg1_start = 97;
+    const uint16_t seg1_end = 113;
+    const uint16_t seg2_start = 113;
+    const uint16_t seg2_end = 129;
+    const uint16_t seg3_start = 129;
+    const uint16_t seg3_end = 163;
+    const uint16_t seg4_start = 163;
+    const uint16_t seg4_end = 164;
+    
+    cnt++;
+    
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        // wait
+        speed_val = 0;
+    }
+    else if (cnt > seg1_start && cnt <= seg1_end) {
+        speed_val += 10;
+    }
+    else if (cnt > seg2_start && cnt <= seg2_end) {
+        speed_val -= 10;
+    }
+    else if (cnt > seg3_start && cnt <= seg3_end) {
+        // wait
+    }
+    else if (cnt > seg4_start && cnt <= seg4_end) {
+            gui_obj_create_timer(obj, 100, true, text_speed_timer_0_cb);
+            gui_obj_start_timer(obj);
+            cnt = 0;
+            return;
+            
+    }
+    sprintf(speed_str, "%d", speed_val);
+    gui_text_content_set(obj, speed_str, strlen(speed_str));
+}
+
+char power_str[4] = {0}; 
+uint8_t power_val = 0;
+void text_power_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    power_val += 10;
+    power_val %= 160;
+    sprintf(power_str, "%d", power_val);
+    gui_text_content_set(obj, power_str, strlen(power_str));
+}
+
+void text_power_timer_1_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    static uint16_t cnt = 0;
+    
+    const uint16_t seg0_start = 0;
+    const uint16_t seg0_end = 97;
+    const uint16_t seg1_start = 97;
+    const uint16_t seg1_end = 113;
+    const uint16_t seg2_start = 113;
+    const uint16_t seg2_end = 129;
+    const uint16_t seg3_start = 129;
+    const uint16_t seg3_end = 163;
+    const uint16_t seg4_start = 163;
+    const uint16_t seg4_end = 164;
+    
+    cnt++;
+    
+    if (cnt > seg0_start && cnt <= seg0_end) {
+        // wait
+        power_val = 0;
+    }
+    else if (cnt > seg1_start && cnt <= seg1_end) {
+        power_val += 10;
+    }
+    else if (cnt > seg2_start && cnt <= seg2_end) {
+        power_val -= 10;
+    }
+    else if (cnt > seg3_start && cnt <= seg3_end) {
+        // wait
+    }
+    else if (cnt > seg4_start && cnt <= seg4_end) {
+            gui_obj_create_timer(obj, 100, true, text_power_timer_0_cb);
+            gui_obj_start_timer(obj);
+            cnt = 0;
+            return;
+            
+    }
+    sprintf(power_str, "%d", power_val);
+    gui_text_content_set(obj, power_str, strlen(power_str));
+}
+
+static char time_str[8] = "00:00";
+void text_time_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    time_t rawtime;
+    time(&rawtime);
+    struct tm *timeinfo = localtime(&rawtime);
+    if (timeinfo)
+    {
+        sprintf(time_str, "%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min);
+    }
+    gui_text_content_set(obj, time_str, strlen(time_str));
+}
+
+void zoom_animation(gui_obj_t *obj, float scale)
+{
+    matrix_translate(obj->w / 2, obj->h / 2, obj->matrix);
+    if (scale == 0)
+    {
+        matrix_scale(1.f, 1.f, obj->matrix);
+    }
+    else
+    {
+        matrix_scale(scale, scale, obj->matrix);
+    }
+    matrix_translate(obj->w / -2, obj->h / -2, obj->matrix);
+}
+
+void win_speed_text_timer_0_cb(void *obj)
+{
+    static uint16_t cnt = 0;
+    uint16_t cnt_max = 50;
+    cnt++;
+    float scale = (float)cnt / cnt_max;
+    zoom_animation(obj, scale);
+    if (cnt >= cnt_max)
+    {
+        cnt = 0;
+        gui_obj_stop_timer(obj);
+    }
+}
+
+void win_power_text_timer_0_cb(void *obj)
+{
+    static uint16_t cnt = 0;
+    uint16_t cnt_max = 50;
+    cnt++;
+    float scale = (float)cnt / cnt_max;
+    zoom_animation(obj, scale);
+    if (cnt >= cnt_max)
+    {
+        cnt = 0;
+        gui_obj_stop_timer(obj);
+    }
+}
+
+uint8_t app_index = 0;
+
+void tab_hightlight_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    gui_obj_t *target = obj;
+    int16_t y = 0;
+    switch (app_index)
+    {
+    case 1:
+        y = 90;
+        break;
+    case 2:
+        y = 180;
+        break;
+    case 4:
+        y = 90;
+        break;
+    case 5:
+        y = 180;
+        break;
+    default:
+        break;
+    }
+    gui_obj_move(target, target->x, y);
+}
+
+void app_list_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    gui_list_set_offset(obj, 0);
+    gui_obj_stop_timer(obj);
+}
+
+void app_list_timer_1_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    gui_list_set_offset(obj, -280);
+    gui_obj_stop_timer(obj);
+}
+
+uint8_t weather_note_index = 0;
+void list_weather_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    gui_list_set_offset(obj, weather_note_index * -280);
+    gui_obj_stop_timer(obj);
+}
 /* @protected end custom_functions */

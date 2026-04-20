@@ -122,4 +122,18 @@ void list_weather_timer_0_cb(void *obj);
 void win_app_developing_timer_0_cb(void *obj);
 void win_app_developing_timer_1_cb(void *obj);
 
+// Custom function declarations (auto-extracted from callbacks.c protected area)
+void text_speed_timer_0_cb(void *obj);
+void text_speed_timer_1_cb(void *obj);
+void text_power_timer_0_cb(void *obj);
+void text_power_timer_1_cb(void *obj);
+void text_time_timer_0_cb(void *obj);
+void zoom_animation(gui_obj_t *obj, float scale);
+void win_speed_text_timer_0_cb(void *obj);
+void win_power_text_timer_0_cb(void *obj);
+void tab_hightlight_timer_0_cb(void *obj);
+void app_list_timer_0_cb(void *obj);
+void app_list_timer_1_cb(void *obj);
+void list_weather_timer_0_cb(void *obj);
+
 #endif // DASHBOARDMAIN_CALLBACKS_H

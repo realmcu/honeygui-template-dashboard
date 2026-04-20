@@ -175,7 +175,8 @@
       "compression": "rle"
     },
     "resource/menu": {
-      "compression": "rle"
+      "compression": "rle",
+      "format": "ARGB8565"
     },
     "resource/power_arc": {
       "compression": "rle",
