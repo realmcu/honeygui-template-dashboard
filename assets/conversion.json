@@ -178,10 +178,18 @@
       "compression": "rle"
     },
     "resource/power_arc": {
-      "compression": "rle"
+      "compression": "rle",
+      "format": "ARGB8565"
     },
     "resource/speed_arc": {
-      "compression": "rle"
+      "compression": "rle",
+      "format": "ARGB8565"
+    },
+    "resource/dail_power.png": {
+      "format": "ARGB8565"
+    },
+    "resource/dail_speed.png": {
+      "format": "ARGB8565"
     }
   },
   "alwaysConvert": {
