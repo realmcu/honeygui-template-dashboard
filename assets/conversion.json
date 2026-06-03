@@ -17,11 +17,11 @@
       "format": "A8"
     },
     "resource/LeftBottomGloomV1.png": {
-      "format": "A8",
+      "format": "ARGB8565",
       "compression": "rle"
     },
     "resource/RightBottomGloomV1.png": {
-      "format": "A8",
+      "format": "ARGB8565",
       "compression": "rle"
     },
     "resource/RightLineV1.png": {

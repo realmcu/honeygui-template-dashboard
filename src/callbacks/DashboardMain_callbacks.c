@@ -9,12 +9,8 @@
 uint16_t gloom_timer_cnt = 0;
 uint16_t shadow_timer_cnt = 0;
 uint16_t win_map_timer_cnt = 0;
-uint16_t icon_dir_timer_cnt = 0;
 uint16_t map_timer_cnt = 0;
 uint16_t root_menu_timer_cnt = 0;
-uint16_t win_line_timer_cnt = 0;
-uint16_t line_left_timer_cnt = 0;
-uint16_t line_right_timer_cnt = 0;
 uint16_t win_dail_timer_cnt = 0;
 uint16_t speed_arc_timer_cnt = 0;
 uint16_t dail_pointer_s_timer_cnt = 0;
@@ -231,7 +227,7 @@ void shadow_timer_0_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (shadow_timer_cnt > seg0_start && shadow_timer_cnt <= seg0_end) {
             // Change image: /resource/Start_Engine_Press.bin
-            gui_img_set_src((gui_img_t *)target, "/resource/Start_Engine_Press.bin", IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Start_Engine_Press.bin", IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -262,7 +258,7 @@ void shadow_timer_1_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (shadow_timer_cnt > seg0_start && shadow_timer_cnt <= seg0_end) {
             // Change image: /resource/Start_Engine_Release.bin
-            gui_img_set_src((gui_img_t *)target, "/resource/Start_Engine_Release.bin", IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Start_Engine_Release.bin", IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -365,55 +361,6 @@ void win_map_timer_2_cb(void *obj)
 
 
 /**
- * dir update
- * Component: icon_dir
- * Mode: Preset actions (multi-segment animation)
- * Segments: 1
- */
-void icon_dir_timer_0_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 13;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 13;
-    
-    icon_dir_timer_cnt++;
-    
-    // Segment 1: 13000ms, 1 action(s)
-    if (icon_dir_timer_cnt > seg0_start && icon_dir_timer_cnt <= seg0_end) {
-        uint16_t seg_cnt = icon_dir_timer_cnt - seg0_start;
-        const uint16_t seg_cnt_max = seg0_end - seg0_start;
-        
-            // Image sequence animation: 13 images
-            const void *img_data_array[13] = {
-                "/resource/arrow_direct.bin",
-                "/resource/arrow_direct.bin",
-                "/resource/arrow_direct.bin",
-                "/resource/arrow_direct.bin",
-                "/resource/Arrow_right.bin",
-                "/resource/Arrow_right.bin",
-                "/resource/arrow_direct.bin",
-                "/resource/arrow_direct.bin",
-                "/resource/Arrow_right.bin",
-                "/resource/Arrow_left.bin",
-                "/resource/Arrow_right.bin",
-                "/resource/Arrow_left.bin",
-                "/resource/arrow_direct.bin"
-            };
-            uint16_t index = (13 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
-            gui_img_refresh_size((gui_img_t *)target);
-            
-    }
-    
-    if (icon_dir_timer_cnt >= total_cnt_max) {
-        icon_dir_timer_cnt = 0; // Reset counter, continue loop
-    }
-}
-
-
-/**
  * map array
  * Component: map
  * Mode: Preset actions (multi-segment animation)
@@ -451,7 +398,7 @@ void map_timer_0_cb(void *obj)
                 "/resource/map/map_12.bin"
             };
             uint16_t index = (13 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -581,7 +528,7 @@ void root_menu_timer_0_cb(void *obj)
                 "/resource/menu/menu_060.bin"
             };
             uint16_t index = (60 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -710,7 +657,7 @@ void root_menu_timer_3_cb(void *obj)
                 "/resource/menu/menu_015.bin"
             };
             uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -762,7 +709,7 @@ void root_menu_timer_4_cb(void *obj)
                 "/resource/menu/menu_030.bin"
             };
             uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -814,7 +761,7 @@ void root_menu_timer_5_cb(void *obj)
                 "/resource/menu/menu_045.bin"
             };
             uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -866,7 +813,7 @@ void root_menu_timer_6_cb(void *obj)
                 "/resource/menu/menu_060.bin"
             };
             uint16_t index = (15 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -917,7 +864,7 @@ void root_menu_timer_7_cb(void *obj)
                 "/resource/menu/menu_047.bin"
             };
             uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -968,7 +915,7 @@ void root_menu_timer_8_cb(void *obj)
                 "/resource/menu/menu_032.bin"
             };
             uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1019,7 +966,7 @@ void root_menu_timer_9_cb(void *obj)
                 "/resource/menu/menu_017.bin"
             };
             uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1070,7 +1017,7 @@ void root_menu_timer_10_cb(void *obj)
                 "/resource/menu/menu_002.bin"
             };
             uint16_t index = (14 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1108,151 +1055,6 @@ void root_menu_timer_11_cb(void *obj)
     if (root_menu_timer_cnt >= total_cnt_max) {
         gui_obj_stop_timer(target);
         root_menu_timer_cnt = 0; // Reset counter
-    }
-}
-
-
-/**
- * entrance
- * Component: win_line
- * Mode: Preset actions (multi-segment animation)
- * Segments: 2
- */
-void win_line_timer_0_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 62;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 30;
-    const uint16_t seg1_start = 30;
-    const uint16_t seg1_end = 62;
-    
-    win_line_timer_cnt++;
-    
-    // Segment 1: 900ms, 2 action(s)
-    if (win_line_timer_cnt > seg0_start && win_line_timer_cnt <= seg0_end) {
-        uint16_t seg_cnt = win_line_timer_cnt - seg0_start;
-        const uint16_t seg_cnt_max = seg0_end - seg0_start;
-        
-            // Adjust size: (138, 100) -> (750, 100)
-            const int16_t w_origin = 138;
-            const int16_t h_origin = 100;
-            const int16_t w_target = 750;
-            const int16_t h_target = 100;
-            int16_t w_cur = w_origin + (w_target - w_origin) * seg_cnt / seg_cnt_max;
-            int16_t h_cur = h_origin + (h_target - h_origin) * seg_cnt / seg_cnt_max;
-            target->w = w_cur;
-            target->h = h_cur;
-            
-            // Adjust position: (331, 53) -> (25, 53)
-            const int16_t x_origin = 331;
-            const int16_t y_origin = 53;
-            const int16_t x_target = 25;
-            const int16_t y_target = 53;
-            int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
-            int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
-            gui_obj_move(target, x_cur, y_cur);
-            
-    }
-    // Segment 2: 960ms, 1 action(s)
-    else if (win_line_timer_cnt > seg1_start && win_line_timer_cnt <= seg1_end) {
-        uint16_t seg_cnt = win_line_timer_cnt - seg1_start;
-        const uint16_t seg_cnt_max = seg1_end - seg1_start;
-        
-            // Adjust size: (750, 100) -> (750, 417)
-            const int16_t w_origin = 750;
-            const int16_t h_origin = 100;
-            const int16_t w_target = 750;
-            const int16_t h_target = 417;
-            int16_t w_cur = w_origin + (w_target - w_origin) * seg_cnt / seg_cnt_max;
-            int16_t h_cur = h_origin + (h_target - h_origin) * seg_cnt / seg_cnt_max;
-            target->w = w_cur;
-            target->h = h_cur;
-            
-    }
-    
-    if (win_line_timer_cnt >= total_cnt_max) {
-        gui_obj_stop_timer(target);
-        win_line_timer_cnt = 0; // Reset counter
-    }
-}
-
-
-/**
- * entrance
- * Component: line_left
- * Mode: Preset actions (multi-segment animation)
- * Segments: 1
- */
-void line_left_timer_0_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 30;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 30;
-    
-    line_left_timer_cnt++;
-    
-    // Segment 1: 900ms, 1 action(s)
-    if (line_left_timer_cnt > seg0_start && line_left_timer_cnt <= seg0_end) {
-        uint16_t seg_cnt = line_left_timer_cnt - seg0_start;
-        const uint16_t seg_cnt_max = seg0_end - seg0_start;
-        
-            // Adjust position: (-306, 0) -> (0, 0)
-            const int16_t x_origin = -306;
-            const int16_t y_origin = 0;
-            const int16_t x_target = 0;
-            const int16_t y_target = 0;
-            int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
-            int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
-            gui_obj_move(target, x_cur, y_cur);
-            
-    }
-    
-    if (line_left_timer_cnt >= total_cnt_max) {
-        gui_obj_stop_timer(target);
-        line_left_timer_cnt = 0; // Reset counter
-    }
-}
-
-
-/**
- * entrance
- * Component: line_right
- * Mode: Preset actions (multi-segment animation)
- * Segments: 1
- */
-void line_right_timer_0_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 30;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 30;
-    
-    line_right_timer_cnt++;
-    
-    // Segment 1: 900ms, 1 action(s)
-    if (line_right_timer_cnt > seg0_start && line_right_timer_cnt <= seg0_end) {
-        uint16_t seg_cnt = line_right_timer_cnt - seg0_start;
-        const uint16_t seg_cnt_max = seg0_end - seg0_start;
-        
-            // Adjust position: (69, 0) -> (375, 0)
-            const int16_t x_origin = 69;
-            const int16_t y_origin = 0;
-            const int16_t x_target = 375;
-            const int16_t y_target = 0;
-            int16_t x_cur = x_origin + (x_target - x_origin) * seg_cnt / seg_cnt_max;
-            int16_t y_cur = y_origin + (y_target - y_origin) * seg_cnt / seg_cnt_max;
-            gui_obj_move(target, x_cur, y_cur);
-            
-    }
-    
-    if (line_right_timer_cnt >= total_cnt_max) {
-        gui_obj_stop_timer(target);
-        line_right_timer_cnt = 0; // Reset counter
     }
 }
 
@@ -1394,7 +1196,7 @@ void speed_arc_timer_0_cb(void *obj)
                 "/resource/speed_arc/speed_arc_00.bin"
             };
             uint16_t index = (16 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1458,7 +1260,7 @@ void speed_arc_timer_1_cb(void *obj)
                 "/resource/speed_arc/speed_arc_16.bin"
             };
             uint16_t index = (16 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1487,7 +1289,7 @@ void speed_arc_timer_1_cb(void *obj)
                 "/resource/speed_arc/speed_arc_00.bin"
             };
             uint16_t index = (16 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1663,7 +1465,7 @@ void power_arc_timer_0_cb(void *obj)
                 "/resource/power_arc/power_arc_00.bin"
             };
             uint16_t index = (16 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1727,7 +1529,7 @@ void power_arc_timer_1_cb(void *obj)
                 "/resource/power_arc/power_arc_16.bin"
             };
             uint16_t index = (16 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
@@ -1756,7 +1558,7 @@ void power_arc_timer_1_cb(void *obj)
                 "/resource/power_arc/power_arc_00.bin"
             };
             uint16_t index = (16 - 1) * seg_cnt / seg_cnt_max;
-            gui_img_set_src((gui_img_t *)target, img_data_array[index], IMG_SRC_FILESYS);
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
             gui_img_refresh_size((gui_img_t *)target);
             
     }
