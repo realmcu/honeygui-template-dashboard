@@ -460,7 +460,7 @@ void update_dashbord_speed(gui_obj_t *obj, const char *topic, void *data, uint16
     GUI_UNUSED(len);
 
     dashboard_info.speed_val = (*(uint16_t *)data) % 160;
-    sprintf(speed_str, "%d", dashboard_info.speed_val);
+    sprintf(speed_str, "%u", dashboard_info.speed_val);
     gui_text_content_set(text_speed, speed_str, strlen(speed_str));
 
     const void *img_data_array[16] = 
@@ -500,7 +500,7 @@ void update_dashbord_power(gui_obj_t *obj, const char *topic, void *data, uint16
     GUI_UNUSED(data);
     GUI_UNUSED(len);
     dashboard_info.power_val = (*(uint16_t *)data) % 160;
-    sprintf(power_str, "%d", dashboard_info.power_val);
+    sprintf(power_str, "%u", dashboard_info.power_val);
     gui_text_content_set(text_power, power_str, strlen(power_str));
     
     const void *img_data_array[16] = 
@@ -729,7 +729,7 @@ void update_dashbord_location(gui_obj_t *obj, const char *topic, void *data, uin
     GUI_UNUSED(len);
 
     snprintf(dashboard_info.location, len, "%s", (char *)data);
-    sprintf(top_info_str, "%s %d°C", dashboard_info.location, dashboard_info.temp_val);
+    sprintf(top_info_str, "%s %u°C", dashboard_info.location, dashboard_info.temp_val);
     gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
 }
 
@@ -742,6 +742,6 @@ void update_dashbord_temp(gui_obj_t *obj, const char *topic, void *data, uint16_
 
     dashboard_info.temp_val = *((uint8_t *)data);
     
-    sprintf(top_info_str, "%s %d°C", dashboard_info.location, dashboard_info.temp_val);
+    sprintf(top_info_str, "%s %u°C", dashboard_info.location, dashboard_info.temp_val);
     gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
 }

@@ -1592,15 +1592,9 @@ void speed_arc_timer_1_cb(void *obj)
     else if (speed_arc_timer_cnt > seg3_start && speed_arc_timer_cnt <= seg3_end) {
         // No action, just wait
     }
-    // Segment 5: 30ms, 1 action(s)
+    // Segment 5: Wait 30ms
     else if (speed_arc_timer_cnt > seg4_start && speed_arc_timer_cnt <= seg4_end) {
-            // Timer control
-            // Start timer animation: arc_animate
-            speed_arc_timer_cnt = 0; // Reset counter
-            gui_obj_create_timer(target, 100, true, speed_arc_timer_0_cb);
-            gui_obj_start_timer(target);
-            return; // Return immediately after timer control
-            
+        // No action, just wait
     }
     
     if (speed_arc_timer_cnt >= total_cnt_max) {
@@ -1701,15 +1695,9 @@ void dail_pointer_s_timer_1_cb(void *obj)
     else if (dail_pointer_s_timer_cnt > seg3_start && dail_pointer_s_timer_cnt <= seg3_end) {
         // No action, just wait
     }
-    // Segment 5: 30ms, 1 action(s)
+    // Segment 5: Wait 30ms
     else if (dail_pointer_s_timer_cnt > seg4_start && dail_pointer_s_timer_cnt <= seg4_end) {
-            // Timer control
-            // Start timer animation: rotate
-            dail_pointer_s_timer_cnt = 0; // Reset counter
-            gui_obj_create_timer(target, 100, true, dail_pointer_s_timer_0_cb);
-            gui_obj_start_timer(target);
-            return; // Return immediately after timer control
-            
+        // No action, just wait
     }
     
     if (dail_pointer_s_timer_cnt >= total_cnt_max) {
@@ -1861,15 +1849,9 @@ void power_arc_timer_1_cb(void *obj)
     else if (power_arc_timer_cnt > seg3_start && power_arc_timer_cnt <= seg3_end) {
         // No action, just wait
     }
-    // Segment 5: 30ms, 1 action(s)
+    // Segment 5: Wait 30ms
     else if (power_arc_timer_cnt > seg4_start && power_arc_timer_cnt <= seg4_end) {
-            // Timer control
-            // Start timer animation: arc_animate
-            power_arc_timer_cnt = 0; // Reset counter
-            gui_obj_create_timer(target, 100, true, power_arc_timer_0_cb);
-            gui_obj_start_timer(target);
-            return; // Return immediately after timer control
-            
+        // No action, just wait
     }
     
     if (power_arc_timer_cnt >= total_cnt_max) {
@@ -1970,15 +1952,9 @@ void dail_pointer_p_timer_1_cb(void *obj)
     else if (dail_pointer_p_timer_cnt > seg3_start && dail_pointer_p_timer_cnt <= seg3_end) {
         // No action, just wait
     }
-    // Segment 5: 30ms, 1 action(s)
+    // Segment 5: Wait 30ms
     else if (dail_pointer_p_timer_cnt > seg4_start && dail_pointer_p_timer_cnt <= seg4_end) {
-            // Timer control
-            // Start timer animation: rotate
-            dail_pointer_p_timer_cnt = 0; // Reset counter
-            gui_obj_create_timer(target, 100, true, dail_pointer_p_timer_0_cb);
-            gui_obj_start_timer(target);
-            return; // Return immediately after timer control
-            
+        // No action, just wait
     }
     
     if (dail_pointer_p_timer_cnt >= total_cnt_max) {
@@ -2688,8 +2664,11 @@ void text_speed_timer_0_cb(void *obj)
     GUI_UNUSED(obj);
     dashboard_info.speed_val += 10;
     dashboard_info.speed_val %= 160;
-    sprintf(speed_str, "%d", dashboard_info.speed_val);
+    sprintf(speed_str, "%u", dashboard_info.speed_val);
     gui_text_content_set(obj, speed_str, strlen(speed_str));
+
+    speed_arc_timer_0_cb(GUI_BASE(speed_arc));
+    dail_pointer_s_timer_0_cb(GUI_BASE(dail_pointer_s));
 }
 
 void text_speed_timer_1_cb(void *obj)
@@ -2730,7 +2709,7 @@ void text_speed_timer_1_cb(void *obj)
             cnt = 0;
             return;
     }
-    sprintf(speed_str, "%d", dashboard_info.speed_val);
+    sprintf(speed_str, "%u", dashboard_info.speed_val);
     gui_text_content_set(obj, speed_str, strlen(speed_str));
 }
 
@@ -2740,8 +2719,11 @@ void text_power_timer_0_cb(void *obj)
     GUI_UNUSED(obj);
     dashboard_info.power_val += 10;
     dashboard_info.power_val %= 160;
-    sprintf(power_str, "%d", dashboard_info.power_val);
+    sprintf(power_str, "%u", dashboard_info.power_val);
     gui_text_content_set(obj, power_str, strlen(power_str));
+
+    power_arc_timer_0_cb(GUI_BASE(power_arc));
+    dail_pointer_p_timer_0_cb(GUI_BASE(dail_pointer_p));
 }
 
 void text_power_timer_1_cb(void *obj)
@@ -2782,7 +2764,7 @@ void text_power_timer_1_cb(void *obj)
             cnt = 0;
             return;
     }
-    sprintf(power_str, "%d", dashboard_info.power_val);
+    sprintf(power_str, "%u", dashboard_info.power_val);
     gui_text_content_set(obj, power_str, strlen(power_str));
 }
 
@@ -2895,7 +2877,7 @@ char volume_str[4] = {0};
 void lbl_volume_timer_0_cb(void *obj)
 {
     GUI_UNUSED(obj);
-    sprintf(volume_str, "%d", dashboard_info.volume_val);
+    sprintf(volume_str, "%u", dashboard_info.volume_val);
     gui_text_content_set(obj, volume_str, strlen(volume_str));
 }
 /* @protected end custom_functions */
