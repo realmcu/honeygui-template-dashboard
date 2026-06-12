@@ -40,7 +40,7 @@ extern char speed_str[4];
 
 #define MUSIC_COUNT  4
 uint8_t music_index = 0;
-void *music_cover[MUSIC_COUNT] = 
+void *music_cover_array[MUSIC_COUNT] = 
 {
     "/resource/music/COVER_0.bin",
     "/resource/music/COVER_1.bin",
