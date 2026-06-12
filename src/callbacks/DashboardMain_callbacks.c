@@ -2658,7 +2658,7 @@ void win_volume_timer_0_cb(void *obj)
 
 /* @protected start custom_functions */
 // Custom functions
-char speed_str[4] = {0};
+char speed_str[6] = {0};
 void text_speed_timer_0_cb(void *obj)
 {
     GUI_UNUSED(obj);
@@ -2713,7 +2713,7 @@ void text_speed_timer_1_cb(void *obj)
     gui_text_content_set(obj, speed_str, strlen(speed_str));
 }
 
-char power_str[4] = {0};
+char power_str[6] = {0};
 void text_power_timer_0_cb(void *obj)
 {
     GUI_UNUSED(obj);

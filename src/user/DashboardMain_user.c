@@ -35,8 +35,8 @@ static char top_info_str[30];
 static uint8_t menu_func_index = 0;
 extern uint8_t app_index;
 extern uint8_t weather_note_index;
-extern char power_str[4];
-extern char speed_str[4];
+extern char power_str[6];
+extern char speed_str[6];
 
 #define MUSIC_COUNT  4
 uint8_t music_index = 0;
