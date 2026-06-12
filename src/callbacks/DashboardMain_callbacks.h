@@ -7,9 +7,15 @@
 
 // Timer animation counters (defined in callbacks.c)
 extern uint16_t gloom_timer_cnt;
-extern uint16_t shadow_timer_cnt;
 extern uint16_t win_map_timer_cnt;
 extern uint16_t map_timer_cnt;
+extern uint16_t win_func_timer_cnt;
+extern uint16_t win_app_list_timer_cnt;
+extern uint16_t app_list_timer_cnt;
+extern uint16_t tab_hightlight_timer_cnt;
+extern uint16_t win_app_weather_timer_cnt;
+extern uint16_t list_weather_timer_cnt;
+extern uint16_t win_app_developing_timer_cnt;
 extern uint16_t root_menu_timer_cnt;
 extern uint16_t win_dail_timer_cnt;
 extern uint16_t speed_arc_timer_cnt;
@@ -30,34 +36,51 @@ extern uint16_t win_speed_text_timer_cnt;
 extern uint16_t text_speed_timer_cnt;
 extern uint16_t win_power_text_timer_cnt;
 extern uint16_t text_power_timer_cnt;
-extern uint16_t win_func_timer_cnt;
-extern uint16_t win_app_list_timer_cnt;
-extern uint16_t app_list_timer_cnt;
-extern uint16_t tab_hightlight_timer_cnt;
-extern uint16_t win_app_weather_timer_cnt;
-extern uint16_t list_weather_timer_cnt;
-extern uint16_t win_app_developing_timer_cnt;
+extern uint16_t win_volume_timer_cnt;
+extern uint16_t lbl_volume_timer_cnt;
 
 // Event callback function declarations
 void dail_power_clicked_cb(void *obj, gui_event_t *e);
-void off_icon_clicked_cb(void *obj, gui_event_t *e);
 void root_menu_key_cb(void *obj, gui_event_t *e);
 void start_engine_key_cb(void *obj, gui_event_t *e);
-void start_engine_pressed_cb(void *obj, gui_event_t *e);
-void start_engine_released_cb(void *obj, gui_event_t *e);
 void win_app_developing_key_0_cb(void *obj, gui_event_t *e);
 void win_app_list_key_0_cb(void *obj, gui_event_t *e);
 void win_app_weather_key_0_cb(void *obj, gui_event_t *e);
+void win_common_msg_cb_0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_10(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_11(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_12(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_2(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_3(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_4(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_5(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_6(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_7(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_8(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_9(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_dail_msg_cb_0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_dail_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 
 // User-configured timer callback function declarations
 void gloom_timer_0_cb(void *obj);
-void shadow_timer_0_cb(void *obj);
-void shadow_timer_1_cb(void *obj);
 void win_map_timer_0_cb(void *obj);
 void win_map_timer_1_cb(void *obj);
 void win_map_timer_2_cb(void *obj);
 void map_timer_0_cb(void *obj);
 void map_timer_1_cb(void *obj);
+void win_func_timer_0_cb(void *obj);
+void win_func_timer_1_cb(void *obj);
+void win_app_list_timer_0_cb(void *obj);
+void win_app_list_timer_1_cb(void *obj);
+void app_list_timer_0_cb(void *obj);
+void app_list_timer_1_cb(void *obj);
+void tab_hightlight_timer_0_cb(void *obj);
+void win_app_weather_timer_0_cb(void *obj);
+void win_app_weather_timer_1_cb(void *obj);
+void list_weather_timer_0_cb(void *obj);
+void win_app_developing_timer_0_cb(void *obj);
+void win_app_developing_timer_1_cb(void *obj);
 void root_menu_timer_0_cb(void *obj);
 void root_menu_timer_1_cb(void *obj);
 void root_menu_timer_2_cb(void *obj);
@@ -101,18 +124,8 @@ void win_power_text_timer_1_cb(void *obj);
 void win_power_text_timer_2_cb(void *obj);
 void text_power_timer_0_cb(void *obj);
 void text_power_timer_1_cb(void *obj);
-void win_func_timer_0_cb(void *obj);
-void win_func_timer_1_cb(void *obj);
-void win_app_list_timer_0_cb(void *obj);
-void win_app_list_timer_1_cb(void *obj);
-void app_list_timer_0_cb(void *obj);
-void app_list_timer_1_cb(void *obj);
-void tab_hightlight_timer_0_cb(void *obj);
-void win_app_weather_timer_0_cb(void *obj);
-void win_app_weather_timer_1_cb(void *obj);
-void list_weather_timer_0_cb(void *obj);
-void win_app_developing_timer_0_cb(void *obj);
-void win_app_developing_timer_1_cb(void *obj);
+void win_volume_timer_0_cb(void *obj);
+void lbl_volume_timer_0_cb(void *obj);
 
 // Custom function declarations (auto-extracted from callbacks.c protected area)
 void text_speed_timer_0_cb(void *obj);
@@ -127,5 +140,6 @@ void tab_hightlight_timer_0_cb(void *obj);
 void app_list_timer_0_cb(void *obj);
 void app_list_timer_1_cb(void *obj);
 void list_weather_timer_0_cb(void *obj);
+void lbl_volume_timer_0_cb(void *obj);
 
 #endif // DASHBOARDMAIN_CALLBACKS_H

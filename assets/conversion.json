@@ -191,6 +191,18 @@
     },
     "resource/dail_speed.png": {
       "format": "ARGB8565"
+    },
+    "resource/volume_icon.png": {
+      "format": "A8"
+    },
+    "resource/music": {
+      "format": "ARGB8565"
+    },
+    "resource/music/music_board.png": {
+      "format": "A8"
+    },
+    "resource/music/playbar.png": {
+      "format": "A8"
     }
   },
   "alwaysConvert": {
