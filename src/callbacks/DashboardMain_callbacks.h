@@ -34,10 +34,13 @@ extern uint16_t led_4_timer_cnt;
 extern uint16_t led_5_timer_cnt;
 extern uint16_t win_speed_text_timer_cnt;
 extern uint16_t text_speed_timer_cnt;
+extern uint16_t text_odo_timer_cnt;
 extern uint16_t win_power_text_timer_cnt;
 extern uint16_t text_power_timer_cnt;
+extern uint16_t text_battery_timer_cnt;
 extern uint16_t win_volume_timer_cnt;
 extern uint16_t lbl_volume_timer_cnt;
+extern uint16_t win_music_timer_cnt;
 
 // Event callback function declarations
 void dail_power_clicked_cb(void *obj, gui_event_t *e);
@@ -51,6 +54,10 @@ void win_common_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t
 void win_common_msg_cb_10(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_11(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_12(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_13(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_14(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_15(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_common_msg_cb_16(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_2(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_3(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_4(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
@@ -119,15 +126,20 @@ void win_speed_text_timer_1_cb(void *obj);
 void win_speed_text_timer_2_cb(void *obj);
 void text_speed_timer_0_cb(void *obj);
 void text_speed_timer_1_cb(void *obj);
+void text_odo_timer_0_cb(void *obj);
 void win_power_text_timer_0_cb(void *obj);
 void win_power_text_timer_1_cb(void *obj);
 void win_power_text_timer_2_cb(void *obj);
 void text_power_timer_0_cb(void *obj);
 void text_power_timer_1_cb(void *obj);
+void text_battery_timer_0_cb(void *obj);
 void win_volume_timer_0_cb(void *obj);
 void lbl_volume_timer_0_cb(void *obj);
+void win_music_timer_0_cb(void *obj);
 
 // Custom function declarations (auto-extracted from callbacks.c protected area)
+void text_odo_timer_0_cb(void *obj);
+void text_battery_timer_0_cb(void *obj);
 void text_speed_timer_0_cb(void *obj);
 void text_speed_timer_1_cb(void *obj);
 void text_power_timer_0_cb(void *obj);
@@ -141,5 +153,6 @@ void app_list_timer_0_cb(void *obj);
 void app_list_timer_1_cb(void *obj);
 void list_weather_timer_0_cb(void *obj);
 void lbl_volume_timer_0_cb(void *obj);
+void win_music_timer_0_cb(void *obj);
 
 #endif // DASHBOARDMAIN_CALLBACKS_H

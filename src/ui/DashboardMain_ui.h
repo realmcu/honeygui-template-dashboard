@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Definition (Auto-generated, do not modify manually)
- * Generated at: 2026-06-12T06:10:17.860Z
+ * Generated at: 2026-06-15T05:37:54.232Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
@@ -91,6 +91,6 @@ extern gui_win_t *win_playbar;
 extern gui_img_t *playbar;
 extern gui_text_t *lbl_music;
 extern gui_text_t *lbl_artist;
-extern gui_scroll_text_t *lbl_1;
+extern gui_scroll_text_t *lbl_lyrics;
 
 #endif // DASHBOARDMAIN_UI_H

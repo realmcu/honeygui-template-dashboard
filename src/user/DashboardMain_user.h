@@ -27,6 +27,8 @@ typedef struct gui_dashboard
     /* Music status */
     uint32_t music_status      : 1; // 1: on, 0: off
     uint32_t volume_val        : 8; // 0-100
+    uint32_t music_play_time   : 10; // Second
+    uint32_t music_duration    : 10; // Second
 
     // /* Map status */
     // uint32_t map_data_update   : 1;
@@ -69,8 +71,21 @@ typedef struct gui_dashboard
 
 } gui_dashboard_t;
 
+typedef struct gui_music_info
+{
+    char *music_name;
+    char *artist_name;
+    char *lyrics;
+    void *cover;
+    uint32_t music_play_time    :10; // Second
+    uint32_t music_duration     :10; // Second
+    uint32_t music_status       :1; // 1: on, 0: off
+} gui_music_info_t;
+
 /*------------------------------------------*/
 extern gui_dashboard_t dashboard_info;
+extern char odo_str[12];
+extern char batt_str[12];
 
 
 
@@ -93,7 +108,6 @@ void win_app_developing_msg_exit_cb(void *obj, gui_event_t *e);
 
 void update_dashbord_power(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashbord_speed(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-
 void update_dashbord_led0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashbord_led1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashbord_led2(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
@@ -107,6 +121,10 @@ void update_dashbord_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_
 void update_dashbord_volume(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashbord_location(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashbord_temp(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashbord_music_play(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashbord_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashbord_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashbord_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 
 
 

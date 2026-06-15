@@ -34,10 +34,13 @@ uint16_t led_4_timer_cnt = 0;
 uint16_t led_5_timer_cnt = 0;
 uint16_t win_speed_text_timer_cnt = 0;
 uint16_t text_speed_timer_cnt = 0;
+uint16_t text_odo_timer_cnt = 0;
 uint16_t win_power_text_timer_cnt = 0;
 uint16_t text_power_timer_cnt = 0;
+uint16_t text_battery_timer_cnt = 0;
 uint16_t win_volume_timer_cnt = 0;
 uint16_t lbl_volume_timer_cnt = 0;
+uint16_t win_music_timer_cnt = 0;
 
 // Event callback function implementations
 
@@ -262,6 +265,42 @@ void win_common_msg_cb_12(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(data);
     GUI_UNUSED(len);
     update_dashbord_temp(obj, topic, data, len);
+}
+
+void win_common_msg_cb_13(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    update_dashbord_music_play(obj, topic, data, len);
+}
+
+void win_common_msg_cb_14(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    update_dashbord_odo(obj, topic, data, len);
+}
+
+void win_common_msg_cb_15(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    update_dashbord_batt(obj, topic, data, len);
+}
+
+void win_common_msg_cb_16(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    update_dashbord_map(obj, topic, data, len);
 }
 
 // Preset timer callback functions
@@ -2658,6 +2697,18 @@ void win_volume_timer_0_cb(void *obj)
 
 /* @protected start custom_functions */
 // Custom functions
+void text_odo_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    gui_text_content_set(obj, odo_str, strlen(odo_str));
+}
+
+void text_battery_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    gui_text_content_set(obj, batt_str, strlen(batt_str));
+}
+
 char speed_str[6] = {0};
 void text_speed_timer_0_cb(void *obj)
 {
@@ -2879,5 +2930,18 @@ void lbl_volume_timer_0_cb(void *obj)
     GUI_UNUSED(obj);
     sprintf(volume_str, "%u", dashboard_info.volume_val);
     gui_text_content_set(obj, volume_str, strlen(volume_str));
+}
+
+void win_music_timer_0_cb(void *obj)
+{
+    GUI_UNUSED(obj);
+    if (dashboard_info.music_play_time < dashboard_info.music_duration)
+    {
+        if (dashboard_info.music_status == true)
+        {
+            dashboard_info.music_play_time += 1;
+        }
+        GUI_BASE(win_playbar)->w = 250 * dashboard_info.music_play_time / dashboard_info.music_duration;
+    }
 }
 /* @protected end custom_functions */

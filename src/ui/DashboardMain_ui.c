@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-06-12T06:10:17.861Z
+ * Generated at: 2026-06-15T05:37:54.232Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -80,7 +80,7 @@ gui_win_t *win_playbar = NULL;
 gui_img_t *playbar = NULL;
 gui_text_t *lbl_music = NULL;
 gui_text_t *lbl_artist = NULL;
-gui_scroll_text_t *lbl_1 = NULL;
+gui_scroll_text_t *lbl_lyrics = NULL;
 
 // List component note_design callback functions
 // note_design callback function declaration
@@ -568,6 +568,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_text_set((gui_text_t *)text_odo, "ODO 300km", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 9, 16);
     gui_text_type_set((gui_text_t *)text_odo, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_odo, CENTER);
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)text_odo, 1000, true, text_odo_timer_0_cb);
 
     // Create win_power_text (hg_window)
     win_power_text = gui_win_create(win_common, "win_power_text", 470, 64, 294, 294);
@@ -602,6 +604,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_text_set((gui_text_t *)text_battery, "BATT 65%", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 8, 16);
     gui_text_type_set((gui_text_t *)text_battery, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_battery, CENTER);
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)text_battery, 1000, true, text_battery_timer_0_cb);
 
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "led0", win_common_msg_cb_0);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "led1", win_common_msg_cb_1);
@@ -616,6 +620,10 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "volume", win_common_msg_cb_10);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "location", win_common_msg_cb_11);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "temp", win_common_msg_cb_12);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "play", win_common_msg_cb_13);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "odo", win_common_msg_cb_14);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "battery", win_common_msg_cb_15);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_common), "map", win_common_msg_cb_16);
 
     // Create win_volume (hg_window)
     win_volume = gui_win_create((gui_obj_t *)view, "win_volume", 335, 98, 135, 50);
@@ -640,6 +648,9 @@ static void dashboard_view_switch_in(gui_view_t *view)
     // Create win_music (hg_window)
     win_music = gui_win_create((gui_obj_t *)view, "win_music", 0, 0, 800, 480);
     gui_obj_show((gui_obj_t *)win_music, false);
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)win_music, 1000, true, win_music_timer_0_cb);
+    gui_obj_start_timer((gui_obj_t *)win_music);
 
 
     // Create music_cover (hg_image)
@@ -682,10 +693,10 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_text_type_set((gui_text_t *)lbl_artist, "//HarmonyOS_Sans_Bold_size16_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)lbl_artist, MID_LEFT);
 
-    // Create lbl_1 (hg_label)
-    lbl_1 = gui_scroll_text_create(win_music, "lbl_1", 320, 418, 290, 40);
-    gui_scroll_text_set((gui_scroll_text_t *)lbl_1, "Lyrics...", GUI_FONT_SRC_BMP, gui_rgb(3, 3, 3), 9, 24);
-    gui_scroll_text_type_set((gui_scroll_text_t *)lbl_1, "//HarmonyOS_Sans_Bold_size24_bits4_bitmap.bin", FONT_SRC_FILESYS);
-    gui_scroll_text_scroll_set((gui_scroll_text_t *)lbl_1, SCROLL_X_MID, 0, 300, 5000, 0);
+    // Create lbl_lyrics (hg_label)
+    lbl_lyrics = gui_scroll_text_create(win_music, "lbl_lyrics", 320, 418, 290, 40);
+    gui_scroll_text_set((gui_scroll_text_t *)lbl_lyrics, "Lyrics...", GUI_FONT_SRC_BMP, gui_rgb(3, 3, 3), 9, 24);
+    gui_scroll_text_type_set((gui_scroll_text_t *)lbl_lyrics, "//HarmonyOS_Sans_Bold_size24_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_scroll_text_scroll_set((gui_scroll_text_t *)lbl_lyrics, SCROLL_X_MID, 0, 300, 6000, 0);
 }
 GUI_VIEW_INSTANCE("dashboard_view", false, dashboard_view_switch_in, dashboard_view_switch_out, false);

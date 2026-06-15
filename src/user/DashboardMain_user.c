@@ -37,15 +37,51 @@ extern uint8_t app_index;
 extern uint8_t weather_note_index;
 extern char power_str[6];
 extern char speed_str[6];
+char odo_str[12] = "ODO 300km";
+char batt_str[12] = "BATT 65%";
 
 #define MUSIC_COUNT  4
 uint8_t music_index = 0;
-void *music_cover_array[MUSIC_COUNT] = 
+uint8_t lyrics_index = 0;
+
+uint16_t music_time_array[MUSIC_COUNT] =
+{
+    300, //Second
+    320, 
+    340, 
+    360,
+};
+
+const char *music_cover_array[MUSIC_COUNT] = 
 {
     "/resource/music/COVER_0.bin",
     "/resource/music/COVER_1.bin",
     "/resource/music/COVER_2.bin",
     "/resource/music/COVER_3.bin",
+};
+
+const char *music_name_array[MUSIC_COUNT] = 
+{
+    "Music 0",
+    "Music 1",
+    "Music 2",
+    "Music 3",
+};
+
+const char *artist_name_array[MUSIC_COUNT] = 
+{
+    "Artist 0",
+    "Artist 1",
+    "Artist 2",
+    "Artist 3",
+};
+
+const char *lyrics_array[MUSIC_COUNT] = 
+{
+    "Lyrics 0000000000",
+    "Lyrics 1111111111111",
+    "Lyrics 22222222222222222",
+    "Lyrics 333333333333333333333",
 };
 
 // Update dashboard info by shell command
@@ -54,40 +90,15 @@ void dashboard_info_update(int argc, char *argv[])
 {
     // if (get_dashboard_info() == NULL) { return; }
     int i = 1;
-    while (i < argc - 1)
+    // gui_log("dashboard_info_update: %d, %s", argc, argv[0]);
+    while (i < argc)
     {
         if (!strcmp(argv[i], "map"))
         {
-            // extern int open(const char *file, int flags, ...);
-            // extern int read(int fd, void *buf, size_t len);
-            // extern int close(int fd);
-            // char path[100] = "example/application/screen_800_480/root_image_800_480/root/resource/map_";
-            // strcat(path, argv[++i]);
-            // strcat(path, ".bin");
-            // int fd;
-            // fd = open(path, 0);
-            // if (fd < 0)
-            // {
-            //     printf("open %s Fail!\n", path);
-            //     break;
-            // }
-            // void *map_data = gui_malloc(1024 * 500);
-            // ssize_t bytes_read = read(fd, map_data, 1024 * 500);
-            // if (bytes_read < 0)
-            // {
-            //     printf("read bin file failed!\n");
-            //     close(fd);
-            //     break;
-            // }
-            // close(fd);
-
-            // dashboard_info.map_data_update = 1;
-            // dashboard_info.map_data_index ^= 1;
-            // if (dashboard_info.map_data[dashboard_info.map_data_index])
-            // {
-            //     gui_free(dashboard_info.map_data[dashboard_info.map_data_index]);
-            // }
-            // dashboard_info.map_data[dashboard_info.map_data_index] = map_data;
+            static uint8_t map_index = 0;
+            map_index++;
+            map_index %= 13;
+            gui_msg_publish("map", &map_index, sizeof(uint8_t));
         }
         else if (!strcmp(argv[i], "speed"))
         {
@@ -101,11 +112,13 @@ void dashboard_info_update(int argc, char *argv[])
         }
         else if (!strcmp(argv[i], "odo"))
         {
-            dashboard_info.odo_val = atoi(argv[++i]);
+            uint16_t odo_val = atoi(argv[++i]);
+            gui_msg_publish("odo", &odo_val, sizeof(uint16_t));
         }
-        else if (!strcmp(argv[i], "soc"))
+        else if (!strcmp(argv[i], "battery"))
         {
-            dashboard_info.soc_val = atoi(argv[++i]);
+            uint16_t batt_val = atoi(argv[++i]);
+            gui_msg_publish("battery", &batt_val, sizeof(uint16_t));
         }
         else if (!strcmp(argv[i], "location"))
         {
@@ -124,7 +137,8 @@ void dashboard_info_update(int argc, char *argv[])
         }
         else if (!strcmp(argv[i], "turnr"))
         {
-            dashboard_info.led_turn_r_status = atoi(argv[++i]);
+            bool status = atoi(argv[++i]);
+            gui_msg_publish("turnr", &status, sizeof(bool));
         }
         else if (!strcmp(argv[i], "bt"))
         {
@@ -170,6 +184,68 @@ void dashboard_info_update(int argc, char *argv[])
         {
             bool status = atoi(argv[++i]);
             gui_msg_publish("volume", &status, sizeof(bool));
+        }
+        else if (!strcmp(argv[i], "play"))
+        {
+            bool status = atoi(argv[++i]);
+            gui_music_info_t music_info = 
+            {
+                .music_name = (char *)music_name_array[music_index],
+                .artist_name = (char *)artist_name_array[music_index],
+                .lyrics = (char *)lyrics_array[lyrics_index],
+                .cover = (void *)music_cover_array[music_index],
+                .music_duration = music_time_array[music_index],
+                .music_status = status,
+                .music_play_time = dashboard_info.music_play_time,
+            };
+            gui_msg_publish("play", &music_info, sizeof(gui_music_info_t));
+        }
+        else if (!strcmp(argv[i], "next"))
+        {
+            music_index = (music_index + 1) % MUSIC_COUNT;
+            lyrics_index = 0;
+            gui_music_info_t music_info = 
+            {
+                .music_name = (char *)music_name_array[music_index],
+                .artist_name = (char *)artist_name_array[music_index],
+                .lyrics = (char *)lyrics_array[lyrics_index],
+                .cover = (void *)music_cover_array[music_index],
+                .music_duration = music_time_array[music_index],
+                .music_status = 1,
+                .music_play_time = 0,
+            };
+            gui_msg_publish("play", &music_info, sizeof(gui_music_info_t));
+        }
+        else if (!strcmp(argv[i], "last"))
+        {
+            music_index = (music_index - 1 + MUSIC_COUNT) % MUSIC_COUNT;
+            lyrics_index = 0;
+            gui_music_info_t music_info = 
+            {
+                .music_name = (char *)music_name_array[music_index],
+                .artist_name = (char *)artist_name_array[music_index],
+                .lyrics = (char *)lyrics_array[lyrics_index],
+                .cover = (void *)music_cover_array[music_index],
+                .music_duration = music_time_array[music_index],
+                .music_status = 1,
+                .music_play_time = 0,
+            };
+            gui_msg_publish("play", &music_info, sizeof(gui_music_info_t));
+        }
+        else if (!strcmp(argv[i], "lyrics"))
+        {
+            lyrics_index = (lyrics_index + 1) % MUSIC_COUNT;
+            gui_music_info_t music_info = 
+            {
+                .music_name = (char *)music_name_array[music_index],
+                .artist_name = (char *)artist_name_array[music_index],
+                .lyrics = (char *)lyrics_array[lyrics_index],
+                .cover = (void *)music_cover_array[music_index],
+                .music_duration = music_time_array[music_index],
+                .music_status = dashboard_info.music_status,
+                .music_play_time = dashboard_info.music_play_time,
+            };
+            gui_msg_publish("play", &music_info, sizeof(gui_music_info_t));
         }
         ++i;
     }
@@ -744,4 +820,84 @@ void update_dashbord_temp(gui_obj_t *obj, const char *topic, void *data, uint16_
     
     sprintf(top_info_str, "%s %u°C", dashboard_info.location, dashboard_info.temp_val);
     gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
+}
+
+void update_dashbord_music_play(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+
+    gui_music_info_t *music_info = (gui_music_info_t *)data;
+    dashboard_info.music_status = music_info->music_status;
+    if (dashboard_info.music_status)
+    {
+        dashboard_info.music_duration = music_info->music_duration;
+        dashboard_info.music_play_time = music_info->music_play_time;
+#ifdef _HONEYGUI_SIMULATOR_
+        gui_img_set_src(music_cover, (void *)music_info->cover, IMG_SRC_FILESYS);
+#else
+    // gui_img_set_src(music_cover, (void *)music_info->cover, IMG_SRC_MEMADDR); // A8565 100*100
+#endif
+        gui_text_content_set(lbl_music, music_info->music_name, strlen(music_info->music_name));
+        gui_text_content_set(lbl_artist, music_info->artist_name, strlen(music_info->artist_name));
+        gui_scroll_text_content_set(lbl_lyrics, music_info->lyrics, strlen(music_info->lyrics));
+        // gui_log("music play: %s %s %s", music_info->music_name, music_info->artist_name, music_info->lyrics);
+    }
+}
+
+void update_dashbord_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    uint16_t odo_val = *((uint16_t *)data);
+    sprintf(odo_str + 4, "%dkm", odo_val);
+    gui_text_content_set(text_odo, odo_str, strlen(odo_str));
+}
+
+void update_dashbord_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+
+    uint16_t batt_val = *((uint16_t *)data);
+    sprintf(batt_str + 5, "%d%%", batt_val);
+    gui_text_content_set(text_battery, batt_str, strlen(batt_str));
+}
+
+void update_dashbord_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+{
+    GUI_UNUSED(obj);
+    GUI_UNUSED(topic);
+    GUI_UNUSED(data);
+    GUI_UNUSED(len);
+    gui_obj_stop_timer(GUI_BASE(map));
+
+#ifdef _HONEYGUI_SIMULATOR_
+    const void *img_data_array[13] =
+    {
+        "/resource/map/map_00.bin",
+        "/resource/map/map_01.bin",
+        "/resource/map/map_02.bin",
+        "/resource/map/map_03.bin",
+        "/resource/map/map_04.bin",
+        "/resource/map/map_05.bin",
+        "/resource/map/map_06.bin",
+        "/resource/map/map_07.bin",
+        "/resource/map/map_08.bin",
+        "/resource/map/map_09.bin",
+        "/resource/map/map_10.bin",
+        "/resource/map/map_11.bin",
+        "/resource/map/map_12.bin"
+    };
+    gui_img_set_src(map, img_data_array[*((uint8_t *)data)], IMG_SRC_FILESYS);
+#else
+    // TODO: update map data
+    // gui_img_set_src(map, data, IMG_SRC_MEMADDR); // 565 100*100
+#endif
 }
