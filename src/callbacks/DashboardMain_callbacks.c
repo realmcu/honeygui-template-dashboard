@@ -2075,20 +2075,23 @@ void turn_l_icon_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (turn_l_icon_timer_cnt > seg1_start && turn_l_icon_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/Turnleft_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnleft_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: 300ms, 1 action(s)
     else if (turn_l_icon_timer_cnt > seg2_start && turn_l_icon_timer_cnt <= seg2_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/Turnleft_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnleft_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 4: 300ms, 1 action(s)
     else if (turn_l_icon_timer_cnt > seg3_start && turn_l_icon_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/Turnleft_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnleft_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 5: Wait 960ms
@@ -2097,20 +2100,23 @@ void turn_l_icon_timer_0_cb(void *obj)
     }
     // Segment 6: 300ms, 1 action(s)
     else if (turn_l_icon_timer_cnt > seg5_start && turn_l_icon_timer_cnt <= seg5_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/Turnleft_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnleft_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 7: 300ms, 1 action(s)
     else if (turn_l_icon_timer_cnt > seg6_start && turn_l_icon_timer_cnt <= seg6_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/Turnleft_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnleft_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 8: 300ms, 1 action(s)
     else if (turn_l_icon_timer_cnt > seg7_start && turn_l_icon_timer_cnt <= seg7_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/Turnleft_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnleft_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2157,20 +2163,23 @@ void turn_r_icon_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (turn_r_icon_timer_cnt > seg1_start && turn_r_icon_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/Turnright_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnright_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: 300ms, 1 action(s)
     else if (turn_r_icon_timer_cnt > seg2_start && turn_r_icon_timer_cnt <= seg2_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/Turnright_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnright_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 4: 300ms, 1 action(s)
     else if (turn_r_icon_timer_cnt > seg3_start && turn_r_icon_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/Turnright_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnright_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 5: Wait 960ms
@@ -2179,20 +2188,23 @@ void turn_r_icon_timer_0_cb(void *obj)
     }
     // Segment 6: 300ms, 1 action(s)
     else if (turn_r_icon_timer_cnt > seg5_start && turn_r_icon_timer_cnt <= seg5_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/Turnright_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnright_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 7: 300ms, 1 action(s)
     else if (turn_r_icon_timer_cnt > seg6_start && turn_r_icon_timer_cnt <= seg6_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/Turnright_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnright_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 8: 300ms, 1 action(s)
     else if (turn_r_icon_timer_cnt > seg7_start && turn_r_icon_timer_cnt <= seg7_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/Turnright_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/Turnright_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2231,8 +2243,9 @@ void led_0_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (led_0_timer_cnt > seg1_start && led_0_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/LED0_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED0_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: Wait 960ms
@@ -2241,8 +2254,9 @@ void led_0_timer_0_cb(void *obj)
     }
     // Segment 4: 300ms, 1 action(s)
     else if (led_0_timer_cnt > seg3_start && led_0_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/LED0_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED0_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2281,8 +2295,9 @@ void led_1_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (led_1_timer_cnt > seg1_start && led_1_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/LED1_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED1_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: Wait 1560ms
@@ -2291,8 +2306,9 @@ void led_1_timer_0_cb(void *obj)
     }
     // Segment 4: 300ms, 1 action(s)
     else if (led_1_timer_cnt > seg3_start && led_1_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/LED1_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED1_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2331,8 +2347,9 @@ void led_2_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (led_2_timer_cnt > seg1_start && led_2_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFF10995E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFF10995E);
+            // Change image: /resource/LED2_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED2_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: Wait 2160ms
@@ -2341,8 +2358,9 @@ void led_2_timer_0_cb(void *obj)
     }
     // Segment 4: 300ms, 1 action(s)
     else if (led_2_timer_cnt > seg3_start && led_2_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/LED2_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED2_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2381,8 +2399,9 @@ void led_3_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (led_3_timer_cnt > seg1_start && led_3_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFFFFB53E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFB53E);
+            // Change image: /resource/LED3_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED3_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: Wait 960ms
@@ -2391,8 +2410,9 @@ void led_3_timer_0_cb(void *obj)
     }
     // Segment 4: 300ms, 1 action(s)
     else if (led_3_timer_cnt > seg3_start && led_3_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/LED3_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED3_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2431,8 +2451,9 @@ void led_4_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (led_4_timer_cnt > seg1_start && led_4_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFFFFB53E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFB53E);
+            // Change image: /resource/LED4_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED4_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: Wait 1560ms
@@ -2441,8 +2462,9 @@ void led_4_timer_0_cb(void *obj)
     }
     // Segment 4: 300ms, 1 action(s)
     else if (led_4_timer_cnt > seg3_start && led_4_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/LED4_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED4_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     
@@ -2481,8 +2503,9 @@ void led_5_timer_0_cb(void *obj)
     }
     // Segment 2: 300ms, 1 action(s)
     else if (led_5_timer_cnt > seg1_start && led_5_timer_cnt <= seg1_end) {
-            // Set foreground color: 0xFFFFB53E
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFB53E);
+            // Change image: /resource/LED5_on.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED5_on.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     // Segment 3: Wait 2160ms
@@ -2491,8 +2514,9 @@ void led_5_timer_0_cb(void *obj)
     }
     // Segment 4: 300ms, 1 action(s)
     else if (led_5_timer_cnt > seg3_start && led_5_timer_cnt <= seg3_end) {
-            // Set foreground color: 0xFFFFFFFF
-            gui_img_a8_recolor((gui_img_t *)target, 0xFFFFFFFF);
+            // Change image: /resource/LED5_off.bin
+            gui_img_set_src((gui_img_t *)target, (const uint8_t *)"/resource/LED5_off.bin", IMG_SRC_FILESYS);
+            gui_img_refresh_size((gui_img_t *)target);
             
     }
     

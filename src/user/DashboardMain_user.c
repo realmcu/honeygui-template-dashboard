@@ -617,12 +617,16 @@ void update_dashbord_led0(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
     dashboard_info.led0_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
+    void *img_data = NULL;
     if (dashboard_info.led0_status)
     {
-        color = 0xFF10995E;
+        img_data = "/resource/LED0_on.bin";
     }
-    gui_img_a8_recolor(led_0, color);
+    else
+    {
+        img_data = "/resource/LED0_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)led_0, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led1(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -633,12 +637,16 @@ void update_dashbord_led1(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
     dashboard_info.led1_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
-    if (dashboard_info.led1_status)
+    void *img_data = NULL;
+    if (dashboard_info.led0_status)
     {
-        color = 0xFF10995E;
+        img_data = "/resource/LED1_on.bin";
     }
-    gui_img_a8_recolor(led_1, color);
+    else
+    {
+        img_data = "/resource/LED1_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)led_1, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led2(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -649,12 +657,16 @@ void update_dashbord_led2(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
     dashboard_info.led2_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
+    void *img_data = NULL;
     if (dashboard_info.led2_status)
     {
-        color = 0xFF10995E;
+        img_data = "/resource/LED2_on.bin";
     }
-    gui_img_a8_recolor(led_2, color);
+    else
+    {
+        img_data = "/resource/LED2_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)led_2, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led3(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -665,12 +677,16 @@ void update_dashbord_led3(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
     dashboard_info.led3_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
+    void *img_data = NULL;
     if (dashboard_info.led3_status)
     {
-        color = 0xFFFFB53E;
+        img_data = "/resource/LED3_on.bin";
     }
-    gui_img_a8_recolor(led_3, color);
+    else
+    {
+        img_data = "/resource/LED3_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)led_3, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led4(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -681,12 +697,16 @@ void update_dashbord_led4(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
     dashboard_info.led4_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
+    void *img_data = NULL;
     if (dashboard_info.led4_status)
     {
-        color = 0xFFFFB53E;
+        img_data = "/resource/LED4_on.bin";
     }
-    gui_img_a8_recolor(led_4, color);
+    else
+    {
+        img_data = "/resource/LED4_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)led_4, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led5(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -697,12 +717,16 @@ void update_dashbord_led5(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
     dashboard_info.led5_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
+    void *img_data = NULL;
     if (dashboard_info.led5_status)
     {
-        color = 0xFFFFB53E;
+        img_data = "/resource/LED5_on.bin";
     }
-    gui_img_a8_recolor(led_5, color);
+    else
+    {
+        img_data = "/resource/LED5_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)led_5, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led_turn_l(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -713,12 +737,16 @@ void update_dashbord_led_turn_l(gui_obj_t *obj, const char *topic, void *data, u
     GUI_UNUSED(len);
 
     dashboard_info.led_turn_l_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
+    void *img_data = NULL;
     if (dashboard_info.led_turn_l_status)
     {
-        color = 0xFF10995E;
+        img_data = "/resource/Turnleft_on.bin";
     }
-    gui_img_a8_recolor(turn_l_icon, color);
+    else
+    {
+        img_data = "/resource/Turnleft_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)turn_l_icon, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_led_turn_r(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -729,12 +757,16 @@ void update_dashbord_led_turn_r(gui_obj_t *obj, const char *topic, void *data, u
     GUI_UNUSED(len);
 
     dashboard_info.led_turn_r_status = *(bool *)data;
-    uint32_t color = 0xFFFFFFFF;
-    if (dashboard_info.led_turn_r_status)
+    void *img_data = NULL;
+    if (dashboard_info.led_turn_l_status)
     {
-        color = 0xFF10995E;
+        img_data = "/resource/Turnright_on.bin";
     }
-    gui_img_a8_recolor(turn_r_icon, color);
+    else
+    {
+        img_data = "/resource/Turnright_off.bin";
+    }
+    gui_img_set_src((gui_img_t *)turn_r_icon, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
 void update_dashbord_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -750,7 +782,7 @@ void update_dashbord_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t 
     {
         opacity = 255;
     }
-    gui_img_a8_mix_alpha(bt_icon, opacity);
+    gui_img_set_opacity(bt_icon, opacity);
 }
 
 void update_dashbord_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
@@ -766,7 +798,7 @@ void update_dashbord_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_
     {
         opacity = 255;
     }
-    gui_img_a8_mix_alpha(wifi_icon, opacity);
+    gui_img_set_opacity(wifi_icon, opacity);
 }
 
 void update_dashbord_volume(gui_obj_t *obj, const char *topic, void *data, uint16_t len)

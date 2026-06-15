@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-06-15T09:21:48.020Z
+ * Generated at: 2026-06-15T11:36:38.750Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -117,18 +117,12 @@ static void app_list_note_design(gui_obj_t *obj, void *param)
         gui_text_mode_set((gui_text_t *)text_app_name_2, MID_LEFT);
         // Create interval_line_1 (hg_image)
         interval_line_1 = gui_img_create_from_fs((gui_obj_t *)note, "interval_line_1", "/resource/func/interval_line.bin", 40, 90, 420, 3);
-        gui_img_set_mode((gui_img_t *)interval_line_1, IMG_2D_SW_FIX_A8_FG);
-        gui_img_a8_recolor((gui_img_t *)interval_line_1, 0xFFFFFFFF);
         gui_obj_show((gui_obj_t *)interval_line_1, true);
         // Create interval_line_2 (hg_image)
         interval_line_2 = gui_img_create_from_fs((gui_obj_t *)note, "interval_line_2", "/resource/func/interval_line.bin", 40, 180, 420, 3);
-        gui_img_set_mode((gui_img_t *)interval_line_2, IMG_2D_SW_FIX_A8_FG);
-        gui_img_a8_recolor((gui_img_t *)interval_line_2, 0xFFFFFFFF);
         gui_obj_show((gui_obj_t *)interval_line_2, true);
         // Create arrow_down (hg_image)
         arrow_down = gui_img_create_from_fs((gui_obj_t *)note, "arrow_down", "/resource/func/arrow_down.bin", 460, 244, 31, 16);
-        gui_img_set_mode((gui_img_t *)arrow_down, IMG_2D_SW_FIX_A8_FG);
-        gui_img_a8_recolor((gui_img_t *)arrow_down, 0xFFFFFFFF);
         gui_obj_show((gui_obj_t *)arrow_down, true);
         break;
     }
@@ -151,18 +145,12 @@ static void app_list_note_design(gui_obj_t *obj, void *param)
         gui_text_mode_set((gui_text_t *)text_app_name_5, MID_LEFT);
         // Create interval_line_3 (hg_image)
         interval_line_3 = gui_img_create_from_fs((gui_obj_t *)note, "interval_line_3", "/resource/func/interval_line.bin", 40, 90, 420, 3);
-        gui_img_set_mode((gui_img_t *)interval_line_3, IMG_2D_SW_FIX_A8_FG);
-        gui_img_a8_recolor((gui_img_t *)interval_line_3, 0xFFFFFFFF);
         gui_obj_show((gui_obj_t *)interval_line_3, true);
         // Create interval_line_4 (hg_image)
         interval_line_4 = gui_img_create_from_fs((gui_obj_t *)note, "interval_line_4", "/resource/func/interval_line.bin", 40, 180, 420, 3);
-        gui_img_set_mode((gui_img_t *)interval_line_4, IMG_2D_SW_FIX_A8_FG);
-        gui_img_a8_recolor((gui_img_t *)interval_line_4, 0xFFFFFFFF);
         gui_obj_show((gui_obj_t *)interval_line_4, true);
         // Create arrow_up (hg_image)
         arrow_up = gui_img_create_from_fs((gui_obj_t *)note, "arrow_up", "/resource/func/arrow_up.bin", 460, 22, 31, 16);
-        gui_img_set_mode((gui_img_t *)arrow_up, IMG_2D_SW_FIX_A8_FG);
-        gui_img_a8_recolor((gui_img_t *)arrow_up, 0xFFFFFFFF);
         gui_obj_show((gui_obj_t *)arrow_up, true);
         break;
     }
@@ -228,8 +216,6 @@ static void dashboardMainView_switch_in(gui_view_t *view)
 
     // Create gloom (hg_image)
     gloom = gui_img_create_from_fs((gui_obj_t *)view, "gloom", "/resource/StartEngineGloom.bin", 80, 58, 640, 364);
-    gui_img_set_mode((gui_img_t *)gloom, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)gloom, 0xFF01BFFE);
     gui_img_set_opacity((gui_img_t *)gloom, 0);
     gui_obj_show((gui_obj_t *)gloom, true);
 
@@ -241,8 +227,6 @@ static void dashboardMainView_switch_in(gui_view_t *view)
 
     // Create shadow (hg_image)
     shadow = gui_img_create_from_fs((gui_obj_t *)view, "shadow", "/resource/Start_Engine_Release.bin", 348, 187, 105, 105);
-    gui_img_set_mode((gui_img_t *)shadow, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)shadow, 0xFF01b8f6);
     gui_obj_show((gui_obj_t *)shadow, true);
 }
 GUI_VIEW_INSTANCE("dashboardMainView", false, dashboardMainView_switch_in, dashboardMainView_switch_out, false);
@@ -302,8 +286,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create tab_hightlight (hg_image)
     tab_hightlight = gui_img_create_from_fs(win_app_list, "tab_hightlight", "/resource/func/tab_highlight.bin", 32, 0, 420, 94);
-    gui_img_set_mode((gui_img_t *)tab_hightlight, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)tab_hightlight, 0xFF1BADDE);
     gui_obj_show((gui_obj_t *)tab_hightlight, true);
     // Bind timer: pos update
     gui_obj_create_timer((gui_obj_t *)tab_hightlight, 20, true, tab_hightlight_timer_0_cb);
@@ -372,8 +354,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create dail_pointer_s (hg_image)
     dail_pointer_s = gui_img_create_from_fs(win_dail, "dail_pointer_s", "/resource/dail_pointer.bin", 184, 342, 4, 25);
-    gui_img_set_mode((gui_img_t *)dail_pointer_s, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)dail_pointer_s, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)dail_pointer_s, IMG_BYPASS_MODE);
     gui_img_set_quality((gui_img_t *)dail_pointer_s, true);
     gui_img_translate((gui_img_t *)dail_pointer_s, 4.0f, -130.0f);
     gui_img_set_focus((gui_img_t *)dail_pointer_s, 2.0f, -65.0f);
@@ -398,8 +379,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create dail_pointer_p (hg_image)
     dail_pointer_p = gui_img_create_from_fs(win_dail, "dail_pointer_p", "/resource/dail_pointer.bin", 611, 342, 4, 25);
-    gui_img_set_mode((gui_img_t *)dail_pointer_p, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)dail_pointer_p, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)dail_pointer_p, IMG_BYPASS_MODE);
     gui_img_set_quality((gui_img_t *)dail_pointer_p, true);
     gui_img_translate((gui_img_t *)dail_pointer_p, 4.0f, -130.0f);
     gui_img_set_focus((gui_img_t *)dail_pointer_p, 2.0f, -65.0f);
@@ -420,8 +400,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create connect_line (hg_image)
     connect_line = gui_img_create_from_fs(win_dail, "connect_line", "/resource/connect_line.bin", 335, 149, 133, 1);
-    gui_img_set_mode((gui_img_t *)connect_line, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)connect_line, 0xFF0BB0B5);
+    gui_img_set_mode((gui_img_t *)connect_line, IMG_BYPASS_MODE);
     gui_obj_show((gui_obj_t *)connect_line, true);
 
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_dail), "speed", win_dail_msg_cb_0);
@@ -437,8 +416,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create turn_l_icon (hg_image)
     turn_l_icon = gui_img_create_from_fs(win_common, "turn_l_icon", "/resource/Turnleft_off.bin", 20, 64, 35, 19);
-    gui_img_set_mode((gui_img_t *)turn_l_icon, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)turn_l_icon, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)turn_l_icon, IMG_BYPASS_MODE);
     gui_obj_show((gui_obj_t *)turn_l_icon, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)turn_l_icon, 30, true, turn_l_icon_timer_0_cb);
@@ -446,8 +424,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create turn_r_icon (hg_image)
     turn_r_icon = gui_img_create_from_fs(win_common, "turn_r_icon", "/resource/Turnright_off.bin", 745, 64, 35, 19);
-    gui_img_set_mode((gui_img_t *)turn_r_icon, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)turn_r_icon, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)turn_r_icon, IMG_BYPASS_MODE);
     gui_obj_show((gui_obj_t *)turn_r_icon, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)turn_r_icon, 30, true, turn_r_icon_timer_0_cb);
@@ -455,15 +432,13 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create bt_icon (hg_image)
     bt_icon = gui_img_create_from_fs(win_common, "bt_icon", "/resource/bt.bin", 294, 52, 14, 20);
-    gui_img_set_mode((gui_img_t *)bt_icon, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)bt_icon, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)bt_icon, IMG_BYPASS_MODE);
     gui_img_set_opacity((gui_img_t *)bt_icon, 122);
     gui_obj_show((gui_obj_t *)bt_icon, true);
 
     // Create wifi_icon (hg_image)
     wifi_icon = gui_img_create_from_fs(win_common, "wifi_icon", "/resource/wifi.bin", 478, 52, 28, 20);
-    gui_img_set_mode((gui_img_t *)wifi_icon, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)wifi_icon, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)wifi_icon, IMG_BYPASS_MODE);
     gui_img_set_opacity((gui_img_t *)wifi_icon, 122);
     gui_obj_show((gui_obj_t *)wifi_icon, true);
 
@@ -483,8 +458,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create led_0 (hg_image)
     led_0 = gui_img_create_from_fs(win_common, "led_0", "/resource/LED0_off.bin", 85, 360, 27, 27);
-    gui_img_set_mode((gui_img_t *)led_0, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)led_0, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)led_0, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)led_0, 30, true, led_0_timer_0_cb);
@@ -492,8 +465,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create led_1 (hg_image)
     led_1 = gui_img_create_from_fs(win_common, "led_1", "/resource/LED1_off.bin", 65, 400, 27, 27);
-    gui_img_set_mode((gui_img_t *)led_1, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)led_1, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)led_1, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)led_1, 30, true, led_1_timer_0_cb);
@@ -501,8 +472,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create led_2 (hg_image)
     led_2 = gui_img_create_from_fs(win_common, "led_2", "/resource/LED2_off.bin", 45, 440, 27, 27);
-    gui_img_set_mode((gui_img_t *)led_2, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)led_2, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)led_2, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)led_2, 30, true, led_2_timer_0_cb);
@@ -510,8 +479,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create led_3 (hg_image)
     led_3 = gui_img_create_from_fs(win_common, "led_3", "/resource/LED3_off.bin", 690, 360, 27, 27);
-    gui_img_set_mode((gui_img_t *)led_3, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)led_3, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)led_3, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)led_3, 30, true, led_3_timer_0_cb);
@@ -519,8 +486,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create led_4 (hg_image)
     led_4 = gui_img_create_from_fs(win_common, "led_4", "/resource/LED4_off.bin", 710, 400, 27, 27);
-    gui_img_set_mode((gui_img_t *)led_4, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)led_4, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)led_4, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)led_4, 30, true, led_4_timer_0_cb);
@@ -528,8 +493,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create led_5 (hg_image)
     led_5 = gui_img_create_from_fs(win_common, "led_5", "/resource/LED5_off.bin", 730, 440, 26, 27);
-    gui_img_set_mode((gui_img_t *)led_5, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)led_5, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)led_5, true);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)led_5, 30, true, led_5_timer_0_cb);
@@ -559,8 +522,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create line (hg_image)
     line = gui_img_create_from_fs(win_speed_text, "line", "/resource/dividing_line.bin", 96, 168, 101, 2);
-    gui_img_set_mode((gui_img_t *)line, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)line, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)line, IMG_BYPASS_MODE);
     gui_obj_show((gui_obj_t *)line, true);
 
     // Create text_odo (hg_label)
@@ -595,8 +557,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create line_copy_1768894235876_3 (hg_image)
     line_copy_1768894235876_3 = gui_img_create_from_fs(win_power_text, "line_copy_1768894235876_3", "/resource/dividing_line.bin", 96, 168, 101, 2);
-    gui_img_set_mode((gui_img_t *)line_copy_1768894235876_3, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)line_copy_1768894235876_3, 0xFFFFFFFF);
+    gui_img_set_mode((gui_img_t *)line_copy_1768894235876_3, IMG_BYPASS_MODE);
     gui_obj_show((gui_obj_t *)line_copy_1768894235876_3, true);
 
     // Create text_battery (hg_label)
@@ -632,8 +593,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create volume_icon (hg_image)
     volume_icon = gui_img_create_from_fs(win_volume, "volume_icon", "/resource/volume_icon.bin", 14, 10, 39, 31);
-    gui_img_set_mode((gui_img_t *)volume_icon, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)volume_icon, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)volume_icon, true);
 
     // Create lbl_volume (hg_label)
@@ -660,14 +619,10 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create music_board (hg_image)
     music_board = gui_img_create_from_fs(win_music, "music_board", "/resource/music/music_board.bin", 306, 370, 312, 100);
-    gui_img_set_mode((gui_img_t *)music_board, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)music_board, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)music_board, true);
 
     // Create playbar_bg (hg_image)
     playbar_bg = gui_img_create_from_fs(win_music, "playbar_bg", "/resource/music/playbar.bin", 337, 458, 250, 6);
-    gui_img_set_mode((gui_img_t *)playbar_bg, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)playbar_bg, 0xFFFFFFFF);
     gui_obj_show((gui_obj_t *)playbar_bg, true);
 
     // Create win_playbar (hg_window)
@@ -676,9 +631,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
 
     // Create playbar (hg_image)
-    playbar = gui_img_create_from_fs(win_playbar, "playbar", "/resource/music/playbar.bin", 0, 2, 250, 6);
-    gui_img_set_mode((gui_img_t *)playbar, IMG_2D_SW_FIX_A8_FG);
-    gui_img_a8_recolor((gui_img_t *)playbar, 0xFF00DCE3);
+    playbar = gui_img_create_from_fs(win_playbar, "playbar", "/resource/music/playbar_on.bin", 0, 2, 250, 6);
     gui_obj_show((gui_obj_t *)playbar, true);
 
     // Create lbl_music (hg_label)
