@@ -2750,7 +2750,7 @@ void text_speed_timer_1_cb(void *obj)
 {
     GUI_UNUSED(obj);
     static uint16_t cnt = 0;
-    
+
     const uint16_t seg0_start = 0;
     const uint16_t seg0_end = 97;
     const uint16_t seg1_start = 97;
@@ -2761,9 +2761,9 @@ void text_speed_timer_1_cb(void *obj)
     const uint16_t seg3_end = 163;
     const uint16_t seg4_start = 163;
     const uint16_t seg4_end = 164;
-    
+
     cnt++;
-    
+
     if (cnt > seg0_start && cnt <= seg0_end) {
         // wait
         dashboard_info.speed_val = 0;
@@ -2805,7 +2805,7 @@ void text_power_timer_1_cb(void *obj)
 {
     GUI_UNUSED(obj);
     static uint16_t cnt = 0;
-    
+
     const uint16_t seg0_start = 0;
     const uint16_t seg0_end = 97;
     const uint16_t seg1_start = 97;
@@ -2816,9 +2816,9 @@ void text_power_timer_1_cb(void *obj)
     const uint16_t seg3_end = 163;
     const uint16_t seg4_start = 163;
     const uint16_t seg4_end = 164;
-    
+
     cnt++;
-    
+
     if (cnt > seg0_start && cnt <= seg0_end) {
         // wait
         dashboard_info.power_val = 0;
@@ -2857,18 +2857,9 @@ void text_time_timer_0_cb(void *obj)
     gui_text_content_set(obj, time_str, strlen(time_str));
 }
 
-void zoom_animation(gui_obj_t *obj, float scale)
+void fade_animation(gui_obj_t *obj, uint8_t opacity)
 {
-    matrix_translate(obj->w / 2, obj->h / 2, obj->matrix);
-    if (scale == 0)
-    {
-        matrix_scale(1.f, 1.f, obj->matrix);
-    }
-    else
-    {
-        matrix_scale(scale, scale, obj->matrix);
-    }
-    matrix_translate(obj->w / -2, obj->h / -2, obj->matrix);
+    obj->opacity_value = opacity;
 }
 
 void win_speed_text_timer_0_cb(void *obj)
@@ -2876,8 +2867,8 @@ void win_speed_text_timer_0_cb(void *obj)
     static uint16_t cnt = 0;
     uint16_t cnt_max = 50;
     cnt++;
-    float scale = (float)cnt / cnt_max;
-    zoom_animation(obj, scale);
+    uint8_t opacity = (uint8_t)((float)cnt / cnt_max * 255);
+    fade_animation(obj, opacity);
     if (cnt >= cnt_max)
     {
         cnt = 0;
@@ -2890,8 +2881,8 @@ void win_power_text_timer_0_cb(void *obj)
     static uint16_t cnt = 0;
     uint16_t cnt_max = 50;
     cnt++;
-    float scale = (float)cnt / cnt_max;
-    zoom_animation(obj, scale);
+    uint8_t opacity = (uint8_t)((float)cnt / cnt_max * 255);
+    fade_animation(obj, opacity);
     if (cnt >= cnt_max)
     {
         cnt = 0;

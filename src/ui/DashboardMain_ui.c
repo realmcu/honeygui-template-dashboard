@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-06-15T11:36:38.750Z
+ * Generated at: 2026-06-18T09:15:28.124Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -507,8 +507,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create text_speed (hg_label)
     text_speed = gui_text_create(win_speed_text, "text_speed", 0, 106, 294, 50);
-    gui_text_set((gui_text_t *)text_speed, "0", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 1, 40);
-    gui_text_type_set((gui_text_t *)text_speed, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
+    gui_text_set((gui_text_t *)text_speed, "0", GUI_FONT_SRC_BMP, gui_rgb(255, 255, 255), 1, 40);
+    gui_text_type_set((gui_text_t *)text_speed, "//HarmonyOS_Sans_Bold_size40_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_speed, CENTER);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)text_speed, 30, true, text_speed_timer_1_cb);
@@ -516,8 +516,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create text_speed_unit (hg_label)
     text_speed_unit = gui_text_create(win_speed_text, "text_speed_unit", 0, 141, 294, 30);
-    gui_text_set((gui_text_t *)text_speed_unit, "km/h", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 4, 26);
-    gui_text_type_set((gui_text_t *)text_speed_unit, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
+    gui_text_set((gui_text_t *)text_speed_unit, "km/h", GUI_FONT_SRC_BMP, gui_rgb(255, 255, 255), 4, 26);
+    gui_text_type_set((gui_text_t *)text_speed_unit, "//HarmonyOS_Sans_Bold_size26_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_speed_unit, CENTER);
 
     // Create line (hg_image)
@@ -527,8 +527,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create text_odo (hg_label)
     text_odo = gui_text_create(win_speed_text, "text_odo", 0, 177, 294, 20);
-    gui_text_set((gui_text_t *)text_odo, "ODO 300km", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 9, 16);
-    gui_text_type_set((gui_text_t *)text_odo, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
+    gui_text_set((gui_text_t *)text_odo, "ODO 300km", GUI_FONT_SRC_BMP, gui_rgb(255, 255, 255), 9, 16);
+    gui_text_type_set((gui_text_t *)text_odo, "//HarmonyOS_Sans_Bold_size16_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_odo, CENTER);
     // Bind timer: 动画 1
     gui_obj_create_timer((gui_obj_t *)text_odo, 1000, true, text_odo_timer_0_cb);
@@ -542,8 +542,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create text_power (hg_label)
     text_power = gui_text_create(win_power_text, "text_power", 0, 106, 294, 50);
-    gui_text_set((gui_text_t *)text_power, "0", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 1, 40);
-    gui_text_type_set((gui_text_t *)text_power, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
+    gui_text_set((gui_text_t *)text_power, "0", GUI_FONT_SRC_BMP, gui_rgb(255, 255, 255), 1, 40);
+    gui_text_type_set((gui_text_t *)text_power, "//HarmonyOS_Sans_Bold_size40_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_power, CENTER);
     // Bind timer: entrance
     gui_obj_create_timer((gui_obj_t *)text_power, 30, true, text_power_timer_1_cb);
@@ -551,8 +551,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create text_power_unit (hg_label)
     text_power_unit = gui_text_create(win_power_text, "text_power_unit", 0, 141, 294, 30);
-    gui_text_set((gui_text_t *)text_power_unit, "kW", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 2, 26);
-    gui_text_type_set((gui_text_t *)text_power_unit, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
+    gui_text_set((gui_text_t *)text_power_unit, "kW", GUI_FONT_SRC_BMP, gui_rgb(255, 255, 255), 2, 26);
+    gui_text_type_set((gui_text_t *)text_power_unit, "//HarmonyOS_Sans_Bold_size26_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_power_unit, CENTER);
 
     // Create line_copy_1768894235876_3 (hg_image)
@@ -562,8 +562,8 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create text_battery (hg_label)
     text_battery = gui_text_create(win_power_text, "text_battery", 0, 177, 294, 20);
-    gui_text_set((gui_text_t *)text_battery, "BATT 65%", GUI_FONT_SRC_TTF, gui_rgb(255, 255, 255), 8, 16);
-    gui_text_type_set((gui_text_t *)text_battery, "//HarmonyOS_Sans_Bold_vector.bin", FONT_SRC_FILESYS);
+    gui_text_set((gui_text_t *)text_battery, "BATT 65%", GUI_FONT_SRC_BMP, gui_rgb(255, 255, 255), 8, 16);
+    gui_text_type_set((gui_text_t *)text_battery, "//HarmonyOS_Sans_Bold_size16_bits4_bitmap.bin", FONT_SRC_FILESYS);
     gui_text_mode_set((gui_text_t *)text_battery, CENTER);
     // Bind timer: 动画 1
     gui_obj_create_timer((gui_obj_t *)text_battery, 1000, true, text_battery_timer_0_cb);

@@ -145,7 +145,7 @@ void text_speed_timer_1_cb(void *obj);
 void text_power_timer_0_cb(void *obj);
 void text_power_timer_1_cb(void *obj);
 void text_time_timer_0_cb(void *obj);
-void zoom_animation(gui_obj_t *obj, float scale);
+void fade_animation(gui_obj_t *obj, uint8_t opacity);
 void win_speed_text_timer_0_cb(void *obj);
 void win_power_text_timer_0_cb(void *obj);
 void tab_hightlight_timer_0_cb(void *obj);

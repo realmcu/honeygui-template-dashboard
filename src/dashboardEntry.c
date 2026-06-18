@@ -3,6 +3,10 @@
 #include "gui_components_init.h"
 #include "gui_vfs.h"
 
+/* @protected start entry_includes */
+// Add user includes here
+/* @protected end entry_includes */
+
 static int app_init(void)
 {
 #ifdef _HONEYGUI_SIMULATOR_
@@ -13,7 +17,16 @@ static int app_init(void)
     gui_vfs_mount_romfs("/", (void *)0x704D1000, 0);
 #endif
 
+    /* @protected start app_init_pre */
+    // Add user initialization code here (runs before the main view is created)
+    /* @protected end app_init_pre */
+
     gui_view_create(gui_obj_get_root(), "dashboardMainView", 0, 0, 0, 0);
+
+    /* @protected start app_init_post */
+    // Add user initialization code here (runs after the main view is created)
+    /* @protected end app_init_post */
+
     return 0;
 }
 
