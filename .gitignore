@@ -1,6 +1,10 @@
 # Compiled object files
 *.o
 
+# Generated Agent files
+.claude/
+AGENTS.md
+
 # Simulator-specific build infrastructure
 build/SConstruct
 build/main.c
