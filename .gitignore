@@ -1,5 +1,36 @@
-# Build files
-build/
-
-# Codegen output (regenerated every build)
+# Compiled object files
 *.o
+
+# Generated agents files
+.claude/
+AGENTS.md
+
+# Simulator-specific build infrastructure
+build/SConstruct
+build/main.c
+build/menu_config.py
+build/.config
+build/cconfig.h
+build/hgconfig.h
+build/honeygui_linux.lds
+build/honeygui_mingw.ld
+build/version.rc
+build/HoneyGUI.ico
+build/CMakeLists.txt
+build/config.cmake
+build/port/
+
+# Generated romfs files (binary is sufficient)
+build/app_romfs.c
+
+# Intermediate per-file converted assets (packed into app_romfs)
+build/assets/
+
+# Compile output
+build/build/
+build/.sconsign.dblite
+build/__pycache__/
+build/gui.exe
+build/gui
+build/gui.bin
+build/gui.map
