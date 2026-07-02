@@ -1,5 +1,12 @@
 # Build files
-build/
+build/*
+!build/SConscript
+!build/app_romfs.bin
+!build/ui_resource.h
 
 # Codegen output (regenerated every build)
 *.o
+
+# Claude AI assistant files
+.claude/
+AGENTS.md

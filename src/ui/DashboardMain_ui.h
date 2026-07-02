@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Definition (Auto-generated, do not modify manually)
- * Generated at: 2026-06-18T09:15:28.124Z
+ * Generated at: 2026-07-02T05:58:51.364Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
