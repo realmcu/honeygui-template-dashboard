@@ -259,12 +259,13 @@ void root_menu_msg_show_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     if (!menu_disp)
     {
         gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_1_cb);
         gui_obj_start_timer(GUI_BASE(root_menu));
         gui_obj_hidden(GUI_BASE(win_music), true);
+        gui_obj_hidden(GUI_BASE(win_map), true);
         menu_disp = true;
     }
     else
@@ -298,7 +299,7 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show || !menu_disp) return;
+    if (GUI_BASE(obj)->hidden || !menu_disp) return;
     
     switch (menu_func_index)
     {
@@ -346,7 +347,7 @@ void root_menu_msg_hide_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     if (menu_disp)
     {
         gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_2_cb);
@@ -359,7 +360,7 @@ void root_menu_msg_left_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     if (menu_disp)
     {
         void *cb = NULL;
@@ -391,7 +392,7 @@ void root_menu_msg_right_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     if (menu_disp)
     {
         void *cb = NULL;
@@ -423,7 +424,7 @@ void win_app_list_msg_enter_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     if (app_index == 3)
     {
         gui_obj_create_timer(GUI_BASE(win_app_weather), 10, true, win_app_weather_timer_0_cb);
@@ -442,7 +443,7 @@ void win_app_list_msg_exit_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     app_index = 0;
     gui_obj_create_timer(GUI_BASE(win_func), 10, true, win_func_timer_1_cb);
     gui_obj_start_timer(GUI_BASE(win_func));
@@ -466,7 +467,7 @@ void win_app_list_msg_last_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     if (app_index == 0) return;
     app_index--;
     if (app_index == 2)
@@ -480,7 +481,7 @@ void win_app_list_msg_next_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     app_index++;
     if (app_index == 3)
     {
@@ -499,7 +500,7 @@ void win_app_developing_msg_exit_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     gui_obj_create_timer(GUI_BASE(win_app_list), 10, true, win_app_list_timer_0_cb);
     gui_obj_start_timer(GUI_BASE(win_app_list));
     gui_obj_create_timer(GUI_BASE(win_app_developing), 10, true, win_app_developing_timer_1_cb);
@@ -510,7 +511,7 @@ void win_app_weather_msg_next_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     weather_note_index++;
     weather_note_index %= 2;
     gui_obj_create_timer(GUI_BASE(list_weather), 10, true, list_weather_timer_0_cb);
@@ -521,7 +522,7 @@ void win_app_weather_msg_exit_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->not_show) return;
+    if (GUI_BASE(obj)->hidden) return;
     gui_obj_create_timer(GUI_BASE(win_app_list), 10, true, win_app_list_timer_0_cb);
     gui_obj_start_timer(GUI_BASE(win_app_list));
     gui_obj_create_timer(GUI_BASE(win_app_weather), 10, true, win_app_weather_timer_1_cb);

@@ -9,153 +9,169 @@
   },
   "items": {
     "resource/bt.png": {
-      "compression": "rle",
+      "compression": "inherit",
       "format": "RGB565"
     },
     "resource/LeftBottomGloomV1.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/RightBottomGloomV1.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/wifi.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/func/arrow_down.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/func/arrow_up.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/func/interval_line.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/func/tab_highlight.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/arrow_direct.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/Arrow_left.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/Arrow_right.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/dail_pointer.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/dividing_line.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/LED0_off.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED0_on.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED1_off.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED1_on.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED2_off.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED2_on.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED3_off.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED3_on.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED4_off.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED4_on.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED5_off.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/LED5_on.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/Start_Engine_Release.png": {
       "format": "ARGB8565",
-      "compression": "rle"
+      "compression": "none"
     },
     "resource/Turnleft_off.png": {
       "format": "inherit",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/Turnleft_on.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/Turnright_off.png": {
       "format": "inherit",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/Turnright_on.png": {
       "format": "RGB565",
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource": {
-      "compression": "rle"
+      "compression": "jpeg",
+      "jpegParams": {
+        "sampling": "YUV420",
+        "quality": 5,
+        "backgroundColor": "black"
+      }
     },
     "resource/StartEngineGloom.png": {
       "format": "inherit",
       "dither": false,
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/map": {
-      "compression": "rle"
+      "compression": "jpeg",
+      "jpegParams": {
+        "sampling": "YUV420",
+        "quality": 5,
+        "backgroundColor": "black"
+      }
     },
     "resource/func": {
-      "compression": "rle"
+      "compression": "inherit"
     },
     "resource/menu": {
-      "compression": "rle",
+      "compression": "inherit",
       "format": "ARGB8565"
     },
     "resource/power_arc": {
-      "compression": "rle",
+      "compression": "none",
       "format": "ARGB8565"
     },
     "resource/speed_arc": {
-      "compression": "rle",
+      "compression": "none",
       "format": "ARGB8565"
     },
     "resource/dail_power.png": {
-      "format": "ARGB8565"
+      "format": "ARGB8565",
+      "compression": "jpeg",
+      "jpegParams": {
+        "sampling": "YUV420",
+        "quality": 5,
+        "backgroundColor": "black"
+      }
     },
     "resource/dail_speed.png": {
       "format": "ARGB8565"
@@ -174,6 +190,10 @@
     },
     "resource/music/playbar_on.png": {
       "format": "RGB565"
+    },
+    "resource/StartEngine.png": {
+      "format": "ARGB8565",
+      "compression": "none"
     }
   },
   "alwaysConvert": {
