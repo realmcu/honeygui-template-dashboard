@@ -374,7 +374,7 @@ void win_map_timer_0_cb(void *obj)
     // Segment 1: 6000ms, 1 action(s)
     if (win_map_timer_cnt > seg0_start && win_map_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
     }
     
@@ -404,7 +404,7 @@ void win_map_timer_1_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_map_timer_cnt > seg0_start && win_map_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
     }
     
@@ -434,7 +434,7 @@ void win_map_timer_2_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_map_timer_cnt > seg0_start && win_map_timer_cnt <= seg0_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
@@ -547,7 +547,7 @@ void win_func_timer_0_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_func_timer_cnt > seg0_start && win_func_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
     }
     
@@ -577,7 +577,7 @@ void win_func_timer_1_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_func_timer_cnt > seg0_start && win_func_timer_cnt <= seg0_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
@@ -607,7 +607,7 @@ void win_app_list_timer_0_cb(void *obj)
     // Segment 1: 10ms, 2 action(s)
     if (win_app_list_timer_cnt > seg0_start && win_app_list_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
             // Set focus
             gui_obj_focus_set(target);
@@ -640,7 +640,7 @@ void win_app_list_timer_1_cb(void *obj)
     // Segment 1: 10ms, 1 action(s)
     if (win_app_list_timer_cnt > seg0_start && win_app_list_timer_cnt <= seg0_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
@@ -670,7 +670,7 @@ void win_app_weather_timer_0_cb(void *obj)
     // Segment 1: 20ms, 2 action(s)
     if (win_app_weather_timer_cnt > seg0_start && win_app_weather_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
             // Set focus
             gui_obj_focus_set(target);
@@ -703,7 +703,7 @@ void win_app_weather_timer_1_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_app_weather_timer_cnt > seg0_start && win_app_weather_timer_cnt <= seg0_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
@@ -733,7 +733,7 @@ void win_app_developing_timer_0_cb(void *obj)
     // Segment 1: 20ms, 2 action(s)
     if (win_app_developing_timer_cnt > seg0_start && win_app_developing_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
             // Set focus
             gui_obj_focus_set(target);
@@ -766,7 +766,7 @@ void win_app_developing_timer_1_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_app_developing_timer_cnt > seg0_start && win_app_developing_timer_cnt <= seg0_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
@@ -1448,7 +1448,7 @@ void win_dail_timer_1_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_dail_timer_cnt > seg0_start && win_dail_timer_cnt <= seg0_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
     }
     
@@ -1478,7 +1478,7 @@ void win_dail_timer_2_cb(void *obj)
     // Segment 1: 20ms, 1 action(s)
     if (win_dail_timer_cnt > seg0_start && win_dail_timer_cnt <= seg0_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
@@ -2028,7 +2028,7 @@ void win_common_timer_0_cb(void *obj)
     // Segment 2: 20ms, 1 action(s)
     else if (win_common_timer_cnt > seg1_start && win_common_timer_cnt <= seg1_end) {
             // Set visibility: show
-            gui_obj_show(target, true);
+            gui_obj_hidden(target, false);
             
     }
     
@@ -2708,7 +2708,7 @@ void win_volume_timer_0_cb(void *obj)
     // Segment 2: 1000ms, 1 action(s)
     else if (win_volume_timer_cnt > seg1_start && win_volume_timer_cnt <= seg1_end) {
             // Set visibility: hide
-            gui_obj_show(target, false);
+            gui_obj_hidden(target, true);
             
     }
     
