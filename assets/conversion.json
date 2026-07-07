@@ -133,7 +133,8 @@
       "jpegParams": {
         "sampling": "YUV420",
         "quality": 5,
-        "backgroundColor": "black"
+        "backgroundColor": "black",
+        "align": true
       }
     },
     "resource/StartEngineGloom.png": {
@@ -142,12 +143,7 @@
       "compression": "inherit"
     },
     "resource/map": {
-      "compression": "jpeg",
-      "jpegParams": {
-        "sampling": "YUV420",
-        "quality": 5,
-        "backgroundColor": "black"
-      }
+      "compression": "inherit"
     },
     "resource/func": {
       "compression": "inherit"
