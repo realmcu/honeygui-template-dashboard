@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-07T03:05:33.859Z
+ * Generated at: 2026-07-08T02:27:36.024Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -332,7 +332,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create dail_pointer_s (hg_image)
     dail_pointer_s = gui_img_create_from_fs(win_dail, "dail_pointer_s", "/resource/dail_pointer.bin", 184, 342, 4, 25);
-    gui_img_set_mode((gui_img_t *)dail_pointer_s, IMG_BYPASS_MODE);
     gui_img_set_quality((gui_img_t *)dail_pointer_s, true);
     gui_img_translate((gui_img_t *)dail_pointer_s, 4.0f, -130.0f);
     gui_img_set_focus((gui_img_t *)dail_pointer_s, 2.0f, -65.0f);
@@ -352,7 +351,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create dail_pointer_p (hg_image)
     dail_pointer_p = gui_img_create_from_fs(win_dail, "dail_pointer_p", "/resource/dail_pointer.bin", 611, 342, 4, 25);
-    gui_img_set_mode((gui_img_t *)dail_pointer_p, IMG_BYPASS_MODE);
     gui_img_set_quality((gui_img_t *)dail_pointer_p, true);
     gui_img_translate((gui_img_t *)dail_pointer_p, 4.0f, -130.0f);
     gui_img_set_focus((gui_img_t *)dail_pointer_p, 2.0f, -65.0f);

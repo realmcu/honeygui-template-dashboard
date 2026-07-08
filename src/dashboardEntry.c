@@ -20,8 +20,6 @@ static int app_init(void)
     /* @protected start app_init_pre */
     // Add user initialization code here (runs before the main view is created)
     /* @protected end app_init_pre */
-    extern void gui_set_keep_active_time(uint32_t active_time);
-    gui_set_keep_active_time(0xFFFFFFFF);
 
     gui_view_create(gui_obj_get_root(), "dashboardMainView", 0, 0, 0, 0);
 

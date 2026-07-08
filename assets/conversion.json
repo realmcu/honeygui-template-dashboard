@@ -134,7 +134,9 @@
         "sampling": "YUV420",
         "quality": 5,
         "backgroundColor": "black",
-        "align": true
+        "align": true,
+        "minWidth": 48,
+        "minHeight": 48
       }
     },
     "resource/StartEngineGloom.png": {
