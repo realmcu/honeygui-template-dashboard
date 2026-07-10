@@ -7,6 +7,7 @@
 
 // Timer animation counters (defined in callbacks.c)
 extern uint16_t gloom_timer_cnt;
+extern uint16_t dashboard_view_timer_cnt;
 extern uint16_t win_map_timer_cnt;
 extern uint16_t map_timer_cnt;
 extern uint16_t win_func_timer_cnt;
@@ -41,14 +42,26 @@ extern uint16_t text_battery_timer_cnt;
 extern uint16_t win_volume_timer_cnt;
 extern uint16_t lbl_volume_timer_cnt;
 extern uint16_t win_music_timer_cnt;
+extern uint16_t win_carplay_timer_cnt;
+extern uint16_t carplay_time_timer_cnt;
+extern uint16_t carplay_speed_arc_timer_cnt;
+extern uint16_t win_music_bar_timer_cnt;
 
 // Event callback function declarations
+void carplay_view_key_0_cb(void *obj, gui_event_t *e);
 void dail_power_clicked_cb(void *obj, gui_event_t *e);
 void root_menu_key_cb(void *obj, gui_event_t *e);
 void start_engine_key_cb(void *obj, gui_event_t *e);
 void win_app_developing_key_0_cb(void *obj, gui_event_t *e);
 void win_app_list_key_0_cb(void *obj, gui_event_t *e);
 void win_app_weather_key_0_cb(void *obj, gui_event_t *e);
+void win_carplay_msg_cb_0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_carplay_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_carplay_msg_cb_2(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_carplay_msg_cb_3(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_carplay_msg_cb_4(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_carplay_msg_cb_5(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void win_carplay_msg_cb_6(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_10(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
@@ -71,9 +84,9 @@ void win_dail_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t l
 
 // User-configured timer callback function declarations
 void gloom_timer_0_cb(void *obj);
+void dashboard_entrance_timer_0_cb(void *obj);
 void win_map_timer_0_cb(void *obj);
 void win_map_timer_1_cb(void *obj);
-void win_map_timer_2_cb(void *obj);
 void map_timer_0_cb(void *obj);
 void map_timer_1_cb(void *obj);
 void win_func_timer_0_cb(void *obj);
@@ -104,13 +117,9 @@ void win_dail_timer_0_cb(void *obj);
 void win_dail_timer_1_cb(void *obj);
 void win_dail_timer_2_cb(void *obj);
 void speed_arc_timer_0_cb(void *obj);
-void speed_arc_timer_1_cb(void *obj);
 void dail_pointer_s_timer_0_cb(void *obj);
-void dail_pointer_s_timer_1_cb(void *obj);
 void power_arc_timer_0_cb(void *obj);
-void power_arc_timer_1_cb(void *obj);
 void dail_pointer_p_timer_0_cb(void *obj);
-void dail_pointer_p_timer_1_cb(void *obj);
 void win_common_timer_0_cb(void *obj);
 void turn_l_icon_timer_0_cb(void *obj);
 void turn_r_icon_timer_0_cb(void *obj);
@@ -136,6 +145,9 @@ void text_battery_timer_0_cb(void *obj);
 void win_volume_timer_0_cb(void *obj);
 void lbl_volume_timer_0_cb(void *obj);
 void win_music_timer_0_cb(void *obj);
+void carplay_entrance_timer_0_cb(void *obj);
+void carplay_speed_timer_0_cb(void *obj);
+void carplay_music_timer_0_cb(void *obj);
 
 // Custom function declarations (auto-extracted from callbacks.c protected area)
 void text_odo_timer_0_cb(void *obj);
@@ -154,5 +166,9 @@ void app_list_timer_1_cb(void *obj);
 void list_weather_timer_0_cb(void *obj);
 void lbl_volume_timer_0_cb(void *obj);
 void win_music_timer_0_cb(void *obj);
+void carplay_music_timer_0_cb(void *obj);
+void dashboard_entrance_timer_0_cb(void *obj);
+void carplay_speed_timer_0_cb(void *obj);
+void carplay_entrance_timer_0_cb(void *obj);
 
 #endif // DASHBOARDMAIN_CALLBACKS_H

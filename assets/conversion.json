@@ -178,20 +178,44 @@
       "format": "inherit"
     },
     "resource/music": {
-      "format": "ARGB8565"
+      "format": "ARGB8565",
+      "compression": "none"
     },
     "resource/music/music_board.png": {
-      "format": "ARGB8565"
+      "format": "ARGB8565",
+      "compression": "jpeg",
+      "jpegParams": {
+        "sampling": "YUV420",
+        "quality": 10,
+        "backgroundColor": "black",
+        "align": true,
+        "minWidth": 48,
+        "minHeight": 48
+      }
     },
     "resource/music/playbar.png": {
-      "format": "RGB565"
+      "format": "inherit"
     },
     "resource/music/playbar_on.png": {
-      "format": "RGB565"
+      "format": "inherit"
     },
     "resource/StartEngine.png": {
       "format": "ARGB8565",
       "compression": "none"
+    },
+    "resource/carplay": {
+      "jpegParams": {
+        "sampling": "YUV420",
+        "quality": 5,
+        "backgroundColor": "#e4e4e4",
+        "align": true,
+        "minWidth": 48,
+        "minHeight": 48
+      },
+      "compression": "jpeg"
+    },
+    "resource/carplay/carplay_map_00.png": {
+      "compression": "inherit"
     }
   },
   "alwaysConvert": {

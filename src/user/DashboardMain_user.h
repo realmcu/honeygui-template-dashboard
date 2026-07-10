@@ -53,6 +53,11 @@ typedef struct gui_dashboard
 
     char location[24];
 
+    char *music_name;
+    char *artist_name;
+    char *lyrics;
+    void *cover;
+
     // /* OTA data */
     // uint32_t ota_total_num;
     // uint32_t ota_current_num;
@@ -86,7 +91,7 @@ typedef struct gui_music_info
 extern gui_dashboard_t dashboard_info;
 extern char odo_str[12];
 extern char batt_str[12];
-
+extern bool menu_disp;
 
 
 /*------------------------------------------*/
@@ -106,25 +111,25 @@ void win_app_weather_msg_exit_cb(void *obj, gui_event_t *e);
 void win_app_developing_msg_exit_cb(void *obj, gui_event_t *e);
 
 
-void update_dashbord_power(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_speed(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led2(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led3(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led4(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led5(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led_turn_l(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_led_turn_r(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_volume(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_location(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_temp(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_music_play(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void update_dashbord_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_power(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_speed(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led2(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led3(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led4(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led5(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led_turn_l(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_led_turn_r(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_volume(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_location(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_temp(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_music_play(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
+void update_dashboard_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 
 
 
