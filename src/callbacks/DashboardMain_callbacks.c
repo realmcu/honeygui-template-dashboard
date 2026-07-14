@@ -2982,9 +2982,9 @@ void dashboard_entrance_timer_0_cb(void *obj)
     if (dashboard_info.cover != NULL)
     {
 #ifdef _HONEYGUI_SIMULATOR_
-        gui_img_set_src(music_cover, (void *)dashboard_info.cover, IMG_SRC_FILESYS);
+        gui_img_set_src(music_cover, (const uint8_t *)dashboard_info.cover, IMG_SRC_FILESYS);
 #else
-    // gui_img_set_src(music_cover, (void *)dashboard_info.cover, IMG_SRC_MEMADDR); // A8565 100*100
+    // gui_img_set_src(music_cover, (const uint8_t *)dashboard_info.cover, IMG_SRC_MEMADDR); // A8565 100*100
 #endif
         gui_text_content_set(lbl_music, dashboard_info.music_name, strlen(dashboard_info.music_name));
         gui_text_content_set(lbl_artist, dashboard_info.artist_name, strlen(dashboard_info.artist_name));
@@ -3042,11 +3042,11 @@ void carplay_entrance_timer_0_cb(void *obj)
         if (dashboard_info.cover != NULL)
         {
 #ifdef _HONEYGUI_SIMULATOR_
-            gui_img_set_src(carplay_music_cover, (void *)dashboard_info.cover, IMG_SRC_FILESYS);
+            gui_img_set_src(carplay_music_cover, (const uint8_t *)dashboard_info.cover, IMG_SRC_FILESYS);
 #else
-            gui_img_set_src(carplay_music_cover, (void *)dashboard_info.cover, IMG_SRC_MEMADDR); // A8565 100*100
+            gui_img_set_src(carplay_music_cover, (const uint8_t *)dashboard_info.cover, IMG_SRC_MEMADDR); // A8565 100*100
 #endif
-            gui_img_set_src(carplay_music_play, "/resource/carplay/icon_media_pause.bin", IMG_SRC_FILESYS);
+            gui_img_set_src(carplay_music_play, (const uint8_t *)"/resource/carplay/icon_media_pause.bin", IMG_SRC_FILESYS);
             gui_scroll_text_content_set(carplay_music_name, dashboard_info.music_name, strlen(dashboard_info.music_name));
             gui_scroll_text_content_set(carplay_music_artist, dashboard_info.artist_name, strlen(dashboard_info.artist_name));
             gui_scroll_text_content_set(carplay_music_lyrics, dashboard_info.lyrics, strlen(dashboard_info.lyrics));
@@ -3056,7 +3056,7 @@ void carplay_entrance_timer_0_cb(void *obj)
     {
         if (dashboard_info.cover != NULL)
         {
-            gui_img_set_src(carplay_music_play, "/resource/carplay/icon_media_play.bin", IMG_SRC_FILESYS);
+            gui_img_set_src(carplay_music_play, (const uint8_t *)"/resource/carplay/icon_media_play.bin", IMG_SRC_FILESYS);
         }
     }
     gui_obj_stop_timer(obj);
