@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-10T07:22:44.221Z
+ * Generated at: 2026-07-14T06:46:00.811Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -328,7 +328,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create root_menu (hg_image)
     root_menu = gui_img_create_from_fs((gui_obj_t *)view, "root_menu", "/resource/menu/menu_001.bin", 225, 481, 350, 190);
-    gui_img_set_mode((gui_img_t *)root_menu, IMG_SRC_OVER_MODE);
+    gui_img_set_mode((gui_img_t *)root_menu, IMG_BYPASS_MODE);
     // Bind timer: set focus
     gui_obj_create_timer((gui_obj_t *)root_menu, 10, true, root_menu_timer_11_cb);
     gui_obj_add_event_cb(root_menu, (gui_event_cb_t)root_menu_key_cb, GUI_EVENT_KB_SHORT_PRESSED, NULL);

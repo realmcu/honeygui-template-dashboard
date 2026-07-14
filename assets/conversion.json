@@ -53,8 +53,8 @@
       "compression": "inherit"
     },
     "resource/dail_pointer.png": {
-      "format": "RGB565",
-      "compression": "inherit"
+      "format": "ARGB8565",
+      "compression": "none"
     },
     "resource/dividing_line.png": {
       "format": "RGB565",
@@ -151,8 +151,16 @@
       "compression": "inherit"
     },
     "resource/menu": {
-      "compression": "inherit",
-      "format": "ARGB8565"
+      "compression": "jpeg",
+      "format": "ARGB8565",
+      "jpegParams": {
+        "sampling": "YUV420",
+        "quality": 5,
+        "backgroundColor": "black",
+        "align": true,
+        "minWidth": 48,
+        "minHeight": 48
+      }
     },
     "resource/power_arc": {
       "compression": "none",
