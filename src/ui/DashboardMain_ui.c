@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-07T03:33:26.617Z
+ * Generated at: 2026-07-16T11:32:39.234Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -11,7 +11,6 @@
 gui_img_t *gloom = NULL;
 gui_img_t *start_engine = NULL;
 gui_img_t *shadow = NULL;
-gui_win_t *win_map = NULL;
 gui_img_t *map = NULL;
 gui_win_t *win_func = NULL;
 gui_win_t *win_app_list = NULL;
@@ -81,6 +80,27 @@ gui_img_t *playbar = NULL;
 gui_text_t *lbl_music = NULL;
 gui_text_t *lbl_artist = NULL;
 gui_scroll_text_t *lbl_lyrics = NULL;
+gui_win_t *win_carplay = NULL;
+gui_img_t *carplay_app = NULL;
+gui_img_t *carplay_map = NULL;
+gui_scroll_text_t *carplay_music_name = NULL;
+gui_scroll_text_t *carplay_music_artist = NULL;
+gui_scroll_text_t *carplay_music_lyrics = NULL;
+gui_text_t *carplay_loc_temp = NULL;
+gui_text_t *carplay_time = NULL;
+gui_img_t *carplay_speed_arc = NULL;
+gui_text_t *carplay_speed = NULL;
+gui_text_t *lbl_1 = NULL;
+gui_text_t *carplay_odo = NULL;
+gui_text_t *carplay_bat = NULL;
+gui_img_t *img_4 = NULL;
+gui_img_t *carplay_music_cover = NULL;
+gui_img_t *carplay_musicbar_bg = NULL;
+gui_win_t *win_music_bar = NULL;
+gui_img_t *img_7 = NULL;
+gui_img_t *carplay_music_play = NULL;
+gui_img_t *carplay_music_next = NULL;
+gui_img_t *carplay_music_last = NULL;
 
 // List component note_design callback functions
 // note_design callback function declaration
@@ -253,23 +273,16 @@ static void dashboard_view_switch_in(gui_view_t *view)
     // Set background color
     gui_set_bg_color(gui_rgb(0, 0, 0));
 
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)view, 1000, false, dashboard_entrance_timer_0_cb);
+
     GUI_UNUSED(view);
 
 
-    // Create win_map (hg_window)
-    win_map = gui_win_create((gui_obj_t *)view, "win_map", 0, 0, 800, 480);
-    gui_obj_hidden((gui_obj_t *)win_map, true);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)win_map, 6000, false, win_map_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)win_map);
-
-
     // Create map (hg_image)
-    map = gui_img_create_from_fs(win_map, "map", "/resource/map/map_00.bin", 141, 198, 518, 282);
+    map = gui_img_create_from_fs((gui_obj_t *)view, "map", "/resource/map/map_00.bin", 141, 198, 518, 282);
     gui_img_set_mode((gui_img_t *)map, IMG_BYPASS_MODE);
-    // Bind timer: map array
-    gui_obj_create_timer((gui_obj_t *)map, 1000, true, map_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)map);
+    gui_obj_hidden((gui_obj_t *)map, true);
 
     // Create win_func (hg_window)
     win_func = gui_win_create((gui_obj_t *)view, "win_func", 150, 200, 500, 280);
@@ -327,7 +340,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create root_menu (hg_image)
     root_menu = gui_img_create_from_fs((gui_obj_t *)view, "root_menu", "/resource/menu/menu_001.bin", 225, 481, 350, 190);
-    gui_img_set_mode((gui_img_t *)root_menu, IMG_SRC_OVER_MODE);
+    gui_img_set_mode((gui_img_t *)root_menu, IMG_BYPASS_MODE);
     // Bind timer: set focus
     gui_obj_create_timer((gui_obj_t *)root_menu, 10, true, root_menu_timer_11_cb);
     gui_obj_add_event_cb(root_menu, (gui_event_cb_t)root_menu_key_cb, GUI_EVENT_KB_SHORT_PRESSED, NULL);
@@ -335,8 +348,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create win_dail (hg_window)
     win_dail = gui_win_create((gui_obj_t *)view, "win_dail", 0, 0, 800, 480);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)win_dail, 7, true, win_dail_timer_0_cb);
 
 
     // Create dail_speed (hg_image)
@@ -346,9 +357,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     // Create speed_arc (hg_image)
     speed_arc = gui_img_create_from_fs(win_dail, "speed_arc", "/resource/speed_arc/speed_arc_00.bin", 97, 120, 182, 182);
     gui_img_set_mode((gui_img_t *)speed_arc, IMG_SRC_OVER_MODE);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)speed_arc, 30, true, speed_arc_timer_1_cb);
-    gui_obj_start_timer((gui_obj_t *)speed_arc);
 
     // Create dail_pointer_s (hg_image)
     dail_pointer_s = gui_img_create_from_fs(win_dail, "dail_pointer_s", "/resource/dail_pointer.bin", 184, 342, 4, 25);
@@ -357,9 +365,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_img_set_quality((gui_img_t *)dail_pointer_s, true);
     gui_img_translate((gui_img_t *)dail_pointer_s, 4.0f, -130.0f);
     gui_img_set_focus((gui_img_t *)dail_pointer_s, 2.0f, -65.0f);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)dail_pointer_s, 30, true, dail_pointer_s_timer_1_cb);
-    gui_obj_start_timer((gui_obj_t *)dail_pointer_s);
 
     // Create dail_power (hg_image)
     dail_power = gui_img_create_from_fs(win_dail, "dail_power", "/resource/dail_power.bin", 467, 50, 308, 311);
@@ -369,9 +374,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     // Create power_arc (hg_image)
     power_arc = gui_img_create_from_fs(win_dail, "power_arc", "/resource/power_arc/power_arc_00.bin", 524, 120, 182, 182);
     gui_img_set_mode((gui_img_t *)power_arc, IMG_SRC_OVER_MODE);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)power_arc, 30, true, power_arc_timer_1_cb);
-    gui_obj_start_timer((gui_obj_t *)power_arc);
 
     // Create dail_pointer_p (hg_image)
     dail_pointer_p = gui_img_create_from_fs(win_dail, "dail_pointer_p", "/resource/dail_pointer.bin", 611, 342, 4, 25);
@@ -380,9 +382,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_img_set_quality((gui_img_t *)dail_pointer_p, true);
     gui_img_translate((gui_img_t *)dail_pointer_p, 4.0f, -130.0f);
     gui_img_set_focus((gui_img_t *)dail_pointer_p, 2.0f, -65.0f);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)dail_pointer_p, 30, true, dail_pointer_p_timer_1_cb);
-    gui_obj_start_timer((gui_obj_t *)dail_pointer_p);
 
     // Create leftbottom_gloom (hg_image)
     leftbottom_gloom = gui_img_create_from_fs(win_dail, "leftbottom_gloom", "/resource/LeftBottomGloomV1.bin", 34, 360, 103, 127);
@@ -402,26 +401,17 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create win_common (hg_window)
     win_common = gui_win_create((gui_obj_t *)view, "win_common", 0, 0, 800, 480);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)win_common, 20, true, win_common_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)win_common);
 
 
     // Create turn_l_icon (hg_image)
     turn_l_icon = gui_img_create_from_fs(win_common, "turn_l_icon", "/resource/Turnleft_off.bin", 20, 64, 35, 19);
     gui_img_set_mode((gui_img_t *)turn_l_icon, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)turn_l_icon, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)turn_l_icon, 30, true, turn_l_icon_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)turn_l_icon);
 
     // Create turn_r_icon (hg_image)
     turn_r_icon = gui_img_create_from_fs(win_common, "turn_r_icon", "/resource/Turnright_off.bin", 745, 64, 35, 19);
     gui_img_set_mode((gui_img_t *)turn_r_icon, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)turn_r_icon, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)turn_r_icon, 30, true, turn_r_icon_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)turn_r_icon);
 
     // Create bt_icon (hg_image)
     bt_icon = gui_img_create_from_fs(win_common, "bt_icon", "/resource/bt.bin", 294, 52, 14, 20);
@@ -453,54 +443,34 @@ static void dashboard_view_switch_in(gui_view_t *view)
     led_0 = gui_img_create_from_fs(win_common, "led_0", "/resource/LED0_off.bin", 85, 360, 27, 27);
     gui_img_set_mode((gui_img_t *)led_0, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)led_0, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)led_0, 30, true, led_0_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)led_0);
 
     // Create led_1 (hg_image)
     led_1 = gui_img_create_from_fs(win_common, "led_1", "/resource/LED1_off.bin", 65, 400, 27, 27);
     gui_img_set_mode((gui_img_t *)led_1, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)led_1, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)led_1, 30, true, led_1_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)led_1);
 
     // Create led_2 (hg_image)
     led_2 = gui_img_create_from_fs(win_common, "led_2", "/resource/LED2_off.bin", 45, 440, 27, 27);
     gui_img_set_mode((gui_img_t *)led_2, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)led_2, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)led_2, 30, true, led_2_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)led_2);
 
     // Create led_3 (hg_image)
     led_3 = gui_img_create_from_fs(win_common, "led_3", "/resource/LED3_off.bin", 690, 360, 27, 27);
     gui_img_set_mode((gui_img_t *)led_3, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)led_3, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)led_3, 30, true, led_3_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)led_3);
 
     // Create led_4 (hg_image)
     led_4 = gui_img_create_from_fs(win_common, "led_4", "/resource/LED4_off.bin", 710, 400, 27, 27);
     gui_img_set_mode((gui_img_t *)led_4, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)led_4, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)led_4, 30, true, led_4_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)led_4);
 
     // Create led_5 (hg_image)
     led_5 = gui_img_create_from_fs(win_common, "led_5", "/resource/LED5_off.bin", 730, 440, 26, 27);
     gui_img_set_mode((gui_img_t *)led_5, IMG_2D_SW_FIX_A8_FG);
     gui_img_a8_recolor((gui_img_t *)led_5, 0xFFFFFFFF);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)led_5, 30, true, led_5_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)led_5);
 
     // Create win_speed_text (hg_window)
     win_speed_text = gui_win_create(win_common, "win_speed_text", 41, 64, 294, 294);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)win_speed_text, 8, true, win_speed_text_timer_0_cb);
 
 
     // Create text_speed (hg_label)
@@ -533,8 +503,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create win_power_text (hg_window)
     win_power_text = gui_win_create(win_common, "win_power_text", 470, 64, 294, 294);
-    // Bind timer: entrance
-    gui_obj_create_timer((gui_obj_t *)win_power_text, 8, true, win_power_text_timer_0_cb);
 
 
     // Create text_power (hg_label)
@@ -607,7 +575,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_obj_hidden((gui_obj_t *)win_music, true);
     // Bind timer: 动画 1
     gui_obj_create_timer((gui_obj_t *)win_music, 1000, true, win_music_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)win_music);
 
 
     // Create music_cover (hg_image)
@@ -652,3 +619,139 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_scroll_text_scroll_set((gui_scroll_text_t *)lbl_lyrics, SCROLL_X_MID, 0, 300, 6000, 0);
 }
 GUI_VIEW_INSTANCE("dashboard_view", false, dashboard_view_switch_in, dashboard_view_switch_out, false);
+
+// Create carplay_view (hg_view)
+static void carplay_view_switch_out(gui_view_t *view)
+{
+    GUI_UNUSED(view);
+}
+
+static void carplay_view_switch_in(gui_view_t *view)
+{
+    // Set animation step
+    gui_view_set_animate_step(view, 480);
+
+    // Set opacity
+    gui_view_set_opacity(view, 255);
+
+    // Set background color
+    gui_set_bg_color(gui_rgb(228, 228, 228));
+
+    GUI_UNUSED(view);
+
+
+    // Create win_carplay (hg_window)
+    win_carplay = gui_win_create((gui_obj_t *)view, "win_carplay", 0, 0, 800, 480);
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)win_carplay, 1000, true, carplay_entrance_timer_0_cb);
+
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "location", win_carplay_msg_cb_0);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "temp", win_carplay_msg_cb_1);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "play", win_carplay_msg_cb_2);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "odo", win_carplay_msg_cb_3);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "battery", win_carplay_msg_cb_4);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "map", win_carplay_msg_cb_5);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "speed", win_carplay_msg_cb_6);
+
+    // Create carplay_app (hg_image)
+    carplay_app = gui_img_create_from_fs((gui_obj_t *)view, "carplay_app", "/resource/carplay/icon_app_rect.bin", 15, 91, 69, 298);
+
+    // Create carplay_map (hg_image)
+    carplay_map = gui_img_create_from_fs((gui_obj_t *)view, "carplay_map", "/resource/carplay/carplay_map_00.bin", 373, 77, 410, 370);
+
+    // Create carplay_music_name (hg_label)
+    carplay_music_name = gui_scroll_text_create((gui_obj_t *)view, "carplay_music_name", 222, 314, 132, 24);
+    gui_scroll_text_set((gui_scroll_text_t *)carplay_music_name, "MUSIC NAME", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 10, 16);
+    gui_scroll_text_type_set((gui_scroll_text_t *)carplay_music_name, "//HarmonyOS_Sans_Bold_size16_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_scroll_text_scroll_set((gui_scroll_text_t *)carplay_music_name, SCROLL_X, 0, 0, 3000, 0);
+
+    // Create carplay_music_artist (hg_label)
+    carplay_music_artist = gui_scroll_text_create((gui_obj_t *)view, "carplay_music_artist", 222, 338, 132, 24);
+    gui_scroll_text_set((gui_scroll_text_t *)carplay_music_artist, "ARTIST", GUI_FONT_SRC_BMP, gui_rgb(90, 84, 84), 6, 14);
+    gui_scroll_text_type_set((gui_scroll_text_t *)carplay_music_artist, "//HarmonyOS_Sans_Bold_size14_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_scroll_text_scroll_set((gui_scroll_text_t *)carplay_music_artist, SCROLL_X, 0, 0, 3000, 0);
+
+    // Create carplay_music_lyrics (hg_label)
+    carplay_music_lyrics = gui_scroll_text_create((gui_obj_t *)view, "carplay_music_lyrics", 106, 392, 250, 24);
+    gui_scroll_text_set((gui_scroll_text_t *)carplay_music_lyrics, "LYRICS......", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 12, 16);
+    gui_scroll_text_type_set((gui_scroll_text_t *)carplay_music_lyrics, "//HarmonyOS_Sans_Bold_size16_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_scroll_text_scroll_set((gui_scroll_text_t *)carplay_music_lyrics, SCROLL_X_MID, 0, 0, 3000, 0);
+
+    // Create carplay_loc_temp (hg_label)
+    carplay_loc_temp = gui_text_create((gui_obj_t *)view, "carplay_loc_temp", 246, 18, 300, 24);
+    gui_text_set((gui_text_t *)carplay_loc_temp, "Suzhou 25°C", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 12, 22);
+    gui_text_type_set((gui_text_t *)carplay_loc_temp, "//HarmonyOS_Sans_Bold_size22_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_text_mode_set((gui_text_t *)carplay_loc_temp, CENTER);
+
+    // Create carplay_time (hg_label)
+    carplay_time = gui_text_create((gui_obj_t *)view, "carplay_time", 330, 45, 132, 22);
+    gui_text_set((gui_text_t *)carplay_time, "10:10", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 5, 22);
+    gui_text_type_set((gui_text_t *)carplay_time, "//HarmonyOS_Sans_Bold_size22_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_text_mode_set((gui_text_t *)carplay_time, CENTER);
+    // Bind timer: time update
+    gui_obj_create_timer((gui_obj_t *)carplay_time, 1000, true, text_time_timer_0_cb);
+
+    // Create carplay_speed_arc (hg_image)
+    carplay_speed_arc = gui_img_create_from_fs((gui_obj_t *)view, "carplay_speed_arc", "/resource/carplay/sp_arc_00.bin", 132, 56, 187, 165);
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)carplay_speed_arc, 100, true, carplay_speed_timer_0_cb);
+    gui_obj_start_timer((gui_obj_t *)carplay_speed_arc);
+
+    // Create carplay_speed (hg_label)
+    carplay_speed = gui_text_create((gui_obj_t *)view, "carplay_speed", 133, 106, 182, 50);
+    gui_text_set((gui_text_t *)carplay_speed, "0", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 1, 50);
+    gui_text_type_set((gui_text_t *)carplay_speed, "//HarmonyOS_Sans_Bold_size50_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_text_mode_set((gui_text_t *)carplay_speed, CENTER);
+
+    // Create lbl_1 (hg_label)
+    lbl_1 = gui_text_create((gui_obj_t *)view, "lbl_1", 134, 159, 182, 24);
+    gui_text_set((gui_text_t *)lbl_1, "km/h", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 4, 20);
+    gui_text_type_set((gui_text_t *)lbl_1, "//HarmonyOS_Sans_Bold_size20_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_text_mode_set((gui_text_t *)lbl_1, MID_CENTER);
+
+    // Create carplay_odo (hg_label)
+    carplay_odo = gui_text_create((gui_obj_t *)view, "carplay_odo", 134, 235, 58, 36);
+    gui_text_set((gui_text_t *)carplay_odo, "ODO 300km", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 9, 14);
+    gui_text_type_set((gui_text_t *)carplay_odo, "//HarmonyOS_Sans_Bold_size14_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_text_mode_set((gui_text_t *)carplay_odo, MULTI_CENTER);
+    gui_text_wordwrap_set((gui_text_t *)carplay_odo, true);
+
+    // Create carplay_bat (hg_label)
+    carplay_bat = gui_text_create((gui_obj_t *)view, "carplay_bat", 266, 235, 51, 36);
+    gui_text_set((gui_text_t *)carplay_bat, "BATT 65%", GUI_FONT_SRC_BMP, gui_rgb(0, 0, 0), 8, 14);
+    gui_text_type_set((gui_text_t *)carplay_bat, "//HarmonyOS_Sans_Bold_size14_bits4_bitmap.bin", FONT_SRC_FILESYS);
+    gui_text_mode_set((gui_text_t *)carplay_bat, MULTI_CENTER);
+    gui_text_wordwrap_set((gui_text_t *)carplay_bat, true);
+
+    // Create img_4 (hg_image)
+    img_4 = gui_img_create_from_fs((gui_obj_t *)view, "img_4", "/resource/carplay/interval_line_280.bin", 92, 274, 280, 3);
+
+    // Create carplay_music_cover (hg_image)
+    carplay_music_cover = gui_img_create_from_fs((gui_obj_t *)view, "carplay_music_cover", "/resource/music/COVER_0.bin", 106, 288, 100, 100);
+    gui_img_set_mode((gui_img_t *)carplay_music_cover, IMG_SRC_OVER_MODE);
+
+    // Create carplay_musicbar_bg (hg_image)
+    carplay_musicbar_bg = gui_img_create_from_fs((gui_obj_t *)view, "carplay_musicbar_bg", "/resource/music/playbar.bin", 106, 419, 250, 6);
+
+    // Create win_music_bar (hg_window)
+    win_music_bar = gui_win_create((gui_obj_t *)view, "win_music_bar", 106, 419, 1, 10);
+    // Bind timer: 动画 1
+    gui_obj_create_timer((gui_obj_t *)win_music_bar, 1000, true, carplay_music_timer_0_cb);
+
+
+    // Create img_7 (hg_image)
+    img_7 = gui_img_create_from_fs(win_music_bar, "img_7", "/resource/music/playbar_on.bin", 0, 0, 250, 6);
+
+    // Create carplay_music_play (hg_image)
+    carplay_music_play = gui_img_create_from_fs((gui_obj_t *)view, "carplay_music_play", "/resource/carplay/icon_media_play.bin", 213, 431, 40, 40);
+
+    // Create carplay_music_next (hg_image)
+    carplay_music_next = gui_img_create_from_fs((gui_obj_t *)view, "carplay_music_next", "/resource/carplay/icon_media_next.bin", 274, 439, 24, 24);
+
+    // Create carplay_music_last (hg_image)
+    carplay_music_last = gui_img_create_from_fs((gui_obj_t *)view, "carplay_music_last", "/resource/carplay/icon_media_prev.bin", 168, 439, 24, 24);
+
+    gui_obj_add_event_cb((gui_obj_t *)view, (gui_event_cb_t)carplay_view_key_0_cb, GUI_EVENT_KB_SHORT_PRESSED, NULL);
+    gui_obj_focus_set((gui_obj_t *)view);
+}
+GUI_VIEW_INSTANCE("carplay_view", false, carplay_view_switch_in, carplay_view_switch_out, false);

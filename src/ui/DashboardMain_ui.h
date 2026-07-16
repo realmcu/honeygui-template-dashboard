@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Definition (Auto-generated, do not modify manually)
- * Generated at: 2026-07-07T03:33:26.617Z
+ * Generated at: 2026-07-16T11:32:39.233Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
@@ -22,7 +22,6 @@
 extern gui_img_t *gloom;
 extern gui_img_t *start_engine;
 extern gui_img_t *shadow;
-extern gui_win_t *win_map;
 extern gui_img_t *map;
 extern gui_win_t *win_func;
 extern gui_win_t *win_app_list;
@@ -92,5 +91,26 @@ extern gui_img_t *playbar;
 extern gui_text_t *lbl_music;
 extern gui_text_t *lbl_artist;
 extern gui_scroll_text_t *lbl_lyrics;
+extern gui_win_t *win_carplay;
+extern gui_img_t *carplay_app;
+extern gui_img_t *carplay_map;
+extern gui_scroll_text_t *carplay_music_name;
+extern gui_scroll_text_t *carplay_music_artist;
+extern gui_scroll_text_t *carplay_music_lyrics;
+extern gui_text_t *carplay_loc_temp;
+extern gui_text_t *carplay_time;
+extern gui_img_t *carplay_speed_arc;
+extern gui_text_t *carplay_speed;
+extern gui_text_t *lbl_1;
+extern gui_text_t *carplay_odo;
+extern gui_text_t *carplay_bat;
+extern gui_img_t *img_4;
+extern gui_img_t *carplay_music_cover;
+extern gui_img_t *carplay_musicbar_bg;
+extern gui_win_t *win_music_bar;
+extern gui_img_t *img_7;
+extern gui_img_t *carplay_music_play;
+extern gui_img_t *carplay_music_next;
+extern gui_img_t *carplay_music_last;
 
 #endif // DASHBOARDMAIN_UI_H

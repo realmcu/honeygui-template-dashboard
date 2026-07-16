@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "defaultLocale": "en-US",
+  "locales": [
+    "en-US"
+  ],
+  "strings": {
+    "MUSIC NAME": {
+      "en-US": "Label"
+    }
+  }
+}

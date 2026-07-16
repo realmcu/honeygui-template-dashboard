@@ -176,7 +176,7 @@
     },
     "resource/menu": {
       "compression": "rle",
-      "format": "ARGB8565"
+      "format": "RGB565"
     },
     "resource/power_arc": {
       "compression": "rle",
@@ -203,6 +203,10 @@
     },
     "resource/music/playbar.png": {
       "format": "A8"
+    },
+    "resource/carplay": {
+      "format": "ARGB8565",
+      "compression": "rle"
     }
   },
   "alwaysConvert": {
