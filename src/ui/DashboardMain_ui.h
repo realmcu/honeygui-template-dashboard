@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Definition (Auto-generated, do not modify manually)
- * Generated at: 2026-07-14T06:46:00.810Z
+ * Generated at: 2026-07-16T09:14:22.520Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
@@ -22,7 +22,6 @@
 extern gui_img_t *gloom;
 extern gui_img_t *start_engine;
 extern gui_img_t *shadow;
-extern gui_win_t *win_map;
 extern gui_img_t *map;
 extern gui_win_t *win_func;
 extern gui_win_t *win_app_list;

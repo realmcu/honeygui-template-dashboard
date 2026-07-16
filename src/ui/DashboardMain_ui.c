@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-14T06:46:00.811Z
+ * Generated at: 2026-07-16T09:14:22.521Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -11,7 +11,6 @@
 gui_img_t *gloom = NULL;
 gui_img_t *start_engine = NULL;
 gui_img_t *shadow = NULL;
-gui_win_t *win_map = NULL;
 gui_img_t *map = NULL;
 gui_win_t *win_func = NULL;
 gui_win_t *win_app_list = NULL;
@@ -265,14 +264,9 @@ static void dashboard_view_switch_in(gui_view_t *view)
     GUI_UNUSED(view);
 
 
-    // Create win_map (hg_window)
-    win_map = gui_win_create((gui_obj_t *)view, "win_map", 0, 0, 800, 480);
-
-
     // Create map (hg_image)
-    map = gui_img_create_from_fs(win_map, "map", "/resource/map/map_00.bin", 141, 198, 518, 282);
+    map = gui_img_create_from_fs((gui_obj_t *)view, "map", "/resource/map/map_00.bin", 141, 198, 518, 282);
     gui_img_set_mode((gui_img_t *)map, IMG_BYPASS_MODE);
-    gui_obj_hidden((gui_obj_t *)map, true);
 
     // Create win_func (hg_window)
     win_func = gui_win_create((gui_obj_t *)view, "win_func", 150, 200, 500, 280);
@@ -528,7 +522,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
     gui_obj_hidden((gui_obj_t *)win_music, true);
     // Bind timer: 动画 1
     gui_obj_create_timer((gui_obj_t *)win_music, 1000, true, win_music_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)win_music);
 
 
     // Create music_cover (hg_image)
@@ -537,7 +530,6 @@ static void dashboard_view_switch_in(gui_view_t *view)
 
     // Create music_board (hg_image)
     music_board = gui_img_create_from_fs(win_music, "music_board", "/resource/music/music_board.bin", 306, 370, 312, 100);
-    gui_img_set_mode((gui_img_t *)music_board, IMG_BYPASS_MODE);
 
     // Create playbar_bg (hg_image)
     playbar_bg = gui_img_create_from_fs(win_music, "playbar_bg", "/resource/music/playbar.bin", 337, 458, 250, 6);
@@ -690,7 +682,6 @@ static void carplay_view_switch_in(gui_view_t *view)
     win_music_bar = gui_win_create((gui_obj_t *)view, "win_music_bar", 106, 419, 1, 10);
     // Bind timer: 动画 1
     gui_obj_create_timer((gui_obj_t *)win_music_bar, 1000, true, carplay_music_timer_0_cb);
-    gui_obj_start_timer((gui_obj_t *)win_music_bar);
 
 
     // Create img_7 (hg_image)

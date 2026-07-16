@@ -8,7 +8,6 @@
 // Timer animation counters (defined in callbacks.c)
 extern uint16_t gloom_timer_cnt;
 extern uint16_t dashboard_view_timer_cnt;
-extern uint16_t win_map_timer_cnt;
 extern uint16_t map_timer_cnt;
 extern uint16_t win_func_timer_cnt;
 extern uint16_t win_app_list_timer_cnt;
@@ -85,8 +84,6 @@ void win_dail_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t l
 // User-configured timer callback function declarations
 void gloom_timer_0_cb(void *obj);
 void dashboard_entrance_timer_0_cb(void *obj);
-void win_map_timer_0_cb(void *obj);
-void win_map_timer_1_cb(void *obj);
 void map_timer_0_cb(void *obj);
 void map_timer_1_cb(void *obj);
 void win_func_timer_0_cb(void *obj);

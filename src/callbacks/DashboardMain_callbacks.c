@@ -8,7 +8,6 @@
 // Timer animation counters
 uint16_t gloom_timer_cnt = 0;
 uint16_t dashboard_view_timer_cnt = 0;
-uint16_t win_map_timer_cnt = 0;
 uint16_t map_timer_cnt = 0;
 uint16_t win_func_timer_cnt = 0;
 uint16_t win_app_list_timer_cnt = 0;
@@ -438,66 +437,6 @@ void gloom_timer_0_cb(void *obj)
     if (gloom_timer_cnt >= total_cnt_max) {
         gui_obj_stop_timer(target);
         gloom_timer_cnt = 0; // Reset counter
-    }
-}
-
-
-/**
- * show map
- * Component: win_map
- * Mode: Preset actions (multi-segment animation)
- * Segments: 1
- */
-void win_map_timer_0_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 1;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 1;
-    
-    win_map_timer_cnt++;
-    
-    // Segment 1: 20ms, 1 action(s)
-    if (win_map_timer_cnt > seg0_start && win_map_timer_cnt <= seg0_end) {
-            // Set visibility: show
-            gui_obj_hidden(target, false);
-            
-    }
-    
-    if (win_map_timer_cnt >= total_cnt_max) {
-        gui_obj_stop_timer(target);
-        win_map_timer_cnt = 0; // Reset counter
-    }
-}
-
-
-/**
- * hide map
- * Component: win_map
- * Mode: Preset actions (multi-segment animation)
- * Segments: 1
- */
-void win_map_timer_1_cb(void *obj)
-{
-    gui_obj_t *target = (gui_obj_t *)obj;
-    const uint16_t total_cnt_max = 1;
-    
-    const uint16_t seg0_start = 0;
-    const uint16_t seg0_end = 1;
-    
-    win_map_timer_cnt++;
-    
-    // Segment 1: 20ms, 1 action(s)
-    if (win_map_timer_cnt > seg0_start && win_map_timer_cnt <= seg0_end) {
-            // Set visibility: hide
-            gui_obj_hidden(target, true);
-            
-    }
-    
-    if (win_map_timer_cnt >= total_cnt_max) {
-        gui_obj_stop_timer(target);
-        win_map_timer_cnt = 0; // Reset counter
     }
 }
 

@@ -190,16 +190,8 @@
       "compression": "none"
     },
     "resource/music/music_board.png": {
-      "format": "ARGB8565",
-      "compression": "jpeg",
-      "jpegParams": {
-        "sampling": "YUV420",
-        "quality": 10,
-        "backgroundColor": "black",
-        "align": true,
-        "minWidth": 48,
-        "minHeight": 48
-      }
+      "format": "inherit",
+      "compression": "inherit"
     },
     "resource/music/playbar.png": {
       "format": "inherit"

@@ -265,7 +265,7 @@ void root_menu_msg_show_cb(void *obj, gui_event_t *e)
         gui_obj_create_timer(GUI_BASE(root_menu), 10, true, root_menu_timer_1_cb);
         gui_obj_start_timer(GUI_BASE(root_menu));
         gui_obj_hidden(GUI_BASE(win_music), true);
-        gui_obj_hidden(GUI_BASE(win_map), true);
+        gui_obj_hidden(GUI_BASE(map), true);
         menu_disp = true;
     }
     else
@@ -308,8 +308,7 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
     switch (menu_func_index)
     {
     case 0:
-        gui_obj_create_timer(GUI_BASE(win_map), 10, true, win_map_timer_0_cb);
-        gui_obj_start_timer(GUI_BASE(win_map));
+        gui_obj_hidden(GUI_BASE(map), false);
         gui_obj_create_timer(GUI_BASE(win_dail), 10, true, win_dail_timer_1_cb);
         gui_obj_start_timer(GUI_BASE(win_dail));
         gui_obj_create_timer(GUI_BASE(win_speed_text), 10, true, win_speed_text_timer_2_cb);
@@ -324,8 +323,7 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
         gui_obj_start_timer(GUI_BASE(win_func));
         gui_obj_create_timer(GUI_BASE(win_app_list), 10, true, win_app_list_timer_0_cb);
         gui_obj_start_timer(GUI_BASE(win_app_list));
-        gui_obj_create_timer(GUI_BASE(win_map), 10, true, win_map_timer_1_cb);
-        gui_obj_start_timer(GUI_BASE(win_map));
+        gui_obj_hidden(GUI_BASE(map), true);
         gui_obj_create_timer(GUI_BASE(win_dail), 10, true, win_dail_timer_2_cb);
         gui_obj_start_timer(GUI_BASE(win_dail));
         gui_obj_create_timer(GUI_BASE(win_speed_text), 10, true, win_speed_text_timer_1_cb);
@@ -336,8 +334,7 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
         menu_disp = false;
         break;
     case 2:
-        gui_obj_create_timer(GUI_BASE(win_map), 10, true, win_map_timer_1_cb);
-        gui_obj_start_timer(GUI_BASE(win_map));
+        gui_obj_hidden(GUI_BASE(map), true);
         gui_obj_hidden(GUI_BASE(win_music), false);
         GUI_BASE(obj)->y = 480;
         menu_disp = false;
