@@ -164,16 +164,24 @@
       "format": "inherit"
     },
     "resource/music": {
-      "format": "ARGB8565"
+      "format": "ARGB8565",
+      "compression": "rle"
     },
     "resource/music/music_board.png": {
       "format": "ARGB8565"
     },
     "resource/music/playbar.png": {
-      "format": "RGB565"
+      "format": "inherit"
     },
     "resource/music/playbar_on.png": {
-      "format": "RGB565"
+      "format": "inherit"
+    },
+    "resource/carplay": {
+      "format": "ARGB8565",
+      "compression": "rle"
+    },
+    "resource/carplay/icon_app_rect.png": {
+      "format": "ARGB8565"
     }
   },
   "alwaysConvert": {

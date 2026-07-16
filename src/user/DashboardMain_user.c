@@ -30,7 +30,7 @@ gui_dashboard_t dashboard_info =
 };
 
 
-static bool menu_disp = false;
+bool menu_disp = false;
 static char top_info_str[30];
 static uint8_t menu_func_index = 0;
 extern uint8_t app_index;
@@ -298,13 +298,16 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(e);
-    if (GUI_BASE(obj)->hidden || !menu_disp) return;
+    if (GUI_BASE(obj)->hidden || !menu_disp)
+    {
+        gui_view_switch_direct(gui_view_get_current(), "carplay_view", SWITCH_OUT_NONE_ANIMATION, SWITCH_IN_NONE_ANIMATION);
+        return;
+    }
     
     switch (menu_func_index)
     {
     case 0:
-        gui_obj_create_timer(GUI_BASE(win_map), 10, true, win_map_timer_1_cb);
-        gui_obj_start_timer(GUI_BASE(win_map));
+        gui_obj_hidden(GUI_BASE(map), false);
         gui_obj_create_timer(GUI_BASE(win_dail), 10, true, win_dail_timer_1_cb);
         gui_obj_start_timer(GUI_BASE(win_dail));
         gui_obj_create_timer(GUI_BASE(win_speed_text), 10, true, win_speed_text_timer_2_cb);
@@ -319,8 +322,7 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
         gui_obj_start_timer(GUI_BASE(win_func));
         gui_obj_create_timer(GUI_BASE(win_app_list), 10, true, win_app_list_timer_0_cb);
         gui_obj_start_timer(GUI_BASE(win_app_list));
-        gui_obj_create_timer(GUI_BASE(win_map), 10, true, win_map_timer_2_cb);
-        gui_obj_start_timer(GUI_BASE(win_map));
+        gui_obj_hidden(GUI_BASE(map), true);
         gui_obj_create_timer(GUI_BASE(win_dail), 10, true, win_dail_timer_2_cb);
         gui_obj_start_timer(GUI_BASE(win_dail));
         gui_obj_create_timer(GUI_BASE(win_speed_text), 10, true, win_speed_text_timer_1_cb);
@@ -331,8 +333,7 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
         menu_disp = false;
         break;
     case 2:
-        gui_obj_create_timer(GUI_BASE(win_map), 10, true, win_map_timer_2_cb);
-        gui_obj_start_timer(GUI_BASE(win_map));
+        gui_obj_hidden(GUI_BASE(map), true);
         gui_obj_hidden(GUI_BASE(win_music), false);
         GUI_BASE(obj)->y = 480;
         menu_disp = false;
@@ -528,7 +529,7 @@ void win_app_weather_msg_exit_cb(void *obj, gui_event_t *e)
     gui_obj_start_timer(GUI_BASE(win_app_weather));
 }
 
-void update_dashbord_speed(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_speed(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -537,39 +538,69 @@ void update_dashbord_speed(gui_obj_t *obj, const char *topic, void *data, uint16
 
     dashboard_info.speed_val = (*(uint16_t *)data) % 160;
     sprintf(speed_str, "%u", dashboard_info.speed_val);
-    gui_text_content_set(text_speed, speed_str, strlen(speed_str));
-
-    const void *img_data_array[16] = 
+    if (obj == (gui_obj_t *)win_common)
     {
-        "/resource/speed_arc/speed_arc_00.bin",
-        "/resource/speed_arc/speed_arc_01.bin",
-        "/resource/speed_arc/speed_arc_02.bin",
-        "/resource/speed_arc/speed_arc_03.bin",
-        "/resource/speed_arc/speed_arc_04.bin",
-        "/resource/speed_arc/speed_arc_05.bin",
-        "/resource/speed_arc/speed_arc_06.bin",
-        "/resource/speed_arc/speed_arc_07.bin",
-        "/resource/speed_arc/speed_arc_08.bin",
-        "/resource/speed_arc/speed_arc_09.bin",
-        "/resource/speed_arc/speed_arc_10.bin",
-        "/resource/speed_arc/speed_arc_11.bin",
-        "/resource/speed_arc/speed_arc_12.bin",
-        "/resource/speed_arc/speed_arc_13.bin",
-        "/resource/speed_arc/speed_arc_14.bin",
-        "/resource/speed_arc/speed_arc_15.bin",
-    };
-    uint16_t index = dashboard_info.speed_val / 10;
-    gui_img_set_src(speed_arc, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
-    gui_img_refresh_size(speed_arc);
+        gui_text_content_set(text_speed, speed_str, strlen(speed_str));
 
-    gui_img_rotation(dail_pointer_s, 360.f * index / 16.f);
+        const void *img_data_array[16] = 
+        {
+            "/resource/speed_arc/speed_arc_00.bin",
+            "/resource/speed_arc/speed_arc_01.bin",
+            "/resource/speed_arc/speed_arc_02.bin",
+            "/resource/speed_arc/speed_arc_03.bin",
+            "/resource/speed_arc/speed_arc_04.bin",
+            "/resource/speed_arc/speed_arc_05.bin",
+            "/resource/speed_arc/speed_arc_06.bin",
+            "/resource/speed_arc/speed_arc_07.bin",
+            "/resource/speed_arc/speed_arc_08.bin",
+            "/resource/speed_arc/speed_arc_09.bin",
+            "/resource/speed_arc/speed_arc_10.bin",
+            "/resource/speed_arc/speed_arc_11.bin",
+            "/resource/speed_arc/speed_arc_12.bin",
+            "/resource/speed_arc/speed_arc_13.bin",
+            "/resource/speed_arc/speed_arc_14.bin",
+            "/resource/speed_arc/speed_arc_15.bin",
+        };
+        uint16_t index = dashboard_info.speed_val / 10;
+        gui_img_set_src(speed_arc, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
+        gui_img_refresh_size(speed_arc);
 
-    gui_obj_stop_timer(GUI_BASE(dail_pointer_s));
-    gui_obj_stop_timer(GUI_BASE(speed_arc));
-    gui_obj_stop_timer(GUI_BASE(text_speed));
+        gui_img_rotation(dail_pointer_s, 360.f * index / 16.f);
+
+        gui_obj_stop_timer(GUI_BASE(dail_pointer_s));
+        gui_obj_stop_timer(GUI_BASE(speed_arc));
+        gui_obj_stop_timer(GUI_BASE(text_speed));
+    }
+    else
+    {
+        gui_text_content_set(carplay_speed, speed_str, strlen(speed_str));
+
+        const void *img_data_array[16] =
+        {
+            "/resource/carplay/sp_arc_00.bin",
+            "/resource/carplay/sp_arc_01.bin",
+            "/resource/carplay/sp_arc_02.bin",
+            "/resource/carplay/sp_arc_03.bin",
+            "/resource/carplay/sp_arc_04.bin",
+            "/resource/carplay/sp_arc_05.bin",
+            "/resource/carplay/sp_arc_06.bin",
+            "/resource/carplay/sp_arc_07.bin",
+            "/resource/carplay/sp_arc_08.bin",
+            "/resource/carplay/sp_arc_09.bin",
+            "/resource/carplay/sp_arc_10.bin",
+            "/resource/carplay/sp_arc_11.bin",
+            "/resource/carplay/sp_arc_12.bin",
+            "/resource/carplay/sp_arc_13.bin",
+            "/resource/carplay/sp_arc_14.bin",
+            "/resource/carplay/sp_arc_15.bin",
+        };
+        uint16_t index = dashboard_info.speed_val / 10;
+        gui_img_set_src((gui_img_t *)carplay_speed_arc, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
+        gui_obj_stop_timer(GUI_BASE(carplay_speed));
+    }
 }
 
-void update_dashbord_power(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_power(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -609,7 +640,7 @@ void update_dashbord_power(gui_obj_t *obj, const char *topic, void *data, uint16
     gui_obj_stop_timer(GUI_BASE(text_power));
 }
 
-void update_dashbord_led0(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led0(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -629,7 +660,7 @@ void update_dashbord_led0(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_src((gui_img_t *)led_0, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led1(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led1(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -649,7 +680,7 @@ void update_dashbord_led1(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_src((gui_img_t *)led_1, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led2(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led2(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -669,7 +700,7 @@ void update_dashbord_led2(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_src((gui_img_t *)led_2, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led3(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led3(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -689,7 +720,7 @@ void update_dashbord_led3(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_src((gui_img_t *)led_3, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led4(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led4(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -709,7 +740,7 @@ void update_dashbord_led4(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_src((gui_img_t *)led_4, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led5(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led5(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -729,7 +760,7 @@ void update_dashbord_led5(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_src((gui_img_t *)led_5, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led_turn_l(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led_turn_l(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -749,7 +780,7 @@ void update_dashbord_led_turn_l(gui_obj_t *obj, const char *topic, void *data, u
     gui_img_set_src((gui_img_t *)turn_l_icon, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_led_turn_r(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_led_turn_r(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -769,7 +800,7 @@ void update_dashbord_led_turn_r(gui_obj_t *obj, const char *topic, void *data, u
     gui_img_set_src((gui_img_t *)turn_r_icon, (const uint8_t *)img_data, IMG_SRC_FILESYS);
 }
 
-void update_dashbord_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -785,7 +816,7 @@ void update_dashbord_bt(gui_obj_t *obj, const char *topic, void *data, uint16_t 
     gui_img_set_opacity(bt_icon, opacity);
 }
 
-void update_dashbord_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -801,7 +832,7 @@ void update_dashbord_wifi(gui_obj_t *obj, const char *topic, void *data, uint16_
     gui_img_set_opacity(wifi_icon, opacity);
 }
 
-void update_dashbord_volume(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_volume(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -829,7 +860,7 @@ void update_dashbord_volume(gui_obj_t *obj, const char *topic, void *data, uint1
     gui_obj_start_timer(GUI_BASE(win_volume));
 }
 
-void update_dashbord_location(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_location(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -838,10 +869,17 @@ void update_dashbord_location(gui_obj_t *obj, const char *topic, void *data, uin
 
     snprintf(dashboard_info.location, len, "%s", (char *)data);
     sprintf(top_info_str, "%s %u°C", dashboard_info.location, dashboard_info.temp_val);
-    gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
+    if (obj == (gui_obj_t *)win_common)
+    {
+        gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
+    }
+    else
+    {
+        gui_text_content_set(carplay_loc_temp, top_info_str, sizeof(top_info_str));
+    }  
 }
 
-void update_dashbord_temp(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_temp(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -851,10 +889,17 @@ void update_dashbord_temp(gui_obj_t *obj, const char *topic, void *data, uint16_
     dashboard_info.temp_val = *((uint8_t *)data);
     
     sprintf(top_info_str, "%s %u°C", dashboard_info.location, dashboard_info.temp_val);
-    gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
+    if (obj == (gui_obj_t *)win_common)
+    {
+        gui_text_content_set(text_loc_temp, top_info_str, sizeof(top_info_str));
+    }
+    else
+    {
+        gui_text_content_set(carplay_loc_temp, top_info_str, sizeof(top_info_str));
+    }  
 }
 
-void update_dashbord_music_play(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_music_play(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -863,23 +908,61 @@ void update_dashbord_music_play(gui_obj_t *obj, const char *topic, void *data, u
 
     gui_music_info_t *music_info = (gui_music_info_t *)data;
     dashboard_info.music_status = music_info->music_status;
-    if (dashboard_info.music_status)
+    if (obj == (gui_obj_t *)win_common)
     {
-        dashboard_info.music_duration = music_info->music_duration;
-        dashboard_info.music_play_time = music_info->music_play_time;
+        if (dashboard_info.music_status)
+        {
+            dashboard_info.music_duration = music_info->music_duration;
+            dashboard_info.music_play_time = music_info->music_play_time;
+            dashboard_info.music_name = music_info->music_name;
+            dashboard_info.artist_name = music_info->artist_name;
+            dashboard_info.lyrics = music_info->lyrics;
+            dashboard_info.cover = music_info->cover;
+            if (dashboard_info.cover)
+            {
 #ifdef _HONEYGUI_SIMULATOR_
-        gui_img_set_src(music_cover, (void *)music_info->cover, IMG_SRC_FILESYS);
+                gui_img_set_src(music_cover, (void *)dashboard_info.cover, IMG_SRC_FILESYS);
 #else
-    // gui_img_set_src(music_cover, (void *)music_info->cover, IMG_SRC_MEMADDR); // A8565 100*100
+                gui_img_set_src(music_cover, (void *)dashboard_info.cover, IMG_SRC_MEMADDR); // A8565 100*100
 #endif
-        gui_text_content_set(lbl_music, music_info->music_name, strlen(music_info->music_name));
-        gui_text_content_set(lbl_artist, music_info->artist_name, strlen(music_info->artist_name));
-        gui_scroll_text_content_set(lbl_lyrics, music_info->lyrics, strlen(music_info->lyrics));
-        // gui_log("music play: %s %s %s", music_info->music_name, music_info->artist_name, music_info->lyrics);
+                gui_text_content_set(lbl_music, dashboard_info.music_name, strlen(dashboard_info.music_name));
+                gui_text_content_set(lbl_artist, dashboard_info.artist_name, strlen(dashboard_info.artist_name));
+                gui_scroll_text_content_set(lbl_lyrics, dashboard_info.lyrics, strlen(dashboard_info.lyrics));
+                // gui_log("music play: %s %s %s", dashboard_info.music_name, dashboard_info.artist_name, dashboard_info.lyrics);
+            }
+        }
+    }
+    else
+    {
+        if (dashboard_info.music_status)
+        {
+            dashboard_info.music_duration = music_info->music_duration;
+            dashboard_info.music_play_time = music_info->music_play_time;
+            dashboard_info.music_name = music_info->music_name;
+            dashboard_info.artist_name = music_info->artist_name;
+            dashboard_info.lyrics = music_info->lyrics;
+            dashboard_info.cover = music_info->cover;
+            if (dashboard_info.cover)
+            {
+#ifdef _HONEYGUI_SIMULATOR_
+                gui_img_set_src(carplay_music_cover, (void *)dashboard_info.cover, IMG_SRC_FILESYS);
+#else
+                gui_img_set_src(carplay_music_cover, (void *)dashboard_info.cover, IMG_SRC_MEMADDR); // A8565 100*100
+#endif
+                gui_img_set_src(carplay_music_play, "/resource/carplay/icon_media_pause.bin", IMG_SRC_FILESYS);
+                gui_scroll_text_content_set(carplay_music_name, dashboard_info.music_name, strlen(dashboard_info.music_name));
+                gui_scroll_text_content_set(carplay_music_artist, dashboard_info.artist_name, strlen(dashboard_info.artist_name));
+                gui_scroll_text_content_set(carplay_music_lyrics, dashboard_info.lyrics, strlen(dashboard_info.lyrics));
+            }
+        }
+        else
+        {
+            gui_img_set_src(carplay_music_play, "/resource/carplay/icon_media_play.bin", IMG_SRC_FILESYS);        
+        }
     }
 }
 
-void update_dashbord_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -887,10 +970,17 @@ void update_dashbord_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t
     GUI_UNUSED(len);
     uint16_t odo_val = *((uint16_t *)data);
     sprintf(odo_str + 4, "%dkm", odo_val);
-    gui_text_content_set(text_odo, odo_str, strlen(odo_str));
+    if (obj == (gui_obj_t *)win_common)
+    {
+        gui_text_content_set(text_odo, odo_str, strlen(odo_str));
+    }
+    else
+    {
+        gui_text_content_set(carplay_odo, odo_str, strlen(odo_str));
+    }
 }
 
-void update_dashbord_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
@@ -899,37 +989,64 @@ void update_dashbord_batt(gui_obj_t *obj, const char *topic, void *data, uint16_
 
     uint16_t batt_val = *((uint16_t *)data);
     sprintf(batt_str + 5, "%d%%", batt_val);
-    gui_text_content_set(text_battery, batt_str, strlen(batt_str));
+    if (obj == (gui_obj_t *)win_common)
+    {
+        gui_text_content_set(text_battery, batt_str, strlen(batt_str));
+    }
+    else
+    {
+        gui_text_content_set(carplay_bat, batt_str, strlen(batt_str));
+    }
 }
 
-void update_dashbord_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
+void update_dashboard_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
     GUI_UNUSED(topic);
     GUI_UNUSED(data);
     GUI_UNUSED(len);
-    gui_obj_stop_timer(GUI_BASE(map));
 
 #ifdef _HONEYGUI_SIMULATOR_
-    const void *img_data_array[13] =
+    if (obj == (gui_obj_t *)win_common)
     {
-        "/resource/map/map_00.bin",
-        "/resource/map/map_01.bin",
-        "/resource/map/map_02.bin",
-        "/resource/map/map_03.bin",
-        "/resource/map/map_04.bin",
-        "/resource/map/map_05.bin",
-        "/resource/map/map_06.bin",
-        "/resource/map/map_07.bin",
-        "/resource/map/map_08.bin",
-        "/resource/map/map_09.bin",
-        "/resource/map/map_10.bin",
-        "/resource/map/map_11.bin",
-        "/resource/map/map_12.bin"
-    };
-    gui_img_set_src(map, img_data_array[*((uint8_t *)data)], IMG_SRC_FILESYS);
+        gui_obj_stop_timer(GUI_BASE(map));
+        const void *img_data_array[13] =
+        {
+            "/resource/map/map_00.bin",
+            "/resource/map/map_01.bin",
+            "/resource/map/map_02.bin",
+            "/resource/map/map_03.bin",
+            "/resource/map/map_04.bin",
+            "/resource/map/map_05.bin",
+            "/resource/map/map_06.bin",
+            "/resource/map/map_07.bin",
+            "/resource/map/map_08.bin",
+            "/resource/map/map_09.bin",
+            "/resource/map/map_10.bin",
+            "/resource/map/map_11.bin",
+            "/resource/map/map_12.bin"
+        };
+        gui_img_set_src(map, img_data_array[*((uint8_t *)data)], IMG_SRC_FILESYS);
+    }
+    else
+    {
+        const void *img_data_array[10] =
+        {
+            "/resource/carplay/carplay_map_00.bin",
+            "/resource/carplay/carplay_map_01.bin",
+            "/resource/carplay/carplay_map_02.bin",
+            "/resource/carplay/carplay_map_03.bin",
+            "/resource/carplay/carplay_map_04.bin",
+            "/resource/carplay/carplay_map_05.bin",
+            "/resource/carplay/carplay_map_06.bin",
+            "/resource/carplay/carplay_map_07.bin",
+            "/resource/carplay/carplay_map_08.bin",
+            "/resource/carplay/carplay_map_09.bin",
+        };
+        gui_img_set_src(carplay_map, img_data_array[(*((uint8_t *)data)) % 10], IMG_SRC_FILESYS);
+    }
 #else
     // TODO: update map data
-    // gui_img_set_src(map, data, IMG_SRC_MEMADDR); // 565 100*100
+    gui_img_set_src(carplay_map, data, IMG_SRC_MEMADDR); // 565 410*370
 #endif
 }
