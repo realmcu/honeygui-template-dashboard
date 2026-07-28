@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-16T11:32:39.234Z
+ * Generated at: 2026-07-28T06:21:12.027Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -83,6 +83,7 @@ gui_scroll_text_t *lbl_lyrics = NULL;
 gui_win_t *win_carplay = NULL;
 gui_img_t *carplay_app = NULL;
 gui_img_t *carplay_map = NULL;
+gui_stream_t *map_streaming = NULL;
 gui_scroll_text_t *carplay_music_name = NULL;
 gui_scroll_text_t *carplay_music_artist = NULL;
 gui_scroll_text_t *carplay_music_lyrics = NULL;
@@ -650,14 +651,19 @@ static void carplay_view_switch_in(gui_view_t *view)
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "play", win_carplay_msg_cb_2);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "odo", win_carplay_msg_cb_3);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "battery", win_carplay_msg_cb_4);
-    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "map", win_carplay_msg_cb_5);
-    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "speed", win_carplay_msg_cb_6);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "speed", win_carplay_msg_cb_5);
 
     // Create carplay_app (hg_image)
     carplay_app = gui_img_create_from_fs((gui_obj_t *)view, "carplay_app", "/resource/carplay/icon_app_rect.bin", 15, 91, 69, 298);
 
     // Create carplay_map (hg_image)
-    carplay_map = gui_img_create_from_fs((gui_obj_t *)view, "carplay_map", "/resource/carplay/carplay_map_00.bin", 373, 77, 410, 370);
+    carplay_map = gui_img_create_from_fs((gui_obj_t *)view, "carplay_map", "/resource/carplay/carplay_map_00.bin", 376, 84, 410, 370);
+
+    // Create map_streaming (hg_streaming)
+    map_streaming = gui_stream_create((gui_obj_t *)view, "map_streaming", GUI_STREAM_CODEC_JPEG, gui_stream_transport_get(), 376, 84, 410, 370);
+    gui_stream_set_update_interval((gui_stream_t *)map_streaming, 1000);
+    gui_stream_set_drop_mode((gui_stream_t *)map_streaming, GUI_STREAM_DROP_UNCONDITIONAL);
+    gui_stream_set_state((gui_stream_t *)map_streaming, GUI_VIDEO_STATE_PLAYING);
 
     // Create carplay_music_name (hg_label)
     carplay_music_name = gui_scroll_text_create((gui_obj_t *)view, "carplay_music_name", 222, 314, 132, 24);
@@ -732,6 +738,8 @@ static void carplay_view_switch_in(gui_view_t *view)
 
     // Create carplay_musicbar_bg (hg_image)
     carplay_musicbar_bg = gui_img_create_from_fs((gui_obj_t *)view, "carplay_musicbar_bg", "/resource/music/playbar.bin", 106, 419, 250, 6);
+    gui_img_set_mode((gui_img_t *)carplay_musicbar_bg, IMG_2D_SW_FIX_A8_FG);
+    gui_img_a8_recolor((gui_img_t *)carplay_musicbar_bg, 0xFFD8D8D8);
 
     // Create win_music_bar (hg_window)
     win_music_bar = gui_win_create((gui_obj_t *)view, "win_music_bar", 106, 419, 1, 10);
@@ -740,7 +748,9 @@ static void carplay_view_switch_in(gui_view_t *view)
 
 
     // Create img_7 (hg_image)
-    img_7 = gui_img_create_from_fs(win_music_bar, "img_7", "/resource/music/playbar_on.bin", 0, 0, 250, 6);
+    img_7 = gui_img_create_from_fs(win_music_bar, "img_7", "/resource/music/playbar.bin", 0, 0, 250, 6);
+    gui_img_set_mode((gui_img_t *)img_7, IMG_2D_SW_FIX_A8_FG);
+    gui_img_a8_recolor((gui_img_t *)img_7, 0xFF00ADC9);
 
     // Create carplay_music_play (hg_image)
     carplay_music_play = gui_img_create_from_fs((gui_obj_t *)view, "carplay_music_play", "/resource/carplay/icon_media_play.bin", 213, 431, 40, 40);

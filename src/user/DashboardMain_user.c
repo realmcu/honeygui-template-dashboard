@@ -1,4 +1,6 @@
 #include "DashboardMain_user.h"
+#include "stream_transport.h"
+#include "gui_vfs.h"
 #ifdef _HONEYGUI_SIMULATOR_
 #include "shell.h"
 #endif
@@ -597,7 +599,7 @@ void update_dashboard_speed(gui_obj_t *obj, const char *topic, void *data, uint1
         };
         uint16_t index = dashboard_info.speed_val / 10;
         gui_img_set_src((gui_img_t *)carplay_speed_arc, (const uint8_t *)img_data_array[index], IMG_SRC_FILESYS);
-        gui_obj_stop_timer(GUI_BASE(carplay_speed));
+        gui_obj_stop_timer(GUI_BASE(carplay_speed_arc));
     }
 }
 
@@ -967,7 +969,6 @@ void update_dashboard_batt(gui_obj_t *obj, const char *topic, void *data, uint16
         gui_text_content_set(carplay_bat, batt_str, strlen(batt_str));
     }
 }
-
 void update_dashboard_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
 {
     GUI_UNUSED(obj);
@@ -976,46 +977,218 @@ void update_dashboard_map(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(len);
 
 #ifdef _HONEYGUI_SIMULATOR_
-    if (obj == (gui_obj_t *)win_common)
+    gui_obj_stop_timer(GUI_BASE(map));
+    const void *img_data_array[13] =
     {
-        gui_obj_stop_timer(GUI_BASE(map));
-        const void *img_data_array[13] =
-        {
-            "/resource/map/map_00.bin",
-            "/resource/map/map_01.bin",
-            "/resource/map/map_02.bin",
-            "/resource/map/map_03.bin",
-            "/resource/map/map_04.bin",
-            "/resource/map/map_05.bin",
-            "/resource/map/map_06.bin",
-            "/resource/map/map_07.bin",
-            "/resource/map/map_08.bin",
-            "/resource/map/map_09.bin",
-            "/resource/map/map_10.bin",
-            "/resource/map/map_11.bin",
-            "/resource/map/map_12.bin"
-        };
-        gui_img_set_src(map, img_data_array[*((uint8_t *)data)], IMG_SRC_FILESYS);
-    }
-    else
-    {
-        const void *img_data_array[10] =
-        {
-            "/resource/carplay/carplay_map_00.bin",
-            "/resource/carplay/carplay_map_01.bin",
-            "/resource/carplay/carplay_map_02.bin",
-            "/resource/carplay/carplay_map_03.bin",
-            "/resource/carplay/carplay_map_04.bin",
-            "/resource/carplay/carplay_map_05.bin",
-            "/resource/carplay/carplay_map_06.bin",
-            "/resource/carplay/carplay_map_07.bin",
-            "/resource/carplay/carplay_map_08.bin",
-            "/resource/carplay/carplay_map_09.bin",
-        };
-        gui_img_set_src(carplay_map, img_data_array[(*((uint8_t *)data)) % 10], IMG_SRC_FILESYS);
-    }
-#else
-    // TODO: update map data
-    gui_img_set_src(carplay_map, (const uint8_t *)data, IMG_SRC_MEMADDR); // 565 410*370
+        "/resource/map/map_00.bin",
+        "/resource/map/map_01.bin",
+        "/resource/map/map_02.bin",
+        "/resource/map/map_03.bin",
+        "/resource/map/map_04.bin",
+        "/resource/map/map_05.bin",
+        "/resource/map/map_06.bin",
+        "/resource/map/map_07.bin",
+        "/resource/map/map_08.bin",
+        "/resource/map/map_09.bin",
+        "/resource/map/map_10.bin",
+        "/resource/map/map_11.bin",
+        "/resource/map/map_12.bin"
+    };
+    gui_img_set_src(map, img_data_array[*((uint8_t *)data)], IMG_SRC_FILESYS);
 #endif
 }
+
+/* ============================ Live-video stream ============================
+ *
+ * This board owns a single live-video STP transport, created once at GUI init
+ * (from **Entry.c app_init(), after flashdb_prepare() and before the
+ * main view is built) via stp_instance_create() -- the transport allocates its
+ * own frame pool internally through the porting allocator (stp_port_malloc).
+ * It is then shared, borrowed and never re-created, by both ends through
+ * gui_stream_transport_get():
+ *
+ *   producer : app/bluetooth/hmi_app/hmi_stream_ctrl.c (BLE RX -> stp_commit)
+ *   consumer : the designer-generated gui_stream widget (stp_consume -> render)
+ *
+ */
+#define APP_STREAM_MAX_FRAME   (35u * 1024u)   /* per-buffer cap: >= largest frame */
+#define APP_STREAM_BUF_COUNT   32u             /* ring depth: frames in flight     */
+
+static const stp_class_cfg_t s_stream_classes[] =
+{
+    { .buf_size = APP_STREAM_MAX_FRAME, .buf_count = APP_STREAM_BUF_COUNT },
+};
+
+/* The one transport this board owns.  NULL until app_stream_transport_init()
+ * has run; both ends fetch it through the getter below. */
+static stp_transport_t *s_stream_tp = NULL;
+
+/*
+ * Shared accessor for the live-video transport.  Used by:
+ *   - the designer gui_stream widget (consumer) to bind on creation, and
+ *   - hmi_stream_ctrl.c (BLE producer) to push reassembled frames.
+ * Returns NULL before the transport has been created.
+ */
+stp_transport_t *gui_stream_transport_get(void)
+{
+    return s_stream_tp;
+}
+
+#ifdef _HONEYGUI_SIMULATOR_
+/*--------------------------- Producer runtime -------------------------------*/
+#define JPEG_MARK   0xFF
+#define JPEG_SOI    0xD8
+#define JPEG_EOI    0xD9
+#define MAX_FRAME       (64u * 1024u)   /* per-buffer cap in the OS-port pool */
+
+/* Producer-private state handed to the producer thread.  src/src_len point at
+ * the encoded byte source; tp + interval_ms drive how frames are emitted. */
+typedef struct
+{
+    stp_transport_t *tp;          /* shared transport (producer endpoint)     */
+    const uint8_t   *src;         /* encoded source bytes                     */
+    uint32_t         src_len;     /* length of the encoded source             */
+    uint32_t         interval_ms; /* inter-frame pacing                       */
+    volatile bool    running;     /* producer lifecycle flag                  */
+} stream_producer_t;
+
+static stream_producer_t s_producer;
+
+static void producer_post_frame(stream_producer_t *prod, const uint8_t *payload,
+                                uint32_t sz, bool keyframe)
+{
+    stp_frame_t f;
+
+    while (prod->running)
+    {
+        if (stp_acquire_free(prod->tp, sz, &f))
+        {
+            memcpy(f.addr, payload, sz);              /* fill the buffer      */
+            stp_commit(prod->tp, &f, sz, keyframe);   /* publish to consumer  */
+            return;
+        }
+        gui_thread_mdelay(prod->interval_ms);         /* back-pressure        */
+    }
+}
+static void mjpeg_producer_entry(void *param)
+{
+    stream_producer_t *prod = (stream_producer_t *)param;
+    const uint8_t     *base = prod->src;
+    const uint8_t     *end  = base + prod->src_len;
+    const uint8_t     *cur  = base;
+
+    while (prod->running)
+    {
+        while (cur + 1 < end && !(cur[0] == JPEG_MARK && cur[1] == JPEG_SOI))
+        {
+            cur++;
+        }
+        if (cur + 1 >= end)
+        {
+            cur = base;
+            continue;
+        }
+
+        const uint8_t *soi = cur;
+        const uint8_t *q   = soi + 2;
+        while (q + 1 < end && !(q[0] == JPEG_MARK && q[1] == JPEG_EOI))
+        {
+            q++;
+        }
+        if (q + 1 >= end)
+        {
+            cur = base;
+            continue;
+        }
+
+        uint32_t sz = (uint32_t)((q + 2) - soi);
+        cur = q + 2;
+
+        if (sz == 0u || sz > MAX_FRAME)
+        {
+            continue;
+        }
+
+        producer_post_frame(prod, soi, sz, true);
+        gui_thread_mdelay(prod->interval_ms);
+    }
+}
+int app_stream_transport_init(void)
+{
+    stp_config_t cfg;
+    stp_config_default(&cfg);
+    cfg.align       = 8;
+    cfg.classes     = s_stream_classes;
+    cfg.class_count = 1;
+    cfg.drop_mode   = STP_DROP_UNCONDITIONAL;
+
+    s_stream_tp = stp_instance_create(&cfg);
+    if (!s_stream_tp)
+    {
+        gui_log("stream demo: stp_instance_create failed\n");
+        return -1;
+    }
+    static void *data = NULL;
+    int32_t size;
+    if (data == NULL)
+    {
+        /* Fallback: read file into memory */
+        gui_vfs_file_t *f = gui_vfs_open((const char *)"/user/carplay_map.mjpg", GUI_VFS_READ);
+        GUI_ASSERT(f != NULL);
+        gui_vfs_seek(f, 0, GUI_VFS_SEEK_END);
+        size = gui_vfs_tell(f);
+
+        if (size <= 0)
+        {
+            gui_vfs_close(f);
+            return -1;
+        }
+        gui_vfs_seek(f, 0, GUI_VFS_SEEK_SET);
+        data = gui_malloc(size);
+        GUI_ASSERT(data != NULL);
+        gui_vfs_read(f, (void *)data, size);
+        gui_vfs_close(f);
+    }
+
+    s_producer.src     = (void *)data;
+    s_producer.src_len = (uint32_t)size;
+    s_producer.tp          = s_stream_tp;
+    s_producer.interval_ms = 1000;   /* emit at the source fps   */
+    s_producer.running     = true;
+    
+    if (!gui_thread_create("stream_jpeg", mjpeg_producer_entry, &s_producer, 1024 * 8, 5))
+    {
+        gui_log("stream demo: stream_jpeg producer thread create failed\n");
+        s_producer.running = false;
+    }
+}
+#else
+/*
+ * Create the shared transport exactly once.  Called from **Entry.c
+ * app_init() (SOC only), after flashdb_prepare() and before the main view is
+ * created -- so the consumer's getter call already sees a valid handle, and the
+ * BLE producer (a separate task, with its own NULL guard) does too.
+ */
+int app_stream_transport_init(void)
+{
+    stp_config_t cfg;
+    stp_config_default(&cfg);
+    cfg.align              = 8;
+    cfg.classes            = s_stream_classes;
+    cfg.class_count        = 1;
+    cfg.drop_mode          = STP_DROP_NONE;   /* MSV1: oldest-first, never drop */
+    cfg.allow_oversize_fit = true;
+
+    s_stream_tp = stp_instance_create(&cfg);
+    if (s_stream_tp == NULL)
+    {
+        gui_log("app_stream: stp_instance_create failed\n");
+        return -1;
+    }
+
+    gui_log("app_stream: transport ready (%u buffers x %u KB)\n",
+            (unsigned)APP_STREAM_BUF_COUNT,
+            (unsigned)(APP_STREAM_MAX_FRAME / 1024u));
+    return 0;
+}
+#endif

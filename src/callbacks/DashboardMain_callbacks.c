@@ -377,15 +377,6 @@ void win_carplay_msg_cb_5(gui_obj_t *obj, const char *topic, void *data, uint16_
     GUI_UNUSED(topic);
     GUI_UNUSED(data);
     GUI_UNUSED(len);
-    update_dashboard_map(obj, topic, data, len);
-}
-
-void win_carplay_msg_cb_6(gui_obj_t *obj, const char *topic, void *data, uint16_t len)
-{
-    GUI_UNUSED(obj);
-    GUI_UNUSED(topic);
-    GUI_UNUSED(data);
-    GUI_UNUSED(len);
     update_dashboard_speed(obj, topic, data, len);
 }
 
