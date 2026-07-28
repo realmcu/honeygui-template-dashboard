@@ -1188,7 +1188,7 @@ int app_stream_transport_init(void)
     s_producer.src     = (void *)data;
     s_producer.src_len = (uint32_t)size;
     s_producer.tp          = s_stream_tp;
-    s_producer.interval_ms = 2000;   /* emit at the source fps   */
+    s_producer.interval_ms = 1000;   /* emit at the source fps   */
     s_producer.running     = true;
     
     if (!gui_thread_create("stream_jpeg", mjpeg_producer_entry, &s_producer, 1024 * 8, 5))

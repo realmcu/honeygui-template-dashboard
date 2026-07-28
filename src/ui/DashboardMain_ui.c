@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-28T03:42:18.182Z
+ * Generated at: 2026-07-28T06:23:18.776Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -604,7 +604,8 @@ static void carplay_view_switch_in(gui_view_t *view)
 
     // Create map_streaming (hg_streaming)
     map_streaming = gui_stream_create((gui_obj_t *)view, "map_streaming", GUI_STREAM_CODEC_JPEG, gui_stream_transport_get(), 376, 84, 410, 370);
-    gui_stream_set_update_interval((gui_stream_t *)map_streaming, 500);
+    gui_stream_set_update_interval((gui_stream_t *)map_streaming, 1000);
+    gui_stream_set_drop_mode((gui_stream_t *)map_streaming, GUI_STREAM_DROP_UNCONDITIONAL);
     gui_stream_set_state((gui_stream_t *)map_streaming, GUI_VIDEO_STATE_PLAYING);
 
     // Create carplay_music_name (hg_label)

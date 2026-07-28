@@ -250,7 +250,7 @@
             </hg_window>
             <hg_image id="carplay_app" x="15" y="91" width="69" height="298" src="assets/resource/carplay/icon_app_rect.png" blendMode="IMG_FILTER_BLACK" zIndex="1" />
             <hg_image id="img_map" x="376" y="84" width="410" height="370" src="assets/resource/carplay/carplay_map_00.png" zIndex="2" />
-            <hg_streaming id="map_streaming" x="376" y="84" width="410" height="370" codec="jpeg" updateInterval="500" dropMode="none" transporter="gui_stream_transport_get()" zIndex="3" />
+            <hg_streaming id="map_streaming" x="376" y="84" width="410" height="370" codec="jpeg" updateInterval="1000" dropMode="unconditional" transporter="gui_stream_transport_get()" zIndex="3" />
             <hg_label id="carplay_music_name" x="222" y="314" width="132" height="24" hAlign="LEFT" vAlign="TOP" color="#000000" letterSpacing="0" lineSpacing="0" wordWrap="false" wordBreak="false" text="MUSIC NAME" fontFile="/HarmonyOS_Sans_Bold.ttf" enableScroll="true" zIndex="4" />
             <hg_label id="carplay_music_artist" x="222" y="338" width="132" height="24" hAlign="LEFT" vAlign="TOP" color="#5A5454" letterSpacing="0" lineSpacing="0" wordWrap="false" wordBreak="false" text="ARTIST" fontFile="/HarmonyOS_Sans_Bold.ttf" enableScroll="true" fontSize="14" zIndex="5" />
             <hg_label id="carplay_music_lyrics" x="106" y="392" width="250" height="24" hAlign="LEFT" vAlign="MID" color="#000000" letterSpacing="0" lineSpacing="0" wordWrap="false" wordBreak="false" text="LYRICS......" fontFile="/HarmonyOS_Sans_Bold.ttf" enableScroll="true" fontSize="16" zIndex="6" />
