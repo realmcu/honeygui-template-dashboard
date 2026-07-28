@@ -60,7 +60,6 @@ void win_carplay_msg_cb_2(gui_obj_t *obj, const char *topic, void *data, uint16_
 void win_carplay_msg_cb_3(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_carplay_msg_cb_4(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_carplay_msg_cb_5(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-void win_carplay_msg_cb_6(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_0(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_1(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void win_common_msg_cb_10(gui_obj_t *obj, const char *topic, void *data, uint16_t len);

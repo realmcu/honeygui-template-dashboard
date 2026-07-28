@@ -19,9 +19,11 @@ static int app_init(void)
 
     /* @protected start app_init_pre */
     // Add user initialization code here (runs before the main view is created)
+    extern int app_stream_transport_init(void);
+    app_stream_transport_init();
     /* @protected end app_init_pre */
 
-    gui_view_create(gui_obj_get_root(), "dashboardMainView", 0, 0, 0, 0);
+    gui_view_create(gui_obj_get_root(), "carplay_view", 0, 0, 0, 0);
 
     /* @protected start app_init_post */
     // Add user initialization code here (runs after the main view is created)

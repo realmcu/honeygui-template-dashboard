@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-16T09:00:46.433Z
+ * Generated at: 2026-07-28T03:42:18.182Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -82,7 +82,8 @@ gui_text_t *lbl_artist = NULL;
 gui_scroll_text_t *lbl_lyrics = NULL;
 gui_win_t *win_carplay = NULL;
 gui_img_t *carplay_app = NULL;
-gui_img_t *carplay_map = NULL;
+gui_img_t *img_map = NULL;
+gui_stream_t *map_streaming = NULL;
 gui_scroll_text_t *carplay_music_name = NULL;
 gui_scroll_text_t *carplay_music_artist = NULL;
 gui_scroll_text_t *carplay_music_lyrics = NULL;
@@ -593,14 +594,18 @@ static void carplay_view_switch_in(gui_view_t *view)
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "play", win_carplay_msg_cb_2);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "odo", win_carplay_msg_cb_3);
     gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "battery", win_carplay_msg_cb_4);
-    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "map", win_carplay_msg_cb_5);
-    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "speed", win_carplay_msg_cb_6);
+    gui_msg_subscribe((gui_obj_t *)GUI_BASE(win_carplay), "speed", win_carplay_msg_cb_5);
 
     // Create carplay_app (hg_image)
     carplay_app = gui_img_create_from_fs((gui_obj_t *)view, "carplay_app", "/resource/carplay/icon_app_rect.bin", 15, 91, 69, 298);
 
-    // Create carplay_map (hg_image)
-    carplay_map = gui_img_create_from_fs((gui_obj_t *)view, "carplay_map", "/resource/carplay/carplay_map_00.bin", 373, 77, 410, 370);
+    // Create img_map (hg_image)
+    img_map = gui_img_create_from_fs((gui_obj_t *)view, "img_map", "/resource/carplay/carplay_map_00.bin", 376, 84, 410, 370);
+
+    // Create map_streaming (hg_streaming)
+    map_streaming = gui_stream_create((gui_obj_t *)view, "map_streaming", GUI_STREAM_CODEC_JPEG, gui_stream_transport_get(), 376, 84, 410, 370);
+    gui_stream_set_update_interval((gui_stream_t *)map_streaming, 500);
+    gui_stream_set_state((gui_stream_t *)map_streaming, GUI_VIDEO_STATE_PLAYING);
 
     // Create carplay_music_name (hg_label)
     carplay_music_name = gui_scroll_text_create((gui_obj_t *)view, "carplay_music_name", 222, 314, 132, 24);

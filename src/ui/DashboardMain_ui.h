@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Definition (Auto-generated, do not modify manually)
- * Generated at: 2026-07-16T09:00:46.432Z
+ * Generated at: 2026-07-28T03:42:18.182Z
  */
 #ifndef DASHBOARDMAIN_UI_H
 #define DASHBOARDMAIN_UI_H
@@ -17,6 +17,7 @@
 #include "gui_img.h"
 #include "gui_list.h"
 #include "gui_text.h"
+#include "gui_stream.h"
 
 // Component handle declarations
 extern gui_img_t *gloom;
@@ -93,7 +94,8 @@ extern gui_text_t *lbl_artist;
 extern gui_scroll_text_t *lbl_lyrics;
 extern gui_win_t *win_carplay;
 extern gui_img_t *carplay_app;
-extern gui_img_t *carplay_map;
+extern gui_img_t *img_map;
+extern gui_stream_t *map_streaming;
 extern gui_scroll_text_t *carplay_music_name;
 extern gui_scroll_text_t *carplay_music_artist;
 extern gui_scroll_text_t *carplay_music_lyrics;
