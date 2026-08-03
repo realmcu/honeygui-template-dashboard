@@ -130,8 +130,9 @@ void update_dashboard_music_play(gui_obj_t *obj, const char *topic, void *data, 
 void update_dashboard_odo(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashboard_batt(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
 void update_dashboard_map(gui_obj_t *obj, const char *topic, void *data, uint16_t len);
-
+void carplay_map_release_cb(gui_view_t *view);
 stp_transport_t *gui_stream_transport_get(void);
+
 
 
 #endif // DASHBOARDMAIN_USER_H

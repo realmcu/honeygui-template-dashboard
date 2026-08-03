@@ -1,6 +1,9 @@
 #include "DashboardMain_user.h"
 #include "stream_transport.h"
 #include "gui_vfs.h"
+#ifndef _HONEYGUI_SIMULATOR_
+#include "dashboard_img_rx.h"
+#endif
 #ifdef _HONEYGUI_SIMULATOR_
 #include "shell.h"
 #endif
@@ -303,7 +306,11 @@ void root_menu_msg_enter_cb(void *obj, gui_event_t *e)
     GUI_UNUSED(e);
     if (GUI_BASE(obj)->hidden || !menu_disp)
     {
+#ifdef DASHBOARD_USE_THIRD_PARTY_NAV
+        gui_view_switch_direct(gui_view_get_current(), "third_party_nav_view", SWITCH_OUT_NONE_ANIMATION, SWITCH_IN_NONE_ANIMATION);
+#else
         gui_view_switch_direct(gui_view_get_current(), "carplay_view", SWITCH_OUT_NONE_ANIMATION, SWITCH_IN_NONE_ANIMATION);
+#endif
         return;
     }
     
@@ -1031,21 +1038,32 @@ void update_dashboard_map(gui_obj_t *obj, const char *topic, void *data, uint16_
 #endif
 }
 
+void carplay_map_release_cb(gui_view_t *view)
+{
+    carplay_map = NULL;
+    map_streaming = NULL;
+    (void)view;
+#ifdef DASHBOARD_USE_WIFI_DISPLAY
+    extern void dashboard_img_display_view_released(void);
+    dashboard_img_display_view_released();
+#endif
+}
+
 /* ============================ Live-video stream ============================
  *
  * This board owns a single live-video STP transport, created once at GUI init
- * (from **Entry.c app_init(), after flashdb_prepare() and before the
- * main view is built) via stp_instance_create() -- the transport allocates its
- * own frame pool internally through the porting allocator (stp_port_malloc).
- * It is then shared, borrowed and never re-created, by both ends through
- * gui_stream_transport_get():
+ * via stp_instance_create() -- the transport allocates its own frame pool
+ * internally through the porting allocator (stp_port_malloc). It is shared by:
  *
- *   producer : app/bluetooth/hmi_app/hmi_stream_ctrl.c (BLE RX -> stp_commit)
+ *   producer : wifi/dashboard_img_rx.c (TCP RX -> stp_commit)
  *   consumer : the designer-generated gui_stream widget (stp_consume -> render)
- *
  */
-#define APP_STREAM_MAX_FRAME   (35u * 1024u)   /* per-buffer cap: >= largest frame */
-#define APP_STREAM_BUF_COUNT   32u             /* ring depth: frames in flight     */
+#ifndef _HONEYGUI_SIMULATOR_
+#define APP_STREAM_MAX_FRAME   DASHBOARD_IMG_RX_MAX_JPEG
+#else
+#define APP_STREAM_MAX_FRAME   (256u * 1024u)
+#endif
+#define APP_STREAM_BUF_COUNT   4u
 
 static const stp_class_cfg_t s_stream_classes[] =
 {
@@ -1059,7 +1077,7 @@ static stp_transport_t *s_stream_tp = NULL;
 /*
  * Shared accessor for the live-video transport.  Used by:
  *   - the designer gui_stream widget (consumer) to bind on creation, and
- *   - hmi_stream_ctrl.c (BLE producer) to push reassembled frames.
+ *   - dashboard_img_rx.c (Wi-Fi producer) to push received JPEG frames.
  * Returns NULL before the transport has been created.
  */
 stp_transport_t *gui_stream_transport_get(void)
@@ -1188,20 +1206,15 @@ int app_stream_transport_init(void)
     s_producer.tp          = s_stream_tp;
     s_producer.interval_ms = 500;   /* emit at the source fps   */
     s_producer.running     = true;
-    
+
     if (!gui_thread_create("stream_jpeg", mjpeg_producer_entry, &s_producer, 1024 * 8, 5))
     {
         gui_log("stream demo: stream_jpeg producer thread create failed\n");
         s_producer.running = false;
     }
+    return 0;
 }
 #else
-/*
- * Create the shared transport exactly once.  Called from **Entry.c
- * app_init() (SOC only), after flashdb_prepare() and before the main view is
- * created -- so the consumer's getter call already sees a valid handle, and the
- * BLE producer (a separate task, with its own NULL guard) does too.
- */
 int app_stream_transport_init(void)
 {
     stp_config_t cfg;
@@ -1209,7 +1222,7 @@ int app_stream_transport_init(void)
     cfg.align              = 8;
     cfg.classes            = s_stream_classes;
     cfg.class_count        = 1;
-    cfg.drop_mode          = STP_DROP_NONE;   /* MSV1: oldest-first, never drop */
+    cfg.drop_mode          = STP_DROP_UNCONDITIONAL;
     cfg.allow_oversize_fit = true;
 
     s_stream_tp = stp_instance_create(&cfg);

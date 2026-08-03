@@ -19,8 +19,13 @@ static int app_init(void)
 
     /* @protected start app_init_pre */
     // Add user initialization code here (runs before the main view is created)
+#if !defined(DASHBOARD_USE_THIRD_PARTY_NAV) || defined(_HONEYGUI_SIMULATOR_)
     extern int app_stream_transport_init(void);
-    app_stream_transport_init();
+    if (app_stream_transport_init() != 0)
+    {
+        gui_log("dashboard: stream transport init failed\n");
+    }
+#endif
     /* @protected end app_init_pre */
 
     gui_view_create(gui_obj_get_root(), "dashboardMainView", 0, 0, 0, 0);

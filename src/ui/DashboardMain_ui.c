@@ -1,6 +1,6 @@
 /**
  * DashboardMain UI Implementation (Auto-generated, do not modify manually)
- * Generated at: 2026-07-28T05:57:56.629Z
+ * Generated at: 2026-07-16T09:14:22.521Z
  */
 #include "DashboardMain_ui.h"
 #include "../callbacks/DashboardMain_callbacks.h"
@@ -265,7 +265,7 @@ static void dashboard_view_switch_in(gui_view_t *view)
     GUI_UNUSED(view);
 
 
-    // Create map (hg_image)
+    // Create win_map (hg_window)
     map = gui_img_create_from_fs((gui_obj_t *)view, "map", "/resource/map/map_00.bin", 141, 198, 518, 282);
     gui_img_set_mode((gui_img_t *)map, IMG_BYPASS_MODE);
 
@@ -565,7 +565,7 @@ GUI_VIEW_INSTANCE("dashboard_view", false, dashboard_view_switch_in, dashboard_v
 // Create carplay_view (hg_view)
 static void carplay_view_switch_out(gui_view_t *view)
 {
-    GUI_UNUSED(view);
+    carplay_map_release_cb(view);
 }
 
 static void carplay_view_switch_in(gui_view_t *view)
@@ -580,7 +580,7 @@ static void carplay_view_switch_in(gui_view_t *view)
     gui_set_bg_color(gui_rgb(228, 228, 228));
 
     GUI_UNUSED(view);
-
+    gui_view_set_bg_color(view,gui_rgb(228, 228, 228));
 
     // Create win_carplay (hg_window)
     win_carplay = gui_win_create((gui_obj_t *)view, "win_carplay", 0, 0, 800, 480);
@@ -602,10 +602,16 @@ static void carplay_view_switch_in(gui_view_t *view)
     carplay_map = gui_img_create_from_fs((gui_obj_t *)view, "carplay_map", "/resource/carplay/carplay_map_00.bin", 376, 84, 410, 370);
     gui_img_set_mode((gui_img_t *)carplay_map, IMG_BYPASS_MODE);
 
+#if !defined(DASHBOARD_USE_THIRD_PARTY_NAV) || defined(_HONEYGUI_SIMULATOR_)
     // Create map_streaming (hg_streaming)
     map_streaming = gui_stream_create((gui_obj_t *)view, "map_streaming", GUI_STREAM_CODEC_JPEG, gui_stream_transport_get(), 376, 84, 410, 370);
-    gui_stream_set_update_interval((gui_stream_t *)map_streaming, 500);
-    gui_stream_set_state((gui_stream_t *)map_streaming, GUI_VIDEO_STATE_PLAYING);
+    if (map_streaming != NULL)
+    {
+        gui_stream_set_update_interval(map_streaming, 50);
+        gui_stream_set_drop_mode(map_streaming, GUI_STREAM_DROP_UNCONDITIONAL);
+        gui_stream_set_state(map_streaming, GUI_VIDEO_STATE_PLAYING);
+    }
+#endif
 
     // Create carplay_music_name (hg_label)
     carplay_music_name = gui_scroll_text_create((gui_obj_t *)view, "carplay_music_name", 222, 314, 132, 24);
@@ -706,5 +712,10 @@ static void carplay_view_switch_in(gui_view_t *view)
 
     gui_obj_add_event_cb((gui_obj_t *)view, (gui_event_cb_t)carplay_view_key_0_cb, GUI_EVENT_KB_SHORT_PRESSED, NULL);
     gui_obj_focus_set((gui_obj_t *)view);
+#ifdef DASHBOARD_USE_WIFI_DISPLAY
+    /* Create the QR overlay after all generated widgets so it remains above carplay_map. */
+    extern void dashboard_img_display_view_ready(void);
+    dashboard_img_display_view_ready();
+#endif
 }
 GUI_VIEW_INSTANCE("carplay_view", false, carplay_view_switch_in, carplay_view_switch_out, false);
